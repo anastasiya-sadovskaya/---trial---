@@ -1,0 +1,174 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1.2;
+}
+ol, ul {
+    list-style: none;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Myriad Pro'), local('MyriadPro'), url(font/MyriadPro-Regular.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+* {
+    box-sizing: border-box;
+    font-size: 0;
+}
+
+body {
+    height: 2000px;
+    font-family: 'Myriad Pro', sans-serif;
+    padding: 200px 0;
+}
+
+.wrapper {
+    width: 562px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+.block {
+    width: 522px;
+    height: 745px;
+    position: absolute;
+    border: solid 2px #000;
+}
+
+.block-front {
+    top: 0;
+    left: 0;
+    background-color: #ebebeb;
+    padding: 30px;
+}
+
+.block-middle {
+    top: 20px;
+    left: 20px;
+    background-color: #ccc;
+}
+
+.block-back {
+    background-color: #acacac;
+    top: 40px;
+    left: 40px;
+}
+
+.sticker {
+    position: absolute;
+    top: 38px;
+    right: -83px;
+    width: 110px;
+    height: 35px;
+    border: solid 2px #000;
+    border-radius: 0 10px 10px 0;
+    background-color: #f68e56;
+}
+
+.sticker-back {
+    right: -17px;
+    background-color: #00aeef;
+}
+
+.sticker-middle {
+    right: -50px;
+    background-color: #39b54a;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.img1 {
+    margin: 0 23px 15px 0;
+}
+
+.img2 {
+    margin-left: 6px;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.jockes {
+    margin-top: 15px;
+}
+
+p {
+    font-size: 12px;
+}
+
+
+
+.with-margin {
+    margin: 20px 0;
+}
+
+figcaption {
+    font-size: 18px;
+}
+
+footer {
+    padding: 27px 0 17px;
+    font-size: 9px;
+    text-align: center;
+}
+
+.soc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #fbaf5d;
+    width: 90px;
+    height: 70px;
+    border: solid 2px #000;
+    text-align: center;
+    font-size: 16px;
+    padding: 8px 0;
+}
+
+
+.soc-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin-top: 9px;
+}
+
+.soc-icon:not(:last-child) {
+    margin-right: 5px;
+}
+
+
+.clearfix:after {
+    content: '';
+    clear: both;
+    display: block;
+}
