@@ -3,7 +3,7 @@
   font-weight: 400;
   font-style: normal;
 
-  src: local('Myriad Pro'), local('MyriadPro'), url(font/MyriadPro-Regular.woff) format('woff');
+  src: local('Myriad Pro'), local('MyriadPro'), url(../font/MyriadPro-Regular.woff) format('woff');
 }
 
 * {
