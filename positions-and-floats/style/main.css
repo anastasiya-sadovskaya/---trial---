@@ -100,8 +100,6 @@ p {
     font-size: 12px;
 }
 
-
-
 .with-margin {
     margin: 20px 0;
 }
@@ -135,11 +133,11 @@ footer {
     width: 20px;
     height: 20px;
     border-radius: 10px;
-    margin-top: 9px;
+    margin: 9px 5px 0 0;
 }
 
-.soc-icon:not(:last-child) {
-    margin-right: 5px;
+.soc-icon:last-child {
+    margin-right: 0;
 }
 
 
