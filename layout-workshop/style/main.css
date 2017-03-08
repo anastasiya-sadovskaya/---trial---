@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700');
+
+body{
+    width:100%;
+    height:100%;
+}
+
+/*body::before{
+    content:'';
+    height:345px;
+    width:100%;
+    background-color: #212429;
+    position: absolute;
+}*/
+
+.pseudoheader{
+    width:100%;
+    height:345px;
+    background-color: #212429;
+}
+
+
+.wrapper{
+    width:1530px;
+    margin:0 auto;
+    position: relative;
+    top:-345px;
+}
+
+header{
+    height:55px;
+    background-color: #212429;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    
+}
+
+.icon{
+   padding:0 20px;
+}
+
+.icon:hover{
+    color:#999;
+}
+
+.btn-menu{
+    height:100%;
+    border:solid 1px #3c3c3c;
+    border-width:0 1px;
+    color:#fff;
+    font-size:23px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.logo{
+    /*position: relative;
+    display: inline-flex; 
+    align-items: baseline; */
+    margin-left: 280px;
+    /*left: 50%;
+    transform: translateX(-50%);*/
+}
+
+.logo span{
+    text-transform: uppercase;
+    color:#fefefe;
+    font:600 22.15px 'Hind';
+    margin-left:9px;
+}
+
+.social{
+    height: 100%;
+}
+
+.social ul{
+    height: 100%;
+    
+}
+
+.social ul li{
+    display: inline-block;
+    height: 100%;
+    border-left: solid 1px #3c3c3c;
+}
+
+
+
+.social ul li:last-child{
+    border-right: solid 1px #3c3c3c;
+}
+
+.social ul li a{
+    height:100%;
+    color:#fff;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+
+
