@@ -1,1 +1,0 @@
-# anastasiya-sadovskaya-front-end-course
