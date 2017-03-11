@@ -98,6 +98,42 @@ header{
     justify-content:center;
 }
 
+.slider{
+    height:580px;
+    position: relative;
+}
+
+/*.slider img{
+    position: absolute;
+    top:0;
+
+}*/
+
+.slider .caption{
+    position: absolute;
+    top:0;
+    color:#fff;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    height:100%;
+}
+
+.slider h2, .slider h3{
+    margin-left:100px;
+}
+
+.slider .caption h2{
+    font:600 18px 'Hind', sans-serif;
+    letter-spacing: 4.5px;
+    margin-bottom: 25px;
+}
+
+.slider .caption h3{
+    font:bold 40px 'Hind', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
 
 
 
