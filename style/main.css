@@ -199,3 +199,6 @@ header{
     font-size: 27px;
 }
 
+.arrows:hover{
+    color:#999;
+}
