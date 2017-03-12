@@ -32,8 +32,7 @@ header{
     background-color: #212429;
     display: flex;
     justify-content:space-between;
-    align-items:center;
-    
+    align-items: center;
 }
 
 .icon{
@@ -58,7 +57,7 @@ header{
 .logo{
     height:100%;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     margin-left: 277px;
 }
 
@@ -67,22 +66,29 @@ header{
     color:#fefefe;
     font:600 22.15px 'Hind';
     margin-left:7.5px;
-    letter-spacing: 4.5px
+    letter-spacing: 4.5px;
+    margin-top: 5px;
 }
 
 .social{
     height: 100%;
+    /* display: flex; */
+    /* align-items: baseline; */
 }
 
 .social ul{
     height: 100%;
-    
+    /* display: flex; */
+    /* align-items: baseline; */
 }
 
 .social ul li{
     display: inline-block;
     height: 100%;
     border-left: solid 1px #3c3c3c;
+    /* display: flex; */
+    /* align-items: baseline; */
+    /* justify-content: center; */
 }
 
 
@@ -121,19 +127,22 @@ header{
 }
 
 .slider h2, .slider h3{
-    margin-left:100px;
+    margin-left: 98.5px;
 }
 
 .slider .caption h2{
     font:600 18px 'Hind', sans-serif;
-    letter-spacing: 4.5px;
-    margin-bottom: 25px;
+    letter-spacing: 3.6px;
+    margin-bottom: 12px;
+    margin-top: 9px;
 }
 
 .slider .caption h3{
     font:bold 40px 'Hind', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 5px;
+    letter-spacing: 5.59px;
+    line-height: 50px;
+    margin-left: 97.5px;
 }
 
 
