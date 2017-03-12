@@ -215,6 +215,7 @@ form{
     display: flex;
     flex-direction: row;
     align-items: center;
+    border-bottom:solid 1px #f3f3f3;
 }
 
 form .caption{
