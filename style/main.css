@@ -256,3 +256,11 @@ form input.submit{
     width:282px;
     padding-left: 0;
 }
+
+form input.submit:hover{
+    background-color: #f7f7f7;
+    color:#212121;
+    border-color:#212121;
+    font-weight: 600;
+    cursor: pointer;
+}
