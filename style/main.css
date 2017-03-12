@@ -199,6 +199,6 @@ header{
     font-size: 27px;
 }
 
-.arrows:hover{
+.arrows a:hover{
     color:#999;
 }
