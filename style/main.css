@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700');
 
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
+
+
 body{
     width:100%;
     height:100%;
@@ -197,9 +200,55 @@ header{
 .arrows a{
     color:#fff;
     font-size: 27px;
-    margin-top: -4px;
+    margin-top: -5px;
 }
 
 .arrows a:hover{
     color:#999;
+}
+
+form{
+    width:100%;
+    height:100px;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+form .caption{
+    font:bold 20px 'Montserrat', sans-serif;
+    line-height: 28px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-left:30px;
+    color:#212121;
+    width:200px;
+}
+
+form input{
+    font:300 15px 'Hind', sans-serif;
+    color:#a7a7a7;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 28px;
+    padding-left:29px;
+    width:450px;
+    height: 50px;
+    border: solid 1px #f3f3f3;
+    margin-left:30px;
+}
+
+form input:focus{
+    outline:none;
+    border:solid 1px #ccc;
+}
+
+form input.submit{
+    background-color: #212121;
+    font:400 14px 'Hind', sans-serif;
+    color:#fff;
+    line-height: 24px;
+    letter-spacing: 0.2em;
+    width:282px;
 }
