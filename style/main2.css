@@ -120,8 +120,9 @@ header{
     height:100%;
 }
 
-.slider h2, .slider h3{
+.slider .caption .content{
     margin-left: 98.5px;
+    float:left;
 }
 
 .slider .caption h2{
@@ -139,5 +140,7 @@ header{
     margin-left: 97.5px;
 }
 
-
+.slider .caption .navigation{
+    float:right;
+}
 

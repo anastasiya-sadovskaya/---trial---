@@ -121,29 +121,72 @@ header{
     top:0;
     color:#fff;
     display:flex;
-    flex-direction: column;
-    justify-content: center;
-    height:100%;
-}
-
-.slider h2, .slider h3{
-    margin-left: 98.5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
 }
 
 .slider .caption h2{
     font:600 18px 'Hind', sans-serif;
-    letter-spacing: 3.6px;
-    margin-bottom: 12px;
-    margin-top: 9px;
+    letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    margin-top: 11px;
+    line-height: 24px;
+    margin-left: 98.5px;
 }
 
 .slider .caption h3{
     font:bold 40px 'Hind', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 5.59px;
+    letter-spacing: 0.14em;
     line-height: 50px;
     margin-left: 97.5px;
 }
 
+.slider .caption .content{
+    flex-direction: column;
+}
 
 
+.navigation {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    transform: rotate(-90deg);
+    margin-right: -33px;
+}
+
+.indicator {
+    display: block;
+    box-sizing: border-box;
+    width: 6px;
+    height: 6px;
+    border: solid 1px #fff;
+    margin: 0 5px;
+}
+
+.indicators {
+    flex-direction: row;
+    display: flex;
+}
+
+.navigation .indicators .active{
+     background-color: rgba(255,255,255,0.5);
+}
+
+.indicator:hover{
+    background-color: rgba(255,255,255,0.5);
+}
+
+.arrows span {
+    text-transform: uppercase;
+    font: 600 14px 'Hind', sans-serif;
+    letter-spacing: 0.2em;
+}
+
+.arrows a{
+    color:#fff;
+    font-size: 25px;
+}
