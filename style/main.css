@@ -155,14 +155,14 @@ header{
     display: flex;
     align-items: center;
     transform: rotate(-90deg);
-    margin-right: -33px;
+    margin-right: -65px;
 }
 
 .indicator {
     display: block;
     box-sizing: border-box;
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border: solid 1px #fff;
     margin: 0 5px;
 }
@@ -170,6 +170,7 @@ header{
 .indicators {
     flex-direction: row;
     display: flex;
+    margin-bottom: 12px;
 }
 
 .navigation .indicators .active{
@@ -180,13 +181,19 @@ header{
     background-color: rgba(255,255,255,0.5);
 }
 
+.arrows {
+    display: flex;
+    align-items: center;
+}
+
 .arrows span {
     text-transform: uppercase;
     font: 600 14px 'Hind', sans-serif;
     letter-spacing: 0.2em;
+    margin: 0 12px;
 }
 
 .arrows a{
     color:#fff;
-    font-size: 25px;
+    font-size: 27px;
 }
