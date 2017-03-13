@@ -116,6 +116,7 @@ header{
 main{
     min-height: 100%;
     padding-bottom: 412px;
+    
 }
 
 .slider{
@@ -279,4 +280,48 @@ footer{
     bottom: 0;
     height:412px;
     background-color: #212429;
+   
+}
+
+.column{
+    width:360px;
+    height: 100%;
+    background: #ccc;
+    display: inline-block;
+    font-size:0;
+    margin:0;
+    padding: 0;
+    line-height: 0;
+    padding:60px 0;
+
+}
+
+footer .wrapper{
+    top:0;
+    height:100%;
+    padding-bottom: 41px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+footer footer{
+    height:41px;
+    width:100%;
+    background: #17191c;
+    font:300 14px 'Hind', sans-serif;
+    line-height: 41px;
+    letter-spacing: 0.1em;
+    color:#747577;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+footer footer a{
+    color:#747577;
+}
+
+footer footer a:before{
+    content: 'i';
+    margin:0 14px;
 }
