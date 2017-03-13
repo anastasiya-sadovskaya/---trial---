@@ -356,3 +356,16 @@ footer p{
     right: 10px;
     transform: rotate(-8deg);
 }
+
+footer .container div{
+    height:98px;
+    width:118.3px;
+    background: #fff;
+    display: inline-block;
+    margin:0 2px 2px 0;
+
+}
+
+footer .container div:last-child{
+    margin: 0 0 2px 0;
+}
