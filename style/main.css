@@ -6,6 +6,9 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
+
+
 a{
     color:#fff;
 }
@@ -344,7 +347,7 @@ footer h3{
 }
 
 footer .column .content{
-    height: 205px;
+    height: 207px;
     width:100%;
     background: #888;
     line-height: 0;
@@ -354,7 +357,7 @@ footer .column .content{
 }
 
 footer .column .login{
-    margin-bottom: 7px;
+    margin-bottom: 9px;
     /* margin-top: -8px; */
     display: inline-block;
     line-height: 24px;
@@ -364,11 +367,11 @@ footer .column .login{
 footer .column p{
     font:300 15px 'Hind', sans-serif;
     line-height: 28px;
-    /* margin-top: 8px; */
+    margin-bottom: 4px;
 }
 
 footer .about div{
-    margin-top: 2px;
+    /* margin-top: 2px; */
     font: normal 36.05px 'Mrs Saint Delafield', cursive;
     letter-spacing: 0.012em;
     background-color: #3a3c49;
@@ -402,8 +405,12 @@ footer .comments{
     line-height: 24px;
 }
 
+footer .comments .login{
+    font-family:'Open Sans', sans-serif;
+}
+
 footer .comments .content .comment {
-    padding: 24px 0;
+    padding: 21px 0;
     border-top: solid 1px #ddd;
     line-height: 24px;
 }
@@ -418,7 +425,7 @@ footer .comments .content .comment p {
 }
 
 footer .instagram .container a{
-    height:99px;
+    height: 98px;
     width: 118.6px;
     background: #fff;
     display: inline-block;
@@ -433,7 +440,7 @@ footer .column .twitts{
     font:300 14px 'Hind', sans-serif;
     letter-spacing: 0.1em;
     padding-left: 22px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 footer .column .twitts a:hover{
