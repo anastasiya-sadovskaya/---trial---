@@ -349,7 +349,7 @@ footer h3{
 footer .column .content{
     height: 207px;
     width:100%;
-    background: #888;
+    /* background: #888; */
     line-height: 0;
     /*display:flex;
     flex-direction: column;
@@ -360,7 +360,7 @@ footer .column .login{
     margin-bottom: 9px;
     /* margin-top: -8px; */
     display: inline-block;
-    line-height: 24px;
+    line-height: 28px;
     font:300 14px 'Hind', sans-serif;
 }
 
@@ -370,7 +370,7 @@ footer .column p{
     margin-bottom: 4px;
 }
 
-footer .about div{
+footer .about .sign{
     /* margin-top: 2px; */
     font: normal 36.05px 'Mrs Saint Delafield', cursive;
     letter-spacing: 0.012em;
@@ -382,9 +382,9 @@ footer .about div{
 
 footer .column .sign span{
     position: absolute;
-    bottom:10px;
-    right: 10px;
-    transform: rotate(-8deg);
+    bottom: 7px;
+    right: 18px;
+    transform: rotate(-9deg);
 }
 
 footer .instagram .content {
@@ -392,7 +392,7 @@ footer .instagram .content {
 }
 
 .twitts {
-    margin-bottom: 25px;
+    margin-bottom: 24px;
 }
 
 footer .instagram .content {
@@ -407,10 +407,12 @@ footer .comments{
 
 footer .comments .login{
     font-family:'Open Sans', sans-serif;
+    margin-bottom: 11px;
+    line-height: 24px;
 }
 
 footer .comments .content .comment {
-    padding: 21px 0;
+    padding: 23px 0 18px 0;
     border-top: solid 1px #ddd;
     line-height: 24px;
 }
@@ -422,6 +424,10 @@ footer .comments .content .comment:first-child{
 
 footer .comments .content .comment p {
     line-height: 24px;
+}
+
+footer .comments .content .comment a:hover {
+    color:#999;
 }
 
 footer .instagram .container a{
@@ -440,7 +446,7 @@ footer .column .twitts{
     font:300 14px 'Hind', sans-serif;
     letter-spacing: 0.1em;
     padding-left: 22px;
-    /* margin-bottom: 30px; */
+    margin-bottom: 24px;
 }
 
 footer .column .twitts a:hover{
