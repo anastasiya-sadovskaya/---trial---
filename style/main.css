@@ -3,6 +3,9 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
 
 @import url('https://fonts.googleapis.com/css?family=Mrs+Saint+Delafield');
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
+
 a{
     color:#fff;
 }
@@ -292,7 +295,7 @@ footer{
 .column{
     width:360px;
     height: 100%;
-    background: #ccc;
+    /* background: #ccc; */
     display: flex;
     font-size:0;
     margin:0;
@@ -337,18 +340,18 @@ footer h3{
     font:bold 16px 'Montserrat', sans-serif;
     letter-spacing: .06em;
     text-transform: uppercase;
-    /* margin: -2px 0 33px 0; */
+    margin: -2px 0 33px 0;
 }
 
 footer p{
     font:300 15px 'Hind', sans-serif;
-    /* margin-bottom: -20px; */
+    margin-bottom: 20px;
     letter-spacing: .098em;
     line-height: 28px;
-    /* margin-top: -6px; */
+    margin-top: -6px;
 }
 
-.sign{
+footer .column .sign{
     font: normal 36.05px 'Mrs Saint Delafield', cursive;
     letter-spacing: 0.012em;
     background-color: #3a3c49;
@@ -358,14 +361,14 @@ footer p{
     margin-top: -20px;
 }
 
-.sign span{
+footer .column .sign span{
     position: absolute;
     bottom:10px;
     right: 10px;
     transform: rotate(-8deg);
 }
 
-footer .container a{
+footer .instagram .container a{
     height:98px;
     width: 118.6px;
     background: #fff;
@@ -373,22 +376,50 @@ footer .container a{
     margin: 0 2px 2px 0;
 }
 
-footer .container a:nth-child(3n){
+footer .instagram .container a:nth-child(3n){
     margin: 0 0 2px 0;
 }
 
-.twitts{
+footer .column .twitts{
     font:300 14px 'Hind', sans-serif;
     letter-spacing: 0.1em;
     padding-left: 22px;
 }
 
-.twitts a:hover{
+footer .column .twitts a:hover{
     color:#1da1f2;
 }
 
-.twitts:before{
+footer .column .twitts:before{
     content:"\f099";
     font-family:FontAwesome;
     margin-left: -22px;
+}
+
+footer .comments{
+    font:300 14px 'Open Sans', sans-serif;
+    letter-spacing: 0.1em;
+    line-height: 24px;
+}
+
+footer .comments .comment{
+    border-bottom: solid 1px #65676a;
+    /* padding-bottom: 28px; */
+    /* padding: 20px 0; */
+}
+
+footer .comments .comment:last-child{
+    border-bottom:none;
+    /* padding: 0; */
+}
+
+footer .comments .comment p{
+    margin-top: 5px;
+}
+
+footer .column .content{
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-between; */
+    /* height: 200px; */
 }
