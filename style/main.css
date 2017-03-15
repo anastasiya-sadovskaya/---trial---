@@ -428,3 +428,20 @@ footer .instagram .container a{
 footer .instagram .container a:nth-child(3n){
     margin: 0 0 2px 0;
 }
+
+footer .column .twitts{
+    font:300 14px 'Hind', sans-serif;
+    letter-spacing: 0.1em;
+    padding-left: 22px;
+    margin-bottom: 30px;
+}
+
+footer .column .twitts a:hover{
+    color:#1da1f2;
+}
+
+footer .column .twitts:before{
+    content:"\f099";
+    font-family:FontAwesome;
+    margin-left: -22px;
+}
