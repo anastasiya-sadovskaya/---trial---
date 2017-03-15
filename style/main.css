@@ -122,9 +122,8 @@ header{
 }
 
 main{
-    min-height: 100%;
+    min-height: 2000px;
     padding-bottom: 412px;
-    
 }
 
 .slider{
@@ -300,7 +299,7 @@ footer{
     font-size:0;
     margin:0;
     padding: 0;
-    line-height: 0;
+    line-height: 24px;
     padding:60px 0;
     flex-direction: column;
     justify-content: space-between;
@@ -345,7 +344,7 @@ footer h3{
 }
 
 footer .column .content{
-    height:200px;
+    height: 205px;
     width:100%;
     background: #888;
     line-height: 0;
@@ -355,16 +354,21 @@ footer .column .content{
 }
 
 footer .column .login{
-    /*margin-bottom: 20px;*/
+    margin-bottom: 7px;
+    /* margin-top: -8px; */
+    display: inline-block;
+    line-height: 24px;
     font:300 14px 'Hind', sans-serif;
 }
 
 footer .column p{
     font:300 15px 'Hind', sans-serif;
     line-height: 28px;
+    /* margin-top: 8px; */
 }
 
 footer .about div{
+    margin-top: 2px;
     font: normal 36.05px 'Mrs Saint Delafield', cursive;
     letter-spacing: 0.012em;
     background-color: #3a3c49;
@@ -380,5 +384,47 @@ footer .column .sign span{
     transform: rotate(-8deg);
 }
 
+footer .instagram .content {
+    height: 200px;
+}
 
+.twitts {
+    margin-bottom: 25px;
+}
 
+footer .instagram .content {
+    height: 200px;
+}
+
+footer .comments{
+    font:300 14px 'Open Sans', sans-serif;
+    letter-spacing: 0.1em;
+    line-height: 24px;
+}
+
+footer .comments .content .comment {
+    padding: 24px 0;
+    border-top: solid 1px #ddd;
+    line-height: 24px;
+}
+
+footer .comments .content .comment:first-child{
+    padding-top:0;
+    border: none;
+}
+
+footer .comments .content .comment p {
+    line-height: 24px;
+}
+
+footer .instagram .container a{
+    height:99px;
+    width: 118.6px;
+    background: #fff;
+    display: inline-block;
+    margin: 0 2px 2px 0;
+}
+
+footer .instagram .container a:nth-child(3n){
+    margin: 0 0 2px 0;
+}
