@@ -340,15 +340,15 @@ footer h3{
     font:bold 16px 'Montserrat', sans-serif;
     letter-spacing: .06em;
     text-transform: uppercase;
-    margin: -2px 0 33px 0;
+    /*margin: -2px 0 33px 0;*/
 }
 
 footer p{
     font:300 15px 'Hind', sans-serif;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     letter-spacing: .098em;
     line-height: 28px;
-    margin-top: -6px;
+    /* margin-top: -6px; */
 }
 
 footer .column .sign{
@@ -358,7 +358,7 @@ footer .column .sign{
     height: 147px;
     width:100%;
     position: relative;
-    margin-top: -20px;
+    /* margin-top: -20px; */
 }
 
 footer .column .sign span{
@@ -384,6 +384,7 @@ footer .column .twitts{
     font:300 14px 'Hind', sans-serif;
     letter-spacing: 0.1em;
     padding-left: 22px;
+    margin-bottom: 30px;
 }
 
 footer .column .twitts a:hover{
@@ -404,8 +405,8 @@ footer .comments{
 
 footer .comments .comment{
     border-bottom: solid 1px #65676a;
-    /* padding-bottom: 28px; */
-    /* padding: 20px 0; */
+    /* padding-bottom: 20px; */
+    padding: 20px 0;
 }
 
 footer .comments .comment:last-child{
@@ -413,8 +414,12 @@ footer .comments .comment:last-child{
     /* padding: 0; */
 }
 
+footer .comments .comment:first-child{
+    padding-top: 0;
+}
+
 footer .comments .comment p{
-    margin-top: 5px;
+    /* margin-top: 5px; */
 }
 
 footer .column .content{
@@ -423,3 +428,53 @@ footer .column .content{
     /* justify-content: space-between; */
     /* height: 200px; */
 }
+
+footer .column .content{
+    height:200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*footer h3{
+    font:bold 16px 'Montserrat', sans-serif;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+footer .column .content{
+    height:200px;
+    width:100%;
+    background: #888;
+    line-height: 0;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+footer .column .login{
+    margin-bottom: 20px;
+    font:300 14px 'Hind', sans-serif;
+}
+
+footer .column p{
+    font:300 15px 'Hind', sans-serif;
+    line-height: 28px;
+}
+
+footer .about div{
+    font: normal 36.05px 'Mrs Saint Delafield', cursive;
+    letter-spacing: 0.012em;
+    background-color: #3a3c49;
+    height: 147px;
+    width:100%;
+    position: relative;
+}
+
+footer .column .sign span{
+    position: absolute;
+    bottom:10px;
+    right: 10px;
+    transform: rotate(-8deg);
+}*/
+
