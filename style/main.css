@@ -291,7 +291,8 @@ footer{
     height:412px;
     background-color: #212429;
     color:#f9f9fb;
-   
+    letter-spacing: 0.09em;
+    line-height: 28px;
 }
 
 .column{
@@ -302,7 +303,7 @@ footer{
     font-size:0;
     margin:0;
     padding: 0;
-    line-height: 24px;
+    /* line-height: 28px; */
     padding:60px 0;
     flex-direction: column;
     justify-content: space-between;
@@ -323,7 +324,7 @@ footer footer{
     background: #17191c;
     font:300 14px 'Hind', sans-serif;
     line-height: 41px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.092em;
     color:#747577;
     text-transform: uppercase;
     text-align: center;
@@ -341,6 +342,7 @@ footer footer a:before{
 
 
 footer h3{
+    margin-top: -4px;
     font:bold 16px 'Montserrat', sans-serif;
     letter-spacing: .06em;
     text-transform: uppercase;
@@ -361,12 +363,14 @@ footer .column .login{
     /* margin-top: -8px; */
     display: inline-block;
     line-height: 28px;
+    letter-spacing: 0.092em;
     font:300 14px 'Hind', sans-serif;
 }
 
 footer .column p{
     font:300 15px 'Hind', sans-serif;
     line-height: 28px;
+    /* letter-spacing: 0.098em; */
     margin-bottom: 4px;
 }
 
@@ -397,6 +401,7 @@ footer .instagram .content {
 
 footer .instagram .content {
     height: 200px;
+    letter-spacing: 0;
 }
 
 footer .comments{
@@ -444,7 +449,7 @@ footer .instagram .container a:nth-child(3n){
 
 footer .column .twitts{
     font:300 14px 'Hind', sans-serif;
-    letter-spacing: 0.1em;
+    /* letter-spacing: 0.09em; */
     padding-left: 22px;
     margin-bottom: 24px;
 }
