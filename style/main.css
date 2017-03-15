@@ -3,6 +3,10 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
 
 @import url('https://fonts.googleapis.com/css?family=Mrs+Saint+Delafield');
+a{
+    color:#fff;
+}
+
 html{
     height: 100%;
 }
@@ -289,13 +293,14 @@ footer{
     width:360px;
     height: 100%;
     background: #ccc;
-    display: inline-block;
+    display: flex;
     font-size:0;
     margin:0;
     padding: 0;
     line-height: 0;
     padding:60px 0;
-
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 footer .wrapper{
@@ -332,13 +337,15 @@ footer h3{
     font:bold 16px 'Montserrat', sans-serif;
     letter-spacing: .06em;
     text-transform: uppercase;
-    margin-bottom: 37px;
+    /* margin: -2px 0 33px 0; */
 }
 
 footer p{
     font:300 15px 'Hind', sans-serif;
-    margin-bottom: 11px;
+    /* margin-bottom: -20px; */
     letter-spacing: .098em;
+    line-height: 28px;
+    /* margin-top: -6px; */
 }
 
 .sign{
@@ -347,7 +354,8 @@ footer p{
     background-color: #3a3c49;
     height: 147px;
     width:100%;
-    position: relative
+    position: relative;
+    margin-top: -20px;
 }
 
 .sign span{
@@ -357,15 +365,30 @@ footer p{
     transform: rotate(-8deg);
 }
 
-footer .container div{
+footer .container a{
     height:98px;
-    width:118.3px;
+    width: 118.6px;
     background: #fff;
     display: inline-block;
-    margin:0 2px 2px 0;
-
+    margin: 0 2px 2px 0;
 }
 
-footer .container div:last-child{
+footer .container a:nth-child(3n){
     margin: 0 0 2px 0;
+}
+
+.twitts{
+    font:300 14px 'Hind', sans-serif;
+    letter-spacing: 0.1em;
+    padding-left: 22px;
+}
+
+.twitts a:hover{
+    color:#1da1f2;
+}
+
+.twitts:before{
+    content:"\f099";
+    font-family:FontAwesome;
+    margin-left: -22px;
 }
