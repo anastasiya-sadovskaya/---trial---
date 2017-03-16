@@ -526,7 +526,7 @@ main .content .column .post-9 a:hover{
 .post-9 .main{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
 }
 
 .post-10{
@@ -729,7 +729,7 @@ footer .column .twitts:before{
     color:#fff;
     font-size:14px;
     /* box-shadow:2px 2px 2px #f6f6f6; */
-    border: solid 1px rgba(255,255,255,0.9);
+    border: solid 1px #f6f6f8;
 }
 
 main .content .content-item .social i {
