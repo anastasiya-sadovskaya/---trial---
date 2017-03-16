@@ -88,19 +88,19 @@ header{
     margin-top: 5px;
 }
 
-.social{
+header .social{
     height: 100%;
     /* display: flex; */
     /* align-items: baseline; */
 }
 
-.social ul{
+header .social ul{
     height: 100%;
     /* display: flex; */
     /* align-items: baseline; */
 }
 
-.social ul li{
+header .social ul li{
     display: inline-block;
     height: 100%;
     border-left: solid 1px #3c3c3c;
@@ -111,11 +111,11 @@ header{
 
 
 
-.social ul li:last-child{
+header .social ul li:last-child{
     border-right: solid 1px #3c3c3c;
 }
 
-.social ul li a{
+header .social ul li a{
     height:100%;
     color:#fff;
     display: flex;
@@ -127,6 +127,7 @@ header{
 main{
     min-height: 2000px;
     padding-bottom: 412px;
+    background: #f9f9fb;
 }
 
 .slider{
@@ -284,6 +285,111 @@ form input.submit:hover{
     cursor: pointer;
 }
 
+main .content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 77px;
+}
+
+main .content .content-item{
+    background: #fff;
+    border:solid 1px #f1f1f3;
+}
+
+main .content .content-item .main{
+    padding:0 30px;
+     text-align: center;
+}
+
+main .content .content-item .theme, main .content .content-item .date{
+    text-transform: uppercase;
+    font:400 14px 'Hind', sans-serif;
+    letter-spacing: 0.1em;
+    line-height: 24px;
+    color:#999;
+    display: block;
+}
+
+main .content .content-item .theme{
+    margin-top: 51px;
+}
+
+main .content .content-item .date{
+    margin-top:10px;
+}
+
+main .content .content-item h4{
+    font:bold 20px 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    color:#212121;
+    letter-spacing: 0.06em;
+    line-height: 28px;
+    margin-top: 10px;
+
+}
+
+main .content .content-item .inner{
+    font:300 15px 'Hind', sans-serif;
+    letter-spacing: 0.099em;
+    line-height: 28px;
+}
+
+main .content .content-item button{
+    outline: none;
+    border: solid 1px #d7d7d7;
+    border-width: 0 1px;
+    height: 30px;
+    width: 126px;
+    background: none;
+    margin:35px 0 41px;
+    color:#212121;
+    font:500 14px 'Hind', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+main .content .content-item button:active span{
+    
+    border: solid 1px #d7d7d7;
+    border-width: 1px 0;
+    padding:8px 0;
+}
+
+main .content .content-item button:active{
+    
+    border:none;
+    /*border-width: 1px 0;*/
+}
+
+main .content .content-item .social{
+    border-top:solid 1px #999;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 59px;
+    font-size:14px;
+    color:#999;
+}
+
+main .content .content-item .social .comments{
+    text-transform: uppercase;
+    font:400 14px 'Hind', sans-serif;
+    letter-spacing: 0.1em;
+    line-height: 24px;
+    color:#999;
+}
+
+main .content .content-item .social .comments .icons a{
+    
+}
+
+main .content .content-item .social i{
+    margin: 0 10px;
+    color : #464646;
+}
+
 footer{
     width:100%;
     position: absolute;
@@ -292,19 +398,17 @@ footer{
     background-color: #212429;
     color:#f9f9fb;
     letter-spacing: 0.09em;
-    line-height: 28px;
 }
 
 .column{
     width:360px;
     height: 100%;
-    /* background: #ccc; */
+     /*background: #ccc; */
     display: flex;
     font-size:0;
     margin:0;
     padding: 0;
-    /* line-height: 28px; */
-    padding:60px 0;
+    line-height: 24px;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -324,7 +428,7 @@ footer footer{
     background: #17191c;
     font:300 14px 'Hind', sans-serif;
     line-height: 41px;
-    letter-spacing: 0.092em;
+    letter-spacing: 0.1em;
     color:#747577;
     text-transform: uppercase;
     text-align: center;
@@ -339,9 +443,11 @@ footer footer a:before{
     margin:0 14px;
 }
 
+footer .column{
+    padding: 60px 0;
+}
 
-
-footer h3{
+footer h5{
     margin-top: -4px;
     font:bold 16px 'Montserrat', sans-serif;
     letter-spacing: .06em;
@@ -462,4 +568,19 @@ footer .column .twitts:before{
     content:"\f099";
     font-family:FontAwesome;
     margin-left: -22px;
+}
+
+.content-item{
+    position:relative;
+    width:100%;
+}
+
+.content-item .hashtag{
+    background-color: #212121;
+    width: 40px;
+    height: 35px;
+    position: absolute;
+    margin: 0 auto;
+    top: -18px;
+    left: 160px;
 }
