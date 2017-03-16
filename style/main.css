@@ -448,13 +448,23 @@ main .content .type-4{
 
 main .content .type-4 .inner{
     color:#fff;
+    font-size: 17px;
+    margin-top: 52px;
 }
 
 main .content .type-4 .name{
     text-transform: uppercase;
     color:#999;
+    font: 400 14px 'Hind', sans-serif;
+    letter-spacing: 0.1em;
+    display: block;
+    margin: 25px 0 30px;
 }
 
+.type-4 .hashtag {
+    background: #fff;
+    color: #212429;
+}
 
 
 footer{
@@ -652,8 +662,8 @@ footer .column .twitts:before{
     left: 160px;
     color:#fff;
     font-size:14px;
-    box-shadow:2px 2px 2px #f6f6f6;
-    border:solid 1px rgba(255,255,255,0.9);
+    /* box-shadow:2px 2px 2px #f6f6f6; */
+    border: solid 1px rgba(255,255,255,0.9);
 }
 
 main .content .content-item .social i {
