@@ -533,6 +533,28 @@ main .content .column .post-9 a:hover{
     height: 287px;
 }
 
+.post-11{
+    margin-bottom: 46px;
+}
+
+.post-12{
+    margin-bottom: 47px;
+}
+
+.post-13{
+    height: 452px;
+    
+}
+
+.post-13 div.round{
+    background: #999;
+    height: 135px;
+    width:135px;
+    border-radius: 67px;
+    display:inline-block;
+    margin-top: 20px;
+}
+
 footer{
     width:100%;
     position: absolute;
