@@ -428,6 +428,33 @@ main .content .post-3 .theme{
     margin-top: 35px;
 }
 
+main .content .content-item .image{
+    height: 255px;
+    width:100%;
+    background: #f4f4f4;
+}
+
+.type-3 .hashtag {
+    top: 237px;
+}
+
+.post-4{
+    margin-bottom:46px;
+}
+
+main .content .type-4{
+    background: #212429;
+}
+
+main .content .type-4 .inner{
+    color:#fff;
+}
+
+main .content .type-4 .name{
+    text-transform: uppercase;
+    color:#999;
+}
+
 
 
 footer{
