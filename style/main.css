@@ -35,6 +35,7 @@ body{
     width:100%;
     height:345px;
     background-color: #212429;
+    position: absolute;
 }
 
 
@@ -42,7 +43,6 @@ body{
     width:1530px;
     margin:0 auto;
     position: relative;
-    top:-345px;
 }
 
 header{
@@ -125,7 +125,7 @@ header .social ul li a{
 }
 
 main{
-    min-height: 2000px;
+    min-height: 100%;
     padding-bottom: 412px;
     background: #f9f9fb;
 }
@@ -289,17 +289,27 @@ main .content{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 77px;
+    padding: 77px 0 60px;
 }
 
 main .content .content-item{
     background: #fff;
     border:solid 1px #f1f1f3;
+    font-size:14px;
+    width:100%;
+}
+
+main .content .content-item:hover{
+    box-shadow:0 0 20px #dadadc;
+}
+
+.post-1, .post-2{
+    margin-bottom: 28px;
 }
 
 main .content .content-item .main{
     padding:0 30px;
-     text-align: center;
+    text-align: center;
 }
 
 main .content .content-item .theme, main .content .content-item .date{
@@ -316,7 +326,7 @@ main .content .content-item .theme{
 }
 
 main .content .content-item .date{
-    margin-top: 7px;
+    margin-top:10px;
 }
 
 main .content .content-item h4{
@@ -325,14 +335,14 @@ main .content .content-item h4{
     color:#212121;
     letter-spacing: 0.06em;
     line-height: 28px;
-    margin-top: 4px;
+    margin-top: 10px;
+
 }
 
 main .content .content-item .inner{
     font:300 15px 'Hind', sans-serif;
-    letter-spacing: 0.096em;
+    letter-spacing: 0.099em;
     line-height: 28px;
-    margin-top: 15px;
 }
 
 main .content .content-item button{
@@ -342,7 +352,7 @@ main .content .content-item button{
     height: 30px;
     width: 126px;
     background: none;
-    margin: 29px 0 41px;
+    margin:35px 0 41px;
     color:#212121;
     font:500 14px 'Hind', sans-serif;
     text-transform: uppercase;
@@ -363,24 +373,32 @@ main .content .content-item button:active{
 }
 
 main .content .content-item .social{
-    border-top:solid 1px #999;
+    border-top:solid 1px #f7f7f7;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     height: 59px;
-    font-size:14px;
+    /*font-size:14px;*/
     color:#999;
-    padding: 0px 20px;
+    padding:0 20px;
 }
 
 main .content .content-item .social .comments{
     text-transform: uppercase;
     font:400 14px 'Hind', sans-serif;
     letter-spacing: 0.1em;
-    line-height: 59px;
+    line-height: 24px;
     color:#999;
-    height: 100%;
+    padding:0 10px;
+}
+
+main .content .content-item .social .comments:hover{
+    color:#65a3cb;
+}
+
+main .content .content-item .social .comments:hover i{
+    color:#65a3cb;
 }
 
 main .content .content-item .social .comments .icons a{
@@ -388,9 +406,28 @@ main .content .content-item .social .comments .icons a{
 }
 
 main .content .content-item .social i{
-    margin: 0px 8px;
     color : #464646;
+    padding: 20px 10px;
 }
+
+main .content .content-item .social i:hover{
+    color:#65a3cb;
+}
+
+main .content .type-2{
+    height:510px;
+    
+}
+
+main .content .post-3{
+    background-image:url('../img/skater.png');
+}
+
+main .content .post-3 .theme{
+    margin-top:35px;
+}
+
+
 
 footer{
     width:100%;
@@ -585,4 +622,8 @@ footer .column .twitts:before{
     margin: 0 auto;
     top: -18px;
     left: 160px;
+    color:#fff;
+    font-size:14px;
+    box-shadow:2px 2px 2px #f6f6f6;
+    border:solid 1px rgba(255,255,255,0.9);
 }
