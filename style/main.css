@@ -361,7 +361,6 @@ main .content .content-item button{
 }
 
 main .content .content-item button:active span{
-    
     border: solid 1px #d7d7d7;
     border-width: 1px 0;
     padding:8px 0;
@@ -369,6 +368,7 @@ main .content .content-item button:active span{
 
 main .content .content-item button:active{
     
+    color:#999;
     border:none;
     /*border-width: 1px 0;*/
 }
