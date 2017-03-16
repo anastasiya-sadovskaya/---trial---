@@ -446,6 +446,11 @@ main .content .column .type-3 .hashtag {
 
 main .content .type-4{
     background: #212429;
+    border-color:#333;
+}
+
+main .content .type-4:hover{
+    box-shadow:0 0 20px #333;
 }
 
 main .content .type-4 .inner{
@@ -509,9 +514,19 @@ main .content .post-8{
     margin-bottom: 46px;
 }
 
-.post-9 a{
-    text-decoration:underline;
-    display: block;
+main .content .column .post-9 a{
+    text-decoration: underline;
+}
+
+main .content .column .post-9 a:hover{
+    text-decoration: none;
+    color:#999;
+}
+
+.post-9 .main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .post-10{
