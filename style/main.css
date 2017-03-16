@@ -316,7 +316,7 @@ main .content .content-item .theme{
 }
 
 main .content .content-item .date{
-    margin-top:10px;
+    margin-top: 7px;
 }
 
 main .content .content-item h4{
@@ -325,14 +325,14 @@ main .content .content-item h4{
     color:#212121;
     letter-spacing: 0.06em;
     line-height: 28px;
-    margin-top: 10px;
-
+    margin-top: 4px;
 }
 
 main .content .content-item .inner{
     font:300 15px 'Hind', sans-serif;
-    letter-spacing: 0.099em;
+    letter-spacing: 0.096em;
     line-height: 28px;
+    margin-top: 15px;
 }
 
 main .content .content-item button{
@@ -342,7 +342,7 @@ main .content .content-item button{
     height: 30px;
     width: 126px;
     background: none;
-    margin:35px 0 41px;
+    margin: 29px 0 41px;
     color:#212121;
     font:500 14px 'Hind', sans-serif;
     text-transform: uppercase;
@@ -371,14 +371,16 @@ main .content .content-item .social{
     height: 59px;
     font-size:14px;
     color:#999;
+    padding: 0px 20px;
 }
 
 main .content .content-item .social .comments{
     text-transform: uppercase;
     font:400 14px 'Hind', sans-serif;
     letter-spacing: 0.1em;
-    line-height: 24px;
+    line-height: 59px;
     color:#999;
+    height: 100%;
 }
 
 main .content .content-item .social .comments .icons a{
@@ -386,7 +388,7 @@ main .content .content-item .social .comments .icons a{
 }
 
 main .content .content-item .social i{
-    margin: 0 10px;
+    margin: 0px 8px;
     color : #464646;
 }
 
