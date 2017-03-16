@@ -432,6 +432,8 @@ main .content .content-item .image{
     height: 255px;
     width:100%;
     background: #f4f4f4;
+    line-height: 0;
+    font-size: 0;
 }
 
 main .content .column .type-3 .hashtag {
@@ -461,7 +463,7 @@ main .content .type-4 .name{
     margin: 25px 0 30px;
 }
 
-.type-4 .hashtag {
+main .content .column .type-4 div.hashtag {
     background: #fff;
     color: #212429;
 }
@@ -479,6 +481,42 @@ main .content .post-6 .social {
 }
 
 
+main .content .post-7{
+    margin-bottom:29px;
+}
+
+
+main .content .post-8 .image div{
+    background: #fff;
+    width: 177.77px;
+    height: 126px;
+    display: inline-block;
+    /* font-size: 0; */
+    /* line-height: 0; */
+    margin: 0 2px 2px 0;
+}
+
+main .content .post-8 .image div:nth-child(2n){
+    margin-right: 0;
+}
+
+main .content .post-8{
+    margin-bottom: 47px;
+}
+
+.post-9{
+    height: 175px;
+    margin-bottom: 46px;
+}
+
+.post-9 a{
+    text-decoration:underline;
+    display: block;
+}
+
+.post-10{
+    height: 287px;
+}
 
 footer{
     width:100%;
