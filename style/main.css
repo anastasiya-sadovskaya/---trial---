@@ -821,7 +821,7 @@ footer .column .twitts
     padding-left: 22px;
 }
 
-footer .column .twitter .login
+footer .column.twitter .login
 {
     font: 300 14px 'Hind', sans-serif;
     line-height: 28px;
