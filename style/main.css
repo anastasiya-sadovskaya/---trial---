@@ -828,8 +828,6 @@ footer .column.twitter .login
 
     display: inline-block;
 
-    margin-bottom: 9px;
-
     letter-spacing: .092em;
 }
 
@@ -845,6 +843,10 @@ footer .column .twitts:before
     margin-left: -22px;
 
     content: '\f099';
+}
+
+p.twit {
+    margin-top: 2px;
 }
 
 footer .instagram .content
@@ -909,7 +911,7 @@ footer .comments .comment:first-child
 
 footer .comments .content .comment p
 {
-    line-height: 24px;
+    line-height: 23px;
 }
 
 footer .comments .content .comment a:hover
@@ -940,7 +942,7 @@ footer footer a
 
 footer footer a:before
 {
-    margin: 0 14px;
+    margin: 0 12px;
 
     content: 'i';
 }
