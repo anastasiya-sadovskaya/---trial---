@@ -76,6 +76,7 @@ define(function () {
             if(this.maxAvailableLevel == this.level.LEVEL){
                 this.maxAvailableLevel = this.level.LEVEL + 1;
             }
+            console.log(this.level.LEVEL);
             console.log(this.maxAvailableLevel);
         }
         writeRes(){
