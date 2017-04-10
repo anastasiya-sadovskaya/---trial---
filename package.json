@@ -1,0 +1,9 @@
+{
+  "name": "Gunman",
+  "version": "0.0.0",
+  "description": "Platformer game via JavaScript and Phaser",
+  "author": "TeamRed",
+  "license": "MIT",
+  "devDependencies": {
+  }
+}
