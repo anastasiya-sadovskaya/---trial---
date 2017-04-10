@@ -18,6 +18,8 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
             this.stars = [];
             this.levelsList.score = [0]; //Array of scores of every level
             console.log(this.gui.maxAvailableLevel);
+            var stars = localStorage.getItem(this.player.stars);
+            console.log("Stars: " + stars);
 
             for( let i = 0; i < 5; i++){
                 if(this.gui.maxAvailableLevel >= i+1){ 

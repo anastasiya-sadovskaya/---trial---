@@ -11,7 +11,9 @@ define(function () {
             this.curentZKScore=0;
             this.curentSScore=0;
             this.starCount = 0;
-            this.player =  prompt('Enter your name', 'player');
+            this.playerName =  prompt('Enter your name');
+            this.player = {'name' : this.playerName, 'levels' : 1, 'stars' : 0, 'total' : 0};
+            localStorage.setItem(this.player);
         }
         menu() {
 
@@ -93,15 +95,15 @@ define(function () {
             this.totallScoreText.setText(this.curentZKScore*5+this.curentSScore);
             if (this.curentZKScore*5+this.curentSScore>=0.25*this.maxScore){
                 this.sprites['resStar1'] = this.game.add.sprite(500, 235, 'resStar1');
-                this.starCount = 1;
+                localStorage.setItem(this.player.stars, 1);
             }
             if (this.curentZKScore*5+this.curentSScore>=0.5*this.maxScore){
                 this.sprites['resStar2'] = this.game.add.sprite(591, 209, 'resStar2');
-                this.starCount = 2;
+                localStorage.setItem(this.player.stars, 2);
             }
             if (this.curentZKScore*5+this.curentSScore>=0.75*this.maxScore){
                 this.sprites['resStar3'] = this.game.add.sprite(701, 235, 'resStar3');
-                this.starCount = 3;
+                localStorage.setItem(this.player.stars, 3);
             }
 
         }
