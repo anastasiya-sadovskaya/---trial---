@@ -13,7 +13,7 @@ define(function () {
             this.starCount = 0;
             this.playerName =  prompt('Enter your name');
             this.player = {'name' : this.playerName, 'levels' : 1, 'stars' : 0, 'total' : 0};
-            localStorage.setItem(this.player);
+            localStorage.setItem( this.playerName, this.player);
         }
         menu() {
 
