@@ -10,6 +10,8 @@ define(function () {
             this.maxAvailableLevel = 1;
             this.curentZKScore=0;
             this.curentSScore=0;
+            this.star.count = 0;
+            this.player =  prompt('Enter your name', 'player');
         }
         menu() {
 
@@ -91,12 +93,15 @@ define(function () {
             this.totallScoreText.setText(this.curentZKScore*5+this.curentSScore);
             if (this.curentZKScore*5+this.curentSScore>=0.25*this.maxScore){
                 this.sprites['resStar1'] = this.game.add.sprite(500, 235, 'resStar1');
+                this.star.count = 1;
             }
             if (this.curentZKScore*5+this.curentSScore>=0.5*this.maxScore){
                 this.sprites['resStar2'] = this.game.add.sprite(591, 209, 'resStar2');
+                this.star.count = 2;
             }
             if (this.curentZKScore*5+this.curentSScore>=0.75*this.maxScore){
                 this.sprites['resStar3'] = this.game.add.sprite(701, 235, 'resStar3');
+                this.star.count = 3;
             }
 
         }
