@@ -48,11 +48,11 @@ define(function () {
                 localStorage.setItem('defaultName', JSON.stringify(name));
                 this.game.playerName = name;
                 let player = JSON.parse(localStorage.getItem(name));
-                this.player = player;
+                this.game.player = player;
             } else {
                 this.game.playerName = name;
                 let player = JSON.parse(localStorage.getItem(name));
-                this.player = player;
+                this.game.player = player;
 
                 localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'score': 100, 'level': 1 }));
                 console.log(JSON.parse(localStorage.getItem(this.game.playerName)));

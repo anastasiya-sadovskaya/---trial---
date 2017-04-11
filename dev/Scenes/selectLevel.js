@@ -14,10 +14,7 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
             this.gui = new GUI(this.game);
             this.sprites['levelsHolder'] = this.game.add.sprite(this.game.world.centerX - 320, this.game.world.centerY - 214, 'levelsHolder');
             this.sprites['cancelButton'] = this.game.add.button(this.sprites['levelsHolder'].position.x + 595, this.sprites['levelsHolder'].position.y + 45,  'cancelButton',this.backToMenu, this);
-            //this.levelsList = [];   // List of levels
-            //this.stars = [];
-            //this.levelsList.score = [0]; //Array of scores of every level
-            this.maxAavailableLevel = this.gui.player['level'];
+            this.maxAavailableLevel = this.game.player['level'];
             let nextLevelActiv=true;
             
 
