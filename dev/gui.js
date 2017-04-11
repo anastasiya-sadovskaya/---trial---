@@ -10,6 +10,7 @@ define(function () {
             this.maxAvailableLevel = 1;
             this.curentZKScore = 0;
             this.curentSScore = 0;
+            this.player = null;
         }
         menu() {
 
@@ -41,17 +42,16 @@ define(function () {
         }
         selectProfile() {
             let name = prompt("New player?");
-            //let player = JSON.parse(localStorage.getItem(name));
-            let player = null;
+            let player = JSON.parse(localStorage.getItem(name));
+            
             if (!player) {
                 localStorage.setItem(name, JSON.stringify({ 'name': name, 'score': 0, 'level': 1 }));
                 localStorage.setItem('defaultName', JSON.stringify(name));
                 this.game.playerName = name;
-                let player = JSON.parse(localStorage.getItem(name));
+                player = JSON.parse(localStorage.getItem(name));
                 this.game.player = player;
             } else {
                 this.game.playerName = name;
-                let player = JSON.parse(localStorage.getItem(name));
                 this.game.player = player;
 
                 localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'score': 100, 'level': 1 }));
