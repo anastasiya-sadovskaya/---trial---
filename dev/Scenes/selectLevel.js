@@ -17,34 +17,52 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
             this.levelsList = [];   // List of levels
             this.stars = [];
             this.levelsList.score = [0]; //Array of scores of every level
-            console.log(this.gui.maxAvailableLevel);
-            var stars = localStorage.getItem(this.player.stars);
-            console.log("Stars: " + stars);
+            let nextLevelActiv=true;
 
             for( let i = 0; i < 5; i++){
-                if(this.gui.maxAvailableLevel >= i+1){ 
-                    this.levelsList[i] = this.game.add.button(this.sprites['levelsHolder'].position.x + ((i+1) * 95), this.sprites['levelsHolder'].position.y + 142, 'availableLevel', this.gui.startGame);
-                   for(var j = 0; j < this.levelsList.score[i]; j++){
-                        this.stars[j] = this.game.add.sprite(this.levelsList[i].position.x + 17 +(j*17), this.levelsList[i].position.y + 60, 'activeStar');
-                   }
+                if (localStorage.getItem('Level'+(i+1))){
 
-                   for(var j = this.levelsList.score[i]; j < 3; j++){
-                        this.stars[j] = this.game.add.sprite(this.levelsList[i].position.x + 17 +(j*17), this.levelsList[i].position.y + 60, 'inactiveStar');
-                   }
+                    let score=JSON.parse(localStorage.getItem('Level'+(i+1)));
 
-                } else {
-                    this.levelsList[i] = this.game.add.button(this.sprites['levelsHolder'].position.x + ((i+1) * 95), this.sprites['levelsHolder'].position.y + 130, 'unavailableLevel');
+                    this.levelsList[i] = this.game.add.button(this.sprites['levelsHolder'].position.x + ((i+1) * 95),
+                        this.sprites['levelsHolder'].position.y + 142, 'availableLevel', this.gui.startGame);
+
+                    for(let j = 0; j < score.numStars; j++){
+                        this.stars[j] = this.game.add.sprite(this.levelsList[i].position.x + 17 +(j*17),
+                            this.levelsList[i].position.y + 60, 'activeStar');
+                    }
+                    for(let j = score.numStars; j < 3; j++){
+                        this.stars[j] = this.game.add.sprite(this.levelsList[i].position.x + 17 +(j*17),
+                            this.levelsList[i].position.y + 60, 'inactiveStar');
+                    }
                 }
+                else {
 
-                
-                this.text = this.game.add.text(this.levelsList[i].centerX - 10, this.levelsList[i].centerY - 40, i+1, {font: "32px 'Carter One'",fill :"#fff"});
-                this.text.stroke = '#000';
-                this.text.strokeThickness = 6;
-            }
+                    if (nextLevelActiv){
+                        this.levelsList[i] = this.game.add.button(this.sprites['levelsHolder'].position.x + ((i+1) * 95),
+                            this.sprites['levelsHolder'].position.y + 142, 'availableLevel', this.gui.startGame);
+
+                        for(let j = 0; j < 3; j++){
+                            this.stars[j] = this.game.add.sprite(this.levelsList[i].position.x + 17 +(j*17),
+                                this.levelsList[i].position.y + 60, 'inactiveStar');
+                        }
+                    }
+                    else{
+                      this.levelsList[i] = this.game.add.button(this.sprites['levelsHolder'].position.x + ((i+1) * 95),
+                          this.sprites['levelsHolder'].position.y + 130, 'unavailableLevel');
+                    }
+                    nextLevelActiv=false;
+              }
+
+
+              this.text = this.game.add.text(this.levelsList[i].centerX - 10, this.levelsList[i].centerY - 40, i+1, {font: "32px 'Carter One'",fill :"#fff"});
+              this.text.stroke = '#000';
+              this.text.strokeThickness = 6;
+          }
 
             for( let i = 5; i < 10; i++){
-                if(this.gui.maxAvailableLevel >= i+1){ 
-                    this.levelsList[i] = this.game.add.button((this.sprites['levelsHolder'].position.x - 475) + ((i+1) * 95), this.sprites['levelsHolder'].position.y + 282, 'availableLevel', this.gui.startGame);
+                if(this.gui.maxAvailableLevel >= i+1){
+                    this.levelsList[i] = this.game.add.button((this.sprites['levelsHolder'].position.x - 475) + ((i+1) * 95), this.sprites['levelsHolder'].position.y + 282, 'availableLevel', this.startGame);
                 } else {
                     this.levelsList[i] = this.game.add.button((this.sprites['levelsHolder'].position.x - 475) + ((i+1) * 95), this.sprites['levelsHolder'].position.y + 270, 'unavailableLevel');
                 }
@@ -57,7 +75,9 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
                 this.text.strokeThickness = 6;
             }
         }
-
+        startGame(){
+            this.game.state.start("Level");
+        }
         update(){
             this.background.control();
         }

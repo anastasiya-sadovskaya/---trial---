@@ -14,8 +14,9 @@ define(function () {
             this.game.load.image('scoreButton', 'assets/scoreButton.png');
             this.game.load.image('title', 'assets/title.png');
 
-            //this.game.load.image('desert', 'assets/desert.png');
-            
+            this.game.load.image('score', 'assets/score.png');
+            this.game.load.image('scoreBackButton', 'assets/back.png');          
+            this.game.load.image('playerName', 'assets/playerName.png');       
 
             this.game.load.image('teamred', 'assets/teamred.png');
             this.game.load.image('cloud_1', 'assets/cloud_1.png');

@@ -43,6 +43,7 @@ define(['environment'], function (Environment) {
             this.dragon.children.forEach((item, index) => {
                 item.animations.add('fly', [1, 2, 3, 4]);
             });
+            this.game.zomdiesCount=this.sprite.children.length;
         }
         addCollide(object) {
             this.game.physics.arcade.collide(this.sprite, object, this.alert);

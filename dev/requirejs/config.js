@@ -13,6 +13,7 @@ requirejs.config({
         audio: 'dev/audio',
         environment: 'dev/environment',
         gui: 'dev/gui',
+        score: 'dev/Scenes/score'
     }
 });
 
