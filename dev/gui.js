@@ -41,13 +41,18 @@ define(function () {
         }
         selectProfile() {
             let name = prompt("New player?");
-            let player = JSON.parse(localStorage.getItem(name));
+            //let player = JSON.parse(localStorage.getItem(name));
+            let player = null;
             if (!player) {
                 localStorage.setItem(name, JSON.stringify({ 'name': name, 'score': 0, 'level': 1 }));
                 localStorage.setItem('defaultName', JSON.stringify(name));
                 this.game.playerName = name;
+                let player = JSON.parse(localStorage.getItem(name));
+                this.player = player;
             } else {
                 this.game.playerName = name;
+                let player = JSON.parse(localStorage.getItem(name));
+                this.player = player;
 
                 localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'score': 100, 'level': 1 }));
                 console.log(JSON.parse(localStorage.getItem(this.game.playerName)));
@@ -150,10 +155,12 @@ define(function () {
                 localStorage.setItem('Level' + this.LEVEL, JSON.stringify(obj));
             }
 
+            localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'score': currentScore, 'level': this.LEVEL + 1 }));
 
-            if (this.maxAvailableLevel == this.level.LEVEL) {
-                this.maxAvailableLevel = this.level.LEVEL + 1;
-            }
+
+            // if (this.maxAvailableLevel == this.level.LEVEL) {
+            //     this.maxAvailableLevel = this.level.LEVEL + 1;
+            // }
         }
         writeRes() {
             if (this.curentZKScore < this.game.score) {
