@@ -10,7 +10,7 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
 
             if (!this.game.audio)   this.game.audio = new Audio(this.game);
             this.background = new Background(this.game);
-            this.gui = new GUI(this.game);
+            this.gui = new GUI(this.game, this.game.LEVEL);
             this.gui.menu();
         }
         update(){

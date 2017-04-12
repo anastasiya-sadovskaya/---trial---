@@ -47,6 +47,7 @@ define(function () {
             this.game.physics.arcade.overlap(this.sprite, object, this.win, null, this);
         }
         control() {
+            if(!this.gui.warningStat){
             if (this.alive) {
                 //hero's moving with arrows and fire
                 this.sprite.body.velocity.x = 0;
@@ -73,7 +74,9 @@ define(function () {
 
                 if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
                     if (this.jump !== true || this.sprite.body.touching.down) {
-                        this.game.audio.jump.play();  // Audio of jump
+                        if(!this.game.muteStat){
+                            this.game.audio.jump.play();  // Audio of jump
+                        }
                         this.sprite.body.velocity.y = -700;
                         this.jump = true;
                     }
@@ -93,12 +96,16 @@ define(function () {
                 }
             }
         }
+        }
         fire() {
 
             //generating bullet after 275ms
             if (this.shotTimer < this.game.time.now) {
+                console.log(this.sprite.x - 600, this.sprite.y  - 266); // test
                 this.shotTimer = this.game.time.now + 275;
-                this.game.audio.fire.play();
+                if(!this.game.muteStat){
+                    this.game.audio.fire.play();
+                }
 
                 let bulletVelocity = 0, bulletX = 0, bulletY = 0;
                 if (this.sprite.scale.x > 0) {
@@ -117,7 +124,9 @@ define(function () {
             }
         }
         touchStar(player, star) {
-            this.game.audio.star.play(); // Audio pick up star
+            if(!this.game.muteStat){
+                this.game.audio.star.play(); // Audio pick up star
+            }
             star.kill();
             this.game.starsScoreNum++;
             this.gui.starsScoreText.setText(this.game.starsScoreNum.toString());
@@ -134,13 +143,18 @@ define(function () {
                 this.game.time.events.add(Phaser.Timer.SECOND * 2, () => { player.tint = 0xffffff }, this);
                 if (this.gui.heards.children.length > 1) {
                     this.gui.heards.removeChildAt(0);
-                    this.game.audio.hit.play(); // Audio when enemies hit the hero
+                    if(!this.game.muteStat){
+                        this.game.audio.hit.play(); // Audio when enemies hit the hero
+                    }
                 }
                 else {
                     this.alive = false;
                     this.game.audio.bgMusic.pause();
-                    this.game.audio.heroDeath.play();
-                    setTimeout(() => {this.game.audio.bgMusic.play();}, 1500);
+                    if(!this.game.muteStat){
+                        this.game.audio.heroDeath.play();
+                    }
+                    setTimeout(() => {if(!this.game.muteStat){
+                        this.game.audio.bgMusic.play();}}, 1500);
                     this.sprite.animations.play('die', 12, false);
                     this.game.time.events.add(Phaser.Timer.SECOND * 2, () => {
                         this.gui.heards.removeChildAt(0);

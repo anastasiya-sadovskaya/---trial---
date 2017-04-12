@@ -13,6 +13,10 @@ define(function () {
             this.game.load.image('inactiveStar', 'assets/inactiveStar.png');
             this.game.load.image('scoreButton', 'assets/scoreButton.png');
             this.game.load.image('title', 'assets/title.png');
+            this.game.load.image('panel', 'assets/panel.png');
+            this.game.load.image('warning', 'assets/warning.png');
+            this.game.load.image('muteBtn', 'assets/muteBtn.png');
+            this.game.load.image('ban', 'assets/ban.png');
 
             this.game.load.image('score', 'assets/score.png');
             this.game.load.image('scoreBackButton', 'assets/back.png');          

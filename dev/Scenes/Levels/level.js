@@ -2,13 +2,12 @@ define(['hero', 'zombies', 'background', 'environment', 'gui','win'], function (
     class Level {
         constructor() {
             this.sprites = {};
-            this.LEVEL = 1;
         }
         create() {
             this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
             //add all level objects here
-            this.game.LEVEL = this.LEVEL;
+            this.LEVEL = this.game.LEVEL;
             this.gui = new GUI(this.game, this.LEVEL);
             this.background = new Background(this.game);
             this.bullets = this.game.add.group();

@@ -50,27 +50,30 @@ define(['environment'], function (Environment) {
         }
         control() {
             this.sprite.children.forEach(item => {
-                this.game.physics.arcade.overlap(this.bullets, item, (item) => this.wound(item), null, this);
+            this.game.physics.arcade.overlap(this.bullets, item, (item) => this.wound(item), null, this);
 
-                if (!item.death) {
-                    // item.body.velocity.x = this.velocity;
-                    item.animations.play('walk', 12, false);
-                } else {
-                    if (item.death != '-1') {
-                        item.animations.play('death', 12, false);
-                        item.death = -1;
-                        this.bullets.children.length = 0;
-                        this.game.score++;
-                        this.text.setText('Zombies killed: ' + this.game.score);
-                    }
+            if (!item.death) {
+                // item.body.velocity.x = this.velocity;
+                item.animations.play('walk', 12, false);
+            } else {
+                if (item.death != '-1') {
+                    item.animations.play('death', 12, false);
+                    item.death = -1;
+                    this.bullets.children.length = 0;
+                    this.game.score++;
+                    this.text.setText('Zombies killed: ' + this.game.score);
                 }
-            });
-            //dragon
-            this.dragon.children.forEach(item => {
-                item.animations.play('fly', 8, false);
+            }
+        });
+        //dragon
+        this.dragon.children.forEach(item => {
+            item.animations.play('fly', 8, false);
+            if(!this.gui.warningStat){
                 item.x -= 3;
-                this.game.physics.arcade.overlap(this.bullets, item, (item) => item.kill(), null, this);
-            });
+            };
+            this.game.physics.arcade.overlap(this.bullets, item, (item) => item.kill(), null, this);
+        });
+            
         }
         changeDirection() {
             this.game.time.events.add(Phaser.Timer.SECOND / 2, this.changeDirection, this);
@@ -87,8 +90,9 @@ define(['environment'], function (Environment) {
         }
         wound(zombie) {
             if (zombie.death != -1) {
-
-                this.game.audio.zombieDeath.play(); // Audio when he die
+                if(!this.game.muteStat){
+                    this.game.audio.zombieDeath.play(); // Audio when he die
+                }
 
                 zombie.body.velocity.x = 0;
                 zombie.tint = 0xff00ff;
