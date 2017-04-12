@@ -10,7 +10,11 @@ define(function () {
             this.maxAvailableLevel = 1;
             this.curentZKScore = 0;
             this.curentSScore = 0;
+            this.playersCount = 0;
+            this.total = 0;
             //this.game.sound.mute = false;
+            this.currentTotal = 0;
+            this.players = [];
         }
         menu() {
 
@@ -39,11 +43,16 @@ define(function () {
             }
             this.muteBtn = this.game.add.button(1200,630, 'muteBtn', this.mute, this);
             this.muteBtn.fixedToCamera = true;
+            if(this.game.sound.mute){
+                this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.resumeAudio, this);
+                this.sprites['ban'].fixedToCamera = true;
+            }
 
             // this.text = this.game.add.text(32, 32, 'Use arrows to moving; F - fire', { fill: '#ffffff' });
         }
         selectProfile() {
             let name = prompt("New player?");
+            this.playersCount++;
             let player = JSON.parse(localStorage.getItem(name));
             if (!player) {
                 //let levelRes=[];
@@ -139,10 +148,21 @@ define(function () {
             this.sprites['score'] = this.game.add.sprite(this.centerX - 220, this.centerY - 350, 'score');
             this.sprites['scoreBackButton'] = this.game.add.button(this.centerX - 30, this.centerY + 190,
                 'scoreBackButton', this.goBack, this);
-            for (let i=0;i<localStorage.length;i++){
-                let key=localStorage.key(i);
-                console.log(key);
-            }
+            
+            
+
+            for (let i = 0; i < this.playersCount; i++){
+                 this.players.push(localStorage.getItem(localStorage.key(i)))
+            };
+
+            this.sprites['score']['text'] = this.game.add.text(500, 500, this.players[0], { fill: '#ffffff', font: 'bold 30px Skranji-Bold' });
+
+            //players.sort(function(a,b) {return (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0);} );
+
+            // for (let i=0;i<localStorage.length;i++){
+            //     let key=localStorage.key(i);
+            //     console.log(key);
+            // }
         }
         loadScore() {
             this.game.state.start("Score");
@@ -182,8 +202,9 @@ define(function () {
 
             //write to localStorage
             let currentScore = this.game.score * 5 + this.game.starsScoreNum;
+            this.total = JSON.parse(localStorage.getItem(this.game.playerName['total'])) || 0;
             this.bestScore = currentScore;
-
+            
             let numStars = 0;
             if (currentScore >= 0.75 * this.maxScore) {
                 numStars = 3;
@@ -200,18 +221,28 @@ define(function () {
                   let oldScore = currentUserResults['res'][this.LEVEL]['score'];
                   if (currentScore > oldScore) {
                       this.bestScore = currentScore;
+                      //if(this.total != 0){
+                      this.total = this.total - oldScore + this.bestScore;
+                     // } 
                       //rewrite
                       currentUserResults['res'][this.LEVEL]['score'] = currentScore;
                       currentUserResults['res'][this.LEVEL]['numStars'] = numStars;
+                      currentUserResults['total'] = this.total;
+
                       localStorage.setItem(this.game.playerName, JSON.stringify(currentUserResults));
                   }
                   else {
                       this.bestScore = currentUserResults['res'][this.LEVEL]['score'];
+                      this.total = currentUserResults['total'];
                   }
 
-              }
-              else {
+            //   } else if(currentUserResults['total']){
+            //         let oldTotal = currentUserResults['total'];
+              }else {
                   currentUserResults['res'][this.LEVEL]={'score': currentScore, 'numStars':numStars};
+                  this.total = JSON.parse(localStorage.getItem(this.game.playerName['total']));
+                  this.total += currentScore;
+                  currentUserResults['total'] = this.total;
                   localStorage.setItem(this.game.playerName, JSON.stringify(currentUserResults));
               }
 
@@ -219,9 +250,18 @@ define(function () {
             else{
               let levelRes=[];
               levelRes[this.LEVEL]={'score': currentScore, 'numStars':numStars};
-              localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'res': levelRes}));
+              let total = currentScore;
+              localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'res': levelRes, 'total': total}));
             }
 
+            // let curPlayer = JSON.parse(localStorage.getItem(this.game.playerName));
+            // var curTotal = 0;
+            // for (let key in curPlayer.res){
+            //     curTotal += curPlayer.key;
+            // }
+            // this.total = curTotal;
+            // curPlayer.total = this.total;
+            // localStorage.setItem(this.game.playerName, curPLayer);
 
             if (this.maxAvailableLevel == this.level.LEVEL) {
                 this.maxAvailableLevel = this.level.LEVEL + 1;

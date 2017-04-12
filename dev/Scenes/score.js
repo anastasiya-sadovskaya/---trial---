@@ -14,6 +14,20 @@ define(['gui', 'background'], function (GUI, Background) {
                 this.sprites['ban'].fixedToCamera = true;
             }
         }
+
+        mute(){
+            this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.resumeAudio, this);
+            this.sprites['ban'].fixedToCamera = true;
+            this.game.sound.mute = true;
+            //this.game.audio.jump.pause();
+            //this.game.audio.bgMusic.pause();
+        }
+
+        resumeAudio(){
+            this.sprites['ban'].kill();
+            this.game.sound.mute = false;
+        }
+        
         update(){
             this.background.control();
         }

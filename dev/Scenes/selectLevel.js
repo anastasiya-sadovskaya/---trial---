@@ -18,10 +18,10 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
             this.stars = [];
             this.levelsList.score = [0]; //Array of scores of every level
             let nextLevelActiv = true;
-            this.muteBtn = this.game.add.button(1200,630, 'muteBtn', this.gui.mute, this);
+            this.muteBtn = this.game.add.button(1200,630, 'muteBtn', this.mute, this);
             this.muteBtn.fixedToCamera = true;
             if(this.game.sound.mute){
-                this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.gui.resumeAudio, this);
+                this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.resumeAudio, this);
                 this.sprites['ban'].fixedToCamera = true;
             }
 
@@ -103,6 +103,20 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
                 this.text.strokeThickness = 6;
             }
         }
+
+        mute(){
+            this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.resumeAudio, this);
+            this.sprites['ban'].fixedToCamera = true;
+            this.game.sound.mute = true;
+            //this.game.audio.jump.pause();
+            //this.game.audio.bgMusic.pause();
+        }
+
+        resumeAudio(){
+            this.sprites['ban'].kill();
+            this.game.sound.mute = false;
+        }
+
         startGame() {
             this.game.state.start("Level");
         }
