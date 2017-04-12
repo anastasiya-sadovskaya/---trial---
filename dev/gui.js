@@ -153,9 +153,10 @@ define(function () {
 
             for (let i = 0; i < this.playersCount; i++){
                  this.players.push(localStorage.getItem(localStorage.key(i)))
+                 console.log(this.players);
             };
 
-            this.sprites.score.text = this.game.add.text(500, 500, 'this.players[0]', { fill: '#ffffff', font: 'bold 30px Skranji-Bold' });
+            this.sprites.score.text = this.game.add.text(500, 500, this.players[0], { fill: '#ffffff', font: 'bold 30px Skranji-Bold' });
 
             //players.sort(function(a,b) {return (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0);} );
 
@@ -186,6 +187,7 @@ define(function () {
             this.sprites['closeGame'] = this.game.add.button(690, 390, 'cancelButton', this.goBack, this);
         }
         winGame() {
+        
             this.game.world.setBounds(-300, 0, 1920, 720);
 
             this.sprites['winPanel'] = this.game.add.sprite(400, 90, 'winPanel');
@@ -254,18 +256,22 @@ define(function () {
               localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'res': levelRes, 'total': total}));
             }
 
-            this.curPlayer = JSON.parse(localStorage.getItem(this.game.playerName));
-            var curTotal = 0;
-            for (let key in this.curPlayer.res){
-                curTotal += this.curPlayer.key;
-            }
-            this.total = curTotal;
-            this.curPlayer.total = this.total;
-            localStorage.setItem(this.game.playerName, this.curPLayer);
+            
 
-            if (this.maxAvailableLevel == this.level.LEVEL) {
-                this.maxAvailableLevel = this.level.LEVEL + 1;
-            }
+            // this.curPlayer = JSON.parse(localStorage.getItem(this.game.playerName));
+            // if(this.curPlayer){
+            //     var curTotal = 0;
+            //     for (let key in this.curPlayer.res){
+            //         curTotal += this.curPlayer.key;
+            //     }
+            //     this.total = curTotal;
+            //     this.curPlayer.total = this.total;
+            //     localStorage.setItem(this.game.playerName, this.curPLayer);
+
+            //     if (this.maxAvailableLevel == this.level.LEVEL) {
+            //         this.maxAvailableLevel = this.level.LEVEL + 1;
+            //     }
+            // }
         }
         writeRes() {
             if (this.curentZKScore < this.game.score) {
