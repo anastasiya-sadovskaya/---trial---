@@ -18,6 +18,12 @@ define(['gui', 'background', 'audio'], function (GUI, Background, Audio) {
             this.stars = [];
             this.levelsList.score = [0]; //Array of scores of every level
             let nextLevelActiv = true;
+            this.muteBtn = this.game.add.button(1200,630, 'muteBtn', this.gui.mute, this);
+            this.muteBtn.fixedToCamera = true;
+            if(this.game.sound.mute){
+                this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.gui.resumeAudio, this);
+                this.sprites['ban'].fixedToCamera = true;
+            }
 
             for (let i = 0; i < 5; i++) {
                 if (localStorage.getItem(this.game.playerName)) {

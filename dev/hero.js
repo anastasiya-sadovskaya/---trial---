@@ -74,7 +74,7 @@ define(function () {
 
                 if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
                     if (this.jump !== true || this.sprite.body.touching.down) {
-                        if(!this.game.muteStat){
+                        if(!this.game.sound.mute){
                             this.game.audio.jump.play();  // Audio of jump
                         }
                         this.sprite.body.velocity.y = -700;
@@ -103,7 +103,7 @@ define(function () {
             if (this.shotTimer < this.game.time.now) {
                 console.log(this.sprite.x - 600, this.sprite.y  - 266); // test
                 this.shotTimer = this.game.time.now + 275;
-                if(!this.game.muteStat){
+                if(!this.game.sound.mute){
                     this.game.audio.fire.play();
                 }
 
@@ -124,7 +124,7 @@ define(function () {
             }
         }
         touchStar(player, star) {
-            if(!this.game.muteStat){
+            if(!this.game.sound.mute){
                 this.game.audio.star.play(); // Audio pick up star
             }
             star.kill();
@@ -143,17 +143,17 @@ define(function () {
                 this.game.time.events.add(Phaser.Timer.SECOND * 2, () => { player.tint = 0xffffff }, this);
                 if (this.gui.heards.children.length > 1) {
                     this.gui.heards.removeChildAt(0);
-                    if(!this.game.muteStat){
+                    if(!this.game.sound.mute){
                         this.game.audio.hit.play(); // Audio when enemies hit the hero
                     }
                 }
                 else {
                     this.alive = false;
                     this.game.audio.bgMusic.pause();
-                    if(!this.game.muteStat){
+                    if(!this.game.sound.mute){
                         this.game.audio.heroDeath.play();
                     }
-                    setTimeout(() => {if(!this.game.muteStat){
+                    setTimeout(() => {if(!this.game.sound.mute){
                         this.game.audio.bgMusic.play();}}, 1500);
                     this.sprite.animations.play('die', 12, false);
                     this.game.time.events.add(Phaser.Timer.SECOND * 2, () => {

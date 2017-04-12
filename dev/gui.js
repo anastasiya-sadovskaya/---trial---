@@ -10,7 +10,7 @@ define(function () {
             this.maxAvailableLevel = 1;
             this.curentZKScore = 0;
             this.curentSScore = 0;
-            this.game.muteStat = false;
+            //this.game.sound.mute = false;
         }
         menu() {
 
@@ -86,6 +86,10 @@ define(function () {
             this.starsScoreText.fixedToCamera = true;
             this.muteBtn = this.game.add.button(1200,630, 'muteBtn', this.mute, this);
             this.muteBtn.fixedToCamera = true;
+            if(this.game.sound.mute){
+                this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.resumeAudio, this);
+                this.sprites['ban'].fixedToCamera = true;
+            }
         }
 
         warning(){
@@ -109,15 +113,14 @@ define(function () {
         mute(){
             this.sprites['ban'] = this.game.add.button(1200,625, 'ban', this.resumeAudio, this);
             this.sprites['ban'].fixedToCamera = true;
-            this.game.muteStat = true;
-            this.game.audio.jump.pause();
-            this.game.audio.bgMusic.pause();
+            this.game.sound.mute = true;
+            //this.game.audio.jump.pause();
+            //this.game.audio.bgMusic.pause();
         }
 
         resumeAudio(){
             this.sprites['ban'].kill();
-            this.game.muteStat = false;
-            this.game.audio.bgMusic.resume();
+            this.game.sound.mute = false;
         }
 
         goBack() {

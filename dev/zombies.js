@@ -90,7 +90,7 @@ define(['environment'], function (Environment) {
         }
         wound(zombie) {
             if (zombie.death != -1) {
-                if(!this.game.muteStat){
+                if(!this.game.sound.mute){
                     this.game.audio.zombieDeath.play(); // Audio when he die
                 }
 
