@@ -155,7 +155,7 @@ define(function () {
                  this.players.push(localStorage.getItem(localStorage.key(i)))
             };
 
-            this.sprites['score']['text'] = this.game.add.text(500, 500, this.players[0], { fill: '#ffffff', font: 'bold 30px Skranji-Bold' });
+            this.sprites.score.text = this.game.add.text(500, 500, 'this.players[0]', { fill: '#ffffff', font: 'bold 30px Skranji-Bold' });
 
             //players.sort(function(a,b) {return (a.last_nom > b.last_nom) ? 1 : ((b.last_nom > a.last_nom) ? -1 : 0);} );
 
