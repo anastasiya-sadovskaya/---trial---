@@ -254,14 +254,14 @@ define(function () {
               localStorage.setItem(this.game.playerName, JSON.stringify({ 'name': this.game.playerName, 'res': levelRes, 'total': total}));
             }
 
-            // let curPlayer = JSON.parse(localStorage.getItem(this.game.playerName));
-            // var curTotal = 0;
-            // for (let key in curPlayer.res){
-            //     curTotal += curPlayer.key;
-            // }
-            // this.total = curTotal;
-            // curPlayer.total = this.total;
-            // localStorage.setItem(this.game.playerName, curPLayer);
+            this.curPlayer = JSON.parse(localStorage.getItem(this.game.playerName));
+            var curTotal = 0;
+            for (let key in this.curPlayer.res){
+                curTotal += this.curPlayer.key;
+            }
+            this.total = curTotal;
+            this.curPlayer.total = this.total;
+            localStorage.setItem(this.game.playerName, this.curPLayer);
 
             if (this.maxAvailableLevel == this.level.LEVEL) {
                 this.maxAvailableLevel = this.level.LEVEL + 1;
