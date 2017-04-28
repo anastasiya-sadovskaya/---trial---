@@ -1,37 +1,26 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
-    <title>Gunman</title>
-    <style>
-        @font-face {
-            font-family: "Skranji-Bold";
-            src: url("fonts/Skranji/Skranji-Bold.ttf");
-        }
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0 auto;
-            padding: 0;
-            background: #000;
-        }
-
-        #loading {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            margin: 200px 0;
-            text-align: center;
-            color: #fff;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>CSS frameworks</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div id='loading'>
-        <h1>Game will soon start. Pleas wait...</h1>
+    <div class="container-flue">
+        <div class="container wrapper">
+            <header class="navbar navbar-default ">
+                <div class="container">
+                    <a class = 'logo' href = 'index.html'>
+                        <img src = 'img/logo.png'>
+                    </a>
+
+                    <ul class="nav navbar-nav">
+                        <li>Home</li>
+                    </ul>
+                </div>
+            </header>
+        </div>
     </div>
-    <script src="dev/Phaser/phaser.js"></script>
-    <script data-main="dev/requirejs/config" src="dev/requirejs/require.js"></script>
 </body>
 </html>
