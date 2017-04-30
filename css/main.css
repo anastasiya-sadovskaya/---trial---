@@ -23,5 +23,9 @@
 }
 
 .nav{
-    margin-left: 50px;
+    margin-left: 74px;
+}
+
+.navbar-nav li  a{
+    padding:52px 42px 48px 0;
 }
