@@ -1,5 +1,6 @@
-class VideoNode{
+class VideoNode extends Element{
     constructor(obj){
-        var node = new Element('img', SearchResultsContainer, {'src':obj.snippet.thumbnails.high.url})
+        super('img', SearchResultsContainer, {'src':obj.snippet.thumbnails.high.url})
+        var node = new Element('img', SearchResultsContainer, {'src':obj.snippet.thumbnails.high.url});
     }
 }
