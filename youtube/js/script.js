@@ -1,11 +1,20 @@
+var components = {};
+components.videoNodes = [];
+components.pageControllers = [];
 var body = document.body;
 var screenWidth = body.offsetWidth;
-body.onresize = function(){ screenWidth = body.offsetWidth; };
+var videosOnPage = Math.floor(screenWidth / 400);
+var marginsWidth = screenWidth - (400 * videosOnPage);
+var margin = marginsWidth / (videosOnPage * 2);
+
+body.onresize = function(){ 
+                            screenWidth = body.offsetWidth;
+                            videosOnPage = Math.floor(screenWidth / 400); 
+                            marginsWidth = screenWidth - (400 * videosOnPage);              
+                         };
 
 var input = ElementFactory.create('input', {type: 'text', class: 'input', id:'query', autofocus:''});
 var searchButton = ElementFactory.create('button', {class: 'search'}, {innerHTML: 'Search', onclick: searchFunc})
-
-
 
 function searchFunc(){
     return new Promise(function(resolve, reject) {
@@ -29,25 +38,16 @@ function searchFunc(){
             console.log(response);
             obj = response;
             videoArr = response.items;
+            body.style.display = 'block';
             renderPreviews();
         });
 };
 
-
-
-
-
-// var input = new Element('input', document.body, {'type': 'text', class: 'input', id:'query'});
-// var searchButton = new Element('button', document.body, {class: 'search'}, {innerHTML: 'Search', onclick: searchFunc});
-
-
 function renderPreviews(){
     var list = new SearchResult;
-    console.log(list);
-    console.log(list.videosOnPage);
-    console.log(list.page);
-    list.pageLeft(3);
-    console.log(list.page);
+    for(var i = 0; i < videoArr.length; i++) {
+        let videoNode = new VideoNode(videoArr[i]);
+    }  
 }
 
 

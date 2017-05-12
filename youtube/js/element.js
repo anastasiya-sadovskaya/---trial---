@@ -20,7 +20,7 @@
 
 window.ElementFactory = (function(...args){
     return {
-        create:  function(tagName, attrs, props, parent){
+        create:  function(tagName, attrs, props, styles, parent){
             var element = document.createElement(tagName);
 
         for(var attr in attrs){
@@ -28,6 +28,7 @@ window.ElementFactory = (function(...args){
         }
 
         Object.assign(element, props);
+        Object.assign(element.style, styles);
 
         if(!parent){
             document.body.appendChild(element);

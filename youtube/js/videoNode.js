@@ -1,6 +1,11 @@
-class VideoNode extends Element{
+class VideoNode{
     constructor(obj){
-        super('img', SearchResultsContainer, {'src':obj.snippet.thumbnails.high.url})
-        var node = new Element('img', SearchResultsContainer, {'src':obj.snippet.thumbnails.high.url});
+        components.videoNodes.push(this);
+
+        this.DOMElement = ElementFactory.create('div', {class: 'videoNode'}, { style:{margin:`${margin}px`}, innerHTML: 'Hello' }, components.searchResult.DOMElement);
+        ElementFactory.create('span', {class: 'title'}, {innerHTML: obj.snippet.title}, this.DOMElement);
+        ElementFactory.create('img', {'src':obj.snippet.thumbnails.high.url}, {}, this.DOMElement);
     }
+
+
 }

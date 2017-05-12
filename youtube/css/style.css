@@ -66,6 +66,24 @@ img{
 
 .resultList{
     background: red;
-    width: 150px;
+    width: 7150px;
     height: 300px;
+}
+
+.videoNode{
+    width:400px;
+    height:90%;
+    /*background: green;*/
+    display: inline-block;
+    border: solid 2px #485784;
+    
+}
+
+.controller{
+    position: fixed;
+
+    width:20px;
+    height:20px;
+    color: #fff;
+    background: #fa7355;
 }
