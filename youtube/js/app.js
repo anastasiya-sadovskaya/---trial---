@@ -75,8 +75,6 @@ function onSearchSuccessCallback() {
         components.searchResult.remove();
     }
     YouTubeApiClient.search(function (response) {
-        nextPageToken = response.nextPageToken;
-        videoArr = response.items;
         body.style.display = 'block';
         renderPreviews();
     });

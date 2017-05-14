@@ -18,7 +18,23 @@ class VideoNode{
         ElementFactory.render(this.title, this.DOMElement);
         ElementFactory.render(this.image, this.DOMElement);
         this.rendered = true;
-        
+
+        this.image.onmousedown = function (event) {
+            event.preventDefault();
+            self.screenX = event.screenX;
+            self.screenY = event.screenY;
+        }
+
+        this.image.onmouseup = function (event) {
+            var delta = self.screenX - event.screenX;
+            if (delta < 0 && delta < -self.swipeLength) {
+                self.prevPage();
+            }
+
+            if (delta > 0 && delta > self.swipeLength) {
+                self.nextPage();
+            }
+        }
     }
     
     setMargin(margin){

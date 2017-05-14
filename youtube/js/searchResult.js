@@ -11,13 +11,14 @@ class SearchResult {
         self.page = 1;
         self.videosOnPageNumber = null;
         self.prevVideosOnPageNumber = null;
+        self.swipeLength = 50;
 
         components.searchResult = this;
     }
 
     create() {
         this.DOMElement = ElementFactory.create('div', { class: 'resultList' }, {});
-        
+
         self.createNodes();
 
         for (let i = 0; i < videoArr.length; i++) {
@@ -48,10 +49,25 @@ class SearchResult {
         this.setWidth(width);
 
         body.appendChild(this.DOMElement);
-        //ElementFactory.render(this.DOMElement);
+
+        self.DOMElement.onmousedown = function (event) {
+            self.screenX = event.screenX;
+            self.screenY = event.screenY;
+        }
+
+        self.DOMElement.onmouseup = function (event) {
+            var delta = self.screenX - event.screenX;
+            if (delta < 0 && delta < -self.swipeLength) {
+                self.prevPage();
+            }
+
+            if (delta > 0 && delta > self.swipeLength) {
+                self.nextPage();
+            }
+        }
     }
 
-    createNodes(){
+    createNodes() {
         for (let i = 0; i < videoArr.length; i++) {
             var videoNode = new VideoNode(window.videoNodeWidth);
             self.videoNodes.push(videoNode);
@@ -77,7 +93,7 @@ class SearchResult {
     }
 
     videosOnPage() {
-        if(this.videosOnPageNumber == null) {
+        if (this.videosOnPageNumber == null) {
             this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width)
             this.prevVideosOnPageNumber = this.videosOnPageNumber;
         }
@@ -88,14 +104,14 @@ class SearchResult {
     }
 
     setPage(pageNum) {
-        
+
         self.page = pageNum;
         self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * screenWidth}px)`;
         self.calcLoadPage();
 
         if (self.page <= 1) {
             self.buttons[0].DOMElement.style.opacity = '0';
-            for(let i = 1; i < 4; i++){
+            for (let i = 1; i < 4; i++) {
                 self.buttons[i].DOMElement.innerHTML = i;
             }
         } else {
@@ -114,10 +130,9 @@ class SearchResult {
         self.onPageSet();
     }
 
-    onPageSet(){
-        if(self.page === self.pageForLoad){
-            YouTubeApiClient.search(function(response){
-                nextPageToken = response.nextPageToken;
+    onPageSet() {
+        if (self.page === self.pageForLoad) {
+            YouTubeApiClient.search(function (response) {
                 videoArr = response.items;
                 self.createNodes();
 
@@ -133,10 +148,10 @@ class SearchResult {
         }
     }
 
-    calcLoadPage(){
+    calcLoadPage() {
         self.pageForLoad;
         var tempPageForLoad = components.videoNodes.length / self.videosOnPage();
-        if(Number.isInteger(tempPageForLoad)){
+        if (Number.isInteger(tempPageForLoad)) {
             self.pageForLoad = tempPageForLoad + 1;
         } else {
             self.pageForLoad = Math.ceil(tempPageForLoad);
@@ -157,8 +172,8 @@ class SearchResult {
 
     renderNewVideos() {
     }
-   
-    remove(){
+
+    remove() {
         components.searchResult = null;
         components.videoNodes = [];
         nextPageToken = null;
@@ -166,7 +181,7 @@ class SearchResult {
 
         self.DOMElement.parentNode.removeChild(self.DOMElement);
         for (var i = 0; i < self.buttons.length; i++) {
-            body.removeChild(self.buttons[i].DOMElement);         
+            body.removeChild(self.buttons[i].DOMElement);
         }
     }
 }
