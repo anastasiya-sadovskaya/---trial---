@@ -76,14 +76,19 @@ img{
     /*background: green;*/
     display: inline-block;
     border: solid 2px #485784;
+    box-sizing: border-box;
     
 }
 
-.controller{
-    position: fixed;
+.pageController{
+    /*position: fixed;*/
 
-    width:20px;
+    width:60px;
     height:20px;
     color: #fff;
     background: #fa7355;
+}
+
+.pageController.active{
+    background: green;
 }
