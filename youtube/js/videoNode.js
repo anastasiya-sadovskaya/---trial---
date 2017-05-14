@@ -1,9 +1,11 @@
 class VideoNode{
-    constructor(){
+    constructor(width){
         components.videoNodes.push(this);
         this.margin = 0;
-        this.width = 400;
+        this.width = width;
+        this.rendered = false;
     }
+    
     create(responseItem){
         this.DOMElement = ElementFactory.create('div', this.getContainerAttributes(), this.getContainerProperties());
         this.title = ElementFactory.create('span', {class: 'title'}, {innerHTML: responseItem.snippet.title});
@@ -15,11 +17,12 @@ class VideoNode{
         ElementFactory.render(this.DOMElement, components.searchResult.DOMElement);
         ElementFactory.render(this.title, this.DOMElement);
         ElementFactory.render(this.image, this.DOMElement);
+        this.rendered = true;
         
     }
     
-    setMargin(){
-        this.margin = ((screenWidth - (this.width * components.searchResult.videosOnPage())) / (components.searchResult.videosOnPage() * 2));
+    setMargin(margin){
+        this.margin = margin;
         this.DOMElement.style.marginLeft = `${this.margin}px`;
         this.DOMElement.style.marginRight = `${this.margin}px`;
     }
