@@ -6,7 +6,7 @@ class Button{
 
     create(){
         this.DOMElement = ElementFactory.create('button', {class: this.className});
-        body.appendChild(this.DOMElement);
+        components.searchResult.controllers.appendChild(this.DOMElement);
     }
 
     setActive(value){

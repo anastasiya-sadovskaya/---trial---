@@ -19,22 +19,54 @@ class VideoNode{
         ElementFactory.render(this.image, this.DOMElement);
         this.rendered = true;
 
-        this.image.onmousedown = function (event) {
-            event.preventDefault();
-            self.screenX = event.screenX;
-            self.screenY = event.screenY;
-        }
+        // self.DOMElement.onmousedown = function (event) {
+        //     self.screenX = event.screenX;
+        //     self.screenY = event.screenY;
+        // }
 
-        this.image.onmouseup = function (event) {
-            var delta = self.screenX - event.screenX;
-            if (delta < 0 && delta < -self.swipeLength) {
-                self.prevPage();
-            }
+        // self.DOMElement.onmouseup = function (event) {
+        //     var delta = self.screenX - event.screenX;
+        //     if (delta < 0 && delta < -self.swipeLength) {
+        //         if(self.page > 1){
+        //             self.prevPage();
+        //         }
+        //     }
 
-            if (delta > 0 && delta > self.swipeLength) {
-                self.nextPage();
-            }
-        }
+        //     if (delta > 0 && delta > self.swipeLength) {
+        //         self.nextPage();
+        //     }
+        // }
+
+
+
+//         var container = self.DOMElement;//document.getElementById('resultList');//self.DOMElement;        //
+// container.ondragstart = function() {
+//   return false;
+// };
+// container.onmousedown = function(e){
+//     container.style.position = 'absolute';
+//     moveAt(e);
+
+ 
+
+//     function moveAt(e){
+//         container.style.left = e.pageX - container.offsetWidth / 2 + 'px';
+//         //container.style.top = e.pageY ;//- container.offsetHeight / 2 + 'px';
+//     };
+
+//     document.onmousemove = function(e) {
+//         moveAt(e);
+//     }
+
+//     document.body.onmouseup = function() {
+//         document.onmousemove = null;
+//         //container.onmouseup = null;
+//     }
+// }
+
+
+
+
     }
     
     setMargin(margin){

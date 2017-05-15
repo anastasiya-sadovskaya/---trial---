@@ -4,25 +4,22 @@ components.pageControllers = [];
 var body = document.body;
 var screenWidth = body.offsetWidth;
 var videoNodeWidth = 400;
-//var youtubeResponse = null;
 var nextPageToken = null;
-// var videosOnPage = Math.floor(screenWidth / 400);
-// var marginsWidth = screenWidth - (400 * videosOnPage);
-// var margin = marginsWidth / (videosOnPage * 2);
 
 body.onresize = function () {
     screenWidth = body.offsetWidth;
+    if(components.searchResult){
+        var videosOnPage = components.searchResult.videosOnPage();
 
-    var videosOnPage = components.searchResult.videosOnPage();
+        let margin = ((screenWidth - (videoNodeWidth * videosOnPage)) / (videosOnPage * 2));
+        components.searchResult.setMargin(margin);
 
-    let margin = ((screenWidth - (videoNodeWidth * videosOnPage)) / (videosOnPage * 2));
-    components.searchResult.setMargin(margin);
+        let width = (components.searchResult.videoNodes.length * videoNodeWidth) + (components.searchResult.videoNodes.length * margin * 2);
+        components.searchResult.setWidth(width);
 
-    let width = (components.searchResult.videoNodes.length * videoNodeWidth) + (components.searchResult.videoNodes.length * margin * 2);
-    components.searchResult.setWidth(width);
-
-    var page = Math.ceil(((components.searchResult.page - 1) * components.searchResult.prevVideosOnPageNumber + 1) / videosOnPage);
-    components.searchResult.setPage(page);
+        var page = Math.ceil(((components.searchResult.page - 1) * components.searchResult.prevVideosOnPageNumber + 1) / videosOnPage);
+        components.searchResult.setPage(page);
+    }
 };
 
 var input = ElementFactory.create('input', { type: 'text', class: 'input', id: 'query', autofocus: '' });

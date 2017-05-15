@@ -92,3 +92,8 @@ img{
 .pageController.active{
     background: green;
 }
+
+.controllers{
+    position: absolute;
+    bottom: 0;
+}

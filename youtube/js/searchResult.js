@@ -11,13 +11,13 @@ class SearchResult {
         self.page = 1;
         self.videosOnPageNumber = null;
         self.prevVideosOnPageNumber = null;
-        self.swipeLength = 50;
+        self.swipeLength = 100;
 
         components.searchResult = this;
     }
 
     create() {
-        this.DOMElement = ElementFactory.create('div', { class: 'resultList' }, {});
+        this.DOMElement = ElementFactory.create('div', { class: 'resultList' });
 
         self.createNodes();
 
@@ -26,6 +26,33 @@ class SearchResult {
         }
         this.buttons = [];
 
+        // self.controllers = ElementFactory.create('div', { class: 'controllers' }, {style: {background: 'red'}});
+        // body.appendChild(self.controllers);
+        // for (let i = 0; i < 5; i++) {
+        //     this.buttons.push(new Button);
+        //     this.buttons[i].create();
+        //     if (i > 0 && i < 4) {
+        //         this.buttons[i].DOMElement.innerHTML = i;
+        //         this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
+        //     }
+        // }
+
+        // this.buttons[0].DOMElement.innerHTML = 'Prev';
+        // this.buttons[0].DOMElement.onclick = self.prevPage;
+        // this.buttons[4].DOMElement.innerHTML = 'Next';
+        // this.buttons[4].DOMElement.onclick = self.nextPage;
+        // self.setPage(1);
+
+        let countOfVideos = this.videosOnPage();
+        let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+        this.setMargin(margin);
+
+        let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
+        this.setWidth(width);
+
+        body.appendChild(self.DOMElement);
+        self.controllers = ElementFactory.create('div', { class: 'controllers' }, {style: {background: 'red'}});
+        body.appendChild(self.controllers);
         for (let i = 0; i < 5; i++) {
             this.buttons.push(new Button);
             this.buttons[i].create();
@@ -41,31 +68,85 @@ class SearchResult {
         this.buttons[4].DOMElement.onclick = self.nextPage;
         self.setPage(1);
 
-        let countOfVideos = this.videosOnPage();
-        let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
-        this.setMargin(margin);
+        
+                                    var list = self.DOMElement;
+                                    list.onmousedown = function(e) {
+                                    var coords = getCoords(list);
+                                    var shiftX = e.pageX - coords.left;
+                                    self.screenX = event.screenX;
 
-        let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
-        this.setWidth(width);
+                                    list.style.position = 'relative';
+                                    moveAt(e);
 
-        body.appendChild(this.DOMElement);
+                                    function moveAt(e) {
+                                        list.style.transform = `translate(${e.pageX - shiftX}px)`;
+                                        self.deltaTranslate = e.pageX - shiftX;
+                                    }
 
-        self.DOMElement.onmousedown = function (event) {
-            self.screenX = event.screenX;
-            self.screenY = event.screenY;
-        }
+                                    document.onmousemove = function(e) {
+                                        moveAt(e);
+                                    };
 
-        self.DOMElement.onmouseup = function (event) {
-            var delta = self.screenX - event.screenX;
-            if (delta < 0 && delta < -self.swipeLength) {
-                self.prevPage();
-            }
+                                    list.onmouseup = function() {
+                                        document.onmousemove = document.onmouseup = null;
+                                        list.onmouseup = list.onmousemove = null;
+                                        var delta = self.screenX - event.screenX;
+                                        if (delta < 0){ 
+                                            if(self.page > 1){
+                                                if( delta < -self.swipeLength) {
+                                                
+                                                    self.prevPage();
+                                                }
+                                            } else {
+                                                list.style.transform = `translate(${self.currentTranslate}px)`;
+                                                
+                                            }
+                                        }
 
-            if (delta > 0 && delta > self.swipeLength) {
-                self.nextPage();
-            }
-        }
+                                        if (delta > 0){
+                                            if(delta > self.swipeLength) {
+                                                self.nextPage();
+                                            } else {
+                                                list.style.transform = `translate(${self.currentTranslate}px)`;
+                                            }
+                                        }
+                                    };
+
+                                    function getCoords(elem) {
+                                        var box = elem.getBoundingClientRect();
+
+                                        return {
+                                            left: box.left + pageXOffset
+                                        };
+
+                                        }
+                                    return false;
+                                    }
+
+                                    list.ondragstart = function() {
+                                    return false;
+                                    };
+
+
+        // self.DOMElement.onmousedown = function (event) {
+        //     self.screenX = event.screenX;
+        //     self.screenY = event.screenY;
+        // }
+
+        // self.DOMElement.onmouseup = function (event) {
+        //     var delta = self.screenX - event.screenX;
+        //     if (delta < 0 && delta < -self.swipeLength) {
+        //         if(self.page > 1){
+        //             self.prevPage();
+        //         }
+        //     }
+
+        //     if (delta > 0 && delta > self.swipeLength) {
+        //         self.nextPage();
+        //     }
+        // }
     }
+
 
     createNodes() {
         for (let i = 0; i < videoArr.length; i++) {
@@ -106,16 +187,20 @@ class SearchResult {
     setPage(pageNum) {
 
         self.page = pageNum;
+        self.DOMElement.style.left = '0px';
         self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * screenWidth}px)`;
+        self.currentTranslate = -((pageNum - 1) * screenWidth);
         self.calcLoadPage();
 
         if (self.page <= 1) {
             self.buttons[0].DOMElement.style.opacity = '0';
+            self.buttons[0].DOMElement.onclick = 'none';
             for (let i = 1; i < 4; i++) {
                 self.buttons[i].DOMElement.innerHTML = i;
             }
         } else {
             self.buttons[0].DOMElement.style.opacity = '1';
+            this.buttons[0].DOMElement.onclick = self.prevPage;
             for (var key in self.pageFunctions) {
                 this.buttons[key].DOMElement.innerHTML = self.pageFunctions[key](self.page);
             }
@@ -174,14 +259,11 @@ class SearchResult {
     }
 
     remove() {
-        components.searchResult = null;
+        body.removeChild(components.searchResult.controllers);
         components.videoNodes = [];
         nextPageToken = null;
         videoArr = [];
-
         self.DOMElement.parentNode.removeChild(self.DOMElement);
-        for (var i = 0; i < self.buttons.length; i++) {
-            body.removeChild(self.buttons[i].DOMElement);
-        }
+        components.searchResult = null;
     }
 }
