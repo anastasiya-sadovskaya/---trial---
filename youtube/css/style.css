@@ -68,6 +68,13 @@ img{
     background: red;
     width: 7150px;
     height: 300px;
+    transform: translate(0);
+    /*transition: transform 1s;*/
+}
+
+.animated{
+    transform: translate(0);
+    transition: transform 1s;
 }
 
 .videoNode{

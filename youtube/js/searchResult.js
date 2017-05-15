@@ -79,6 +79,7 @@ class SearchResult {
                                     moveAt(e);
 
                                     function moveAt(e) {
+                                        list.style.transition = 'none';
                                         list.style.transform = `translate(${e.pageX - shiftX}px)`;
                                         self.deltaTranslate = e.pageX - shiftX;
                                     }
@@ -88,15 +89,18 @@ class SearchResult {
                                     };
 
                                     list.onmouseup = function() {
+                                        list.style.transition = 'transform 1s';
                                         document.onmousemove = document.onmouseup = null;
                                         list.onmouseup = list.onmousemove = null;
                                         var delta = self.screenX - event.screenX;
-                                        if (delta < 0){ 
-                                            if(self.page > 1){
-                                                if( delta < -self.swipeLength) {
+                                        if (delta < 0){
+                                            if( delta < -self.swipeLength) {
+                                                if(self.page > 1){
                                                 
                                                     self.prevPage();
-                                                }
+                                                } else {
+                                                    list.style.transform = `translate(${self.currentTranslate}px)`;
+                                                } 
                                             } else {
                                                 list.style.transform = `translate(${self.currentTranslate}px)`;
                                                 
@@ -185,10 +189,12 @@ class SearchResult {
     }
 
     setPage(pageNum) {
-
+        //var currentClassName = self.DOMElement.className;
+        //self.DOMElement.className += ' animated';
         self.page = pageNum;
         self.DOMElement.style.left = '0px';
         self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * screenWidth}px)`;
+        //self.DOMElement.className = currentClassName;
         self.currentTranslate = -((pageNum - 1) * screenWidth);
         self.calcLoadPage();
 
