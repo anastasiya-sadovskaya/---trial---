@@ -16,11 +16,6 @@ body{
     overflow: hidden;
 }
 
-@media (max-width: 767px) {
-   body {
-        position:fixed;
-   }
-}
 
 #query{
     width: 500px;
@@ -55,15 +50,10 @@ body{
 img{
     display: inline-block;
     width: 360px;
-    height: 240px;
+    height: auto;
+    max-width: 100%;
 }
 
-.video-list{
-    height: 240px;
-    width: 7000px;
-    position: absolute;
-    left: 0;
-}
 
 .full-width{
     width:100%;
@@ -71,7 +61,7 @@ img{
 }
 
 .resultList{
-    background: red;
+    background: #795548;
     width: 7150px;
     height: 300px;
     transform: translate(0);
@@ -84,7 +74,7 @@ img{
 }
 
 .videoNode{
-    width:400px;
+    /*width:400px;*/
     height:90%;
     /*background: green;*/
     display: inline-block;
@@ -109,4 +99,14 @@ img{
 .controllers{
     position: absolute;
     bottom: 0;
+}
+
+@media (max-width: 767px) {
+   body {
+        position:fixed;
+   }
+
+   /*.videoNode{
+       width:100%;
+   }*/
 }

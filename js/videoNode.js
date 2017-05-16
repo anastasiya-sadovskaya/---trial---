@@ -2,7 +2,9 @@ class VideoNode{
     constructor(width){
         components.videoNodes.push(this);
         this.margin = 0;
-        this.width = width;
+        videoNodeWidth = width;
+        this.width = videoNodeWidth;
+        
         this.rendered = false;
     }
     
@@ -80,6 +82,6 @@ class VideoNode{
     }
 
     getContainerProperties(){
-        return { style:{margin:'0'}};
+        return { style:{margin:'0', width: `${this.width}px`}};
     }
 }

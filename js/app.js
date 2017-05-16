@@ -8,9 +8,19 @@ var nextPageToken = null;
 
 body.onresize = function () {
     screenWidth = body.offsetWidth;
+    if(screenWidth < 400){
+        videoNodeWidth = screenWidth;
+    } else {
+        videoNodeWidth = components.videoNodes[0].width;
+    }
+    components.videoNodes.map(function(el){el.DOMElement.style.width = `${videoNodeWidth}px`});
     if(components.searchResult){
-        var videosOnPage = components.searchResult.videosOnPage();
-
+        var videosOnPage;
+        if(screenWidth < 400){
+            videosOnPage = 1;
+        } else {
+            videosOnPage = components.searchResult.videosOnPage();
+        }
         let margin = ((screenWidth - (videoNodeWidth * videosOnPage)) / (videosOnPage * 2));
         components.searchResult.setMargin(margin);
 

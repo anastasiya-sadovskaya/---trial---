@@ -18,9 +18,11 @@ class SearchResult {
 
     create() {
         this.DOMElement = ElementFactory.create('div', { class: 'resultList' });
-
-        self.createNodes();
-
+        if(screenWidth < 400){
+            self.createNodes(screenWidth);
+        } else {
+            self.createNodes(400);
+        }
         for (let i = 0; i < videoArr.length; i++) {
             self.videoNodes[i].render();
         }
@@ -152,9 +154,9 @@ class SearchResult {
     }
 
 
-    createNodes() {
+    createNodes(width) {
         for (let i = 0; i < videoArr.length; i++) {
-            var videoNode = new VideoNode(window.videoNodeWidth);
+            var videoNode = new VideoNode(width);
             self.videoNodes.push(videoNode);
             videoNode.create(videoArr[i]);
         }
@@ -189,12 +191,9 @@ class SearchResult {
     }
 
     setPage(pageNum) {
-        //var currentClassName = self.DOMElement.className;
-        //self.DOMElement.className += ' animated';
         self.page = pageNum;
         self.DOMElement.style.left = '0px';
         self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * screenWidth}px)`;
-        //self.DOMElement.className = currentClassName;
         self.currentTranslate = -((pageNum - 1) * screenWidth);
         self.calcLoadPage();
 
