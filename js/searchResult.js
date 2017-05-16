@@ -76,6 +76,7 @@ class SearchResult {
                                     var coords = getCoords(list);
                                     var shiftX = e.pageX - coords.left;
                                     self.screenX = event.screenX;
+                                    self.DOMElement.style.cursor = '-webkit-grabbing';
 
                                     list.style.position = 'relative';
                                     moveAt(e);
@@ -94,6 +95,7 @@ class SearchResult {
                                         list.style.transition = 'transform 1s';
                                         document.onmousemove = document.onmouseup = null;
                                         list.onmouseup = list.onmousemove = null;
+                                        self.DOMElement.style.cursor = '-webkit-grab';
                                         var delta = self.screenX - event.screenX;
                                         if (delta < 0){
                                             if( delta < -self.swipeLength) {
@@ -131,7 +133,9 @@ class SearchResult {
 
                                     list.ondragstart = function() {
                                     return false;
-                                    };
+                                };
+                                
+                                body.removeChild(disableScreen);
 
 
         // self.DOMElement.onmousedown = function (event) {

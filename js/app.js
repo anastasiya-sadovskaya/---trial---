@@ -6,6 +6,7 @@ var screenWidth = body.offsetWidth;
 var videoNodeWidthExceptPhones = 400;
 var videoNodeWidth = 400;
 var nextPageToken = null;
+var disableScreen;
 
 body.onresize = function () {
     screenWidth = body.offsetWidth;

@@ -20,6 +20,7 @@ class VideoNode{
         ElementFactory.render(this.title, this.DOMElement);
         ElementFactory.render(this.image, this.DOMElement);
         this.rendered = true;
+        
 
         // self.DOMElement.onmousedown = function (event) {
         //     self.screenX = event.screenX;
