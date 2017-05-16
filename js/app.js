@@ -3,6 +3,7 @@ components.videoNodes = [];
 components.pageControllers = [];
 var body = document.body;
 var screenWidth = body.offsetWidth;
+var videoNodeWidthExceptPhones = 400;
 var videoNodeWidth = 400;
 var nextPageToken = null;
 
@@ -11,7 +12,7 @@ body.onresize = function () {
     if(screenWidth < 400){
         videoNodeWidth = screenWidth;
     } else {
-        videoNodeWidth = components.videoNodes[0].width;
+        videoNodeWidth = videoNodeWidthExceptPhones;
     }
     components.videoNodes.map(function(el){el.DOMElement.style.width = `${videoNodeWidth}px`});
     if(components.searchResult){
