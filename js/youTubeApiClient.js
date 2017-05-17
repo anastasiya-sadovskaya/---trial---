@@ -5,8 +5,7 @@ window.YouTubeApiClient = (function (...args) {
     return {
         search: function (successCallback) {
             return new Promise(function (resolve, reject) {
-                disableScreen = ElementFactory.create('div', {class: 'disableScreen'});
-                body.appendChild(disableScreen);
+                disableScreen.style.display = 'block';
                 var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
                 var q = input.value;
                 var xhr = new XHR();
@@ -61,6 +60,7 @@ window.YouTubeApiClient = (function (...args) {
             }) 
 
                 .then(function(response){
+                    //console.log(response);
                     videoArr = response.items;
                     successCallback(response);
                     

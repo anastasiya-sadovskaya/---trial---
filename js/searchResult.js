@@ -28,23 +28,6 @@ class SearchResult {
         }
         this.buttons = [];
 
-        // self.controllers = ElementFactory.create('div', { class: 'controllers' }, {style: {background: 'red'}});
-        // body.appendChild(self.controllers);
-        // for (let i = 0; i < 5; i++) {
-        //     this.buttons.push(new Button);
-        //     this.buttons[i].create();
-        //     if (i > 0 && i < 4) {
-        //         this.buttons[i].DOMElement.innerHTML = i;
-        //         this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
-        //     }
-        // }
-
-        // this.buttons[0].DOMElement.innerHTML = 'Prev';
-        // this.buttons[0].DOMElement.onclick = self.prevPage;
-        // this.buttons[4].DOMElement.innerHTML = 'Next';
-        // this.buttons[4].DOMElement.onclick = self.nextPage;
-        // self.setPage(1);
-
         let countOfVideos = this.videosOnPage();
         let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
         this.setMargin(margin);
@@ -55,6 +38,7 @@ class SearchResult {
         body.appendChild(self.DOMElement);
         self.controllers = ElementFactory.create('div', { class: 'controllers' }, {style: {background: 'red'}});
         body.appendChild(self.controllers);
+        
         for (let i = 0; i < 5; i++) {
             this.buttons.push(new Button);
             this.buttons[i].create();
@@ -134,8 +118,10 @@ class SearchResult {
                                     list.ondragstart = function() {
                                     return false;
                                 };
+
+                                disableScreen.style.display = 'none';
                                 
-                                body.removeChild(disableScreen);
+                                
 
 
         // self.DOMElement.onmousedown = function (event) {
@@ -228,8 +214,12 @@ class SearchResult {
         if (self.page === self.pageForLoad) {
             YouTubeApiClient.search(function (response) {
                 videoArr = response.items;
-                self.createNodes();
-
+                if(screenWidth < 400){
+                    self.createNodes(screenWidth);
+                } else {
+                    self.createNodes(400);
+                }
+                disableScreen.style.display = 'none';
                 let countOfVideos = self.videosOnPage();
                 let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
                 self.setMargin(margin);
@@ -262,6 +252,16 @@ class SearchResult {
 
     changePage(button, pageNum) {
         self.setPage(pageNum == undefined ? parseInt(button.DOMElement.innerHTML) : pageNum);
+    }
+
+    isLastPage(){
+        if (videoArr.length < 15){
+            var lastVideos = videoArr.length / videosOnPage();
+            if(Math.ceil(lastVideos) === lastVideos){
+                self.lastPage = self.page + Math.ceil(lastVideos);
+                return self.lastPAge;
+            }
+        }
     }
 
     renderNewVideos() {

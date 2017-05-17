@@ -10,66 +10,35 @@ class VideoNode{
     
     create(responseItem){
         this.DOMElement = ElementFactory.create('div', this.getContainerAttributes(), this.getContainerProperties());
-        this.title = ElementFactory.create('span', {class: 'title'}, {innerHTML: responseItem.snippet.title});
+        this.play = ElementFactory.create('div', {class: 'playVideo'}, {style: {display: 'none'}});
         this.image = ElementFactory.create('img', {src: responseItem.snippet.thumbnails.high.url}, {});
+        this.title = ElementFactory.create('span', {class: 'title'}, {innerHTML: responseItem.snippet.title});
+        this.viewCount = ElementFactory.create('div', {class: 'viewCount'}, {innerHTML: responseItem.statistics.viewCount});
+        this.author = ElementFactory.create('div', {class: 'viewCount'}, {innerHTML: responseItem.snippet.channelTitle});
+        this.date = ElementFactory.create('span', {class: 'date'}, {innerHTML: responseItem.snippet.publishedAt});
+        this.description = ElementFactory.create('div', {class: 'description'}, {innerHTML: responseItem.snippet.description});
+
+        
     }
 
     render(){
         this.setMargin();
         ElementFactory.render(this.DOMElement, components.searchResult.DOMElement);
-        ElementFactory.render(this.title, this.DOMElement);
         ElementFactory.render(this.image, this.DOMElement);
+        ElementFactory.render(this.title, this.DOMElement);
+        ElementFactory.render(this.play, this.DOMElement);
+        ElementFactory.render(this.viewCount, this.DOMElement);
+        ElementFactory.render(this.author, this.DOMElement);
+        ElementFactory.render(this.date, this.DOMElement);
+        ElementFactory.render(this.description, this.DOMElement);
+
+        // this.DOMElement.appendChild(this.play);
+        // this.DOMElement.appendChild(this.viewCount);
+        // this.DOMElement.appendChild(this.author);
+        // this.DOMElement.appendChild(this.date);
+        // this.DOMElement.appendChild(this.description);
+
         this.rendered = true;
-        
-
-        // self.DOMElement.onmousedown = function (event) {
-        //     self.screenX = event.screenX;
-        //     self.screenY = event.screenY;
-        // }
-
-        // self.DOMElement.onmouseup = function (event) {
-        //     var delta = self.screenX - event.screenX;
-        //     if (delta < 0 && delta < -self.swipeLength) {
-        //         if(self.page > 1){
-        //             self.prevPage();
-        //         }
-        //     }
-
-        //     if (delta > 0 && delta > self.swipeLength) {
-        //         self.nextPage();
-        //     }
-        // }
-
-
-
-//         var container = self.DOMElement;//document.getElementById('resultList');//self.DOMElement;        //
-// container.ondragstart = function() {
-//   return false;
-// };
-// container.onmousedown = function(e){
-//     container.style.position = 'absolute';
-//     moveAt(e);
-
- 
-
-//     function moveAt(e){
-//         container.style.left = e.pageX - container.offsetWidth / 2 + 'px';
-//         //container.style.top = e.pageY ;//- container.offsetHeight / 2 + 'px';
-//     };
-
-//     document.onmousemove = function(e) {
-//         moveAt(e);
-//     }
-
-//     document.body.onmouseup = function() {
-//         document.onmousemove = null;
-//         //container.onmouseup = null;
-//     }
-// }
-
-
-
-
     }
     
     setMargin(margin){
