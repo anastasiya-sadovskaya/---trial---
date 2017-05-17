@@ -9,11 +9,12 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(../img/background3.jpg);
+    background: #f2f5f7;
     justify-content: center;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Raleway';
 }
 
 
@@ -49,7 +50,7 @@ body{
 
 img{
     display: inline-block;
-    width: 360px;
+    /* width: 360px; */
     height: auto;
     max-width: 100%;
 }
@@ -61,7 +62,7 @@ img{
 }
 
 .resultList{
-    background: #795548;
+    background: #f2f5f7;
     width: 7150px;
     height: 90%;
     transform: translate(0);
@@ -69,7 +70,7 @@ img{
 }
 
 .description{
-
+    
 }
 
 .resultList:hover{
@@ -94,16 +95,14 @@ img{
 .videoNode{
     /*width:400px;*/
     height:90%;
-    /*background: green;*/
+    background: #fff;
     display: inline-block;
-    border: solid 2px #485784;
+    border: 2px solid #e6e9ed;
     box-sizing: border-box;
     overflow: hidden;
-    
-}
-
-.videoNode:hover{
-    cursor: pointer;
+    position: relative;
+    /* padding: 10px; */
+    transition: all 0.1s;
 }
 
 .pageController{

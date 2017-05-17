@@ -12,6 +12,7 @@ class SearchResult {
         self.videosOnPageNumber = null;
         self.prevVideosOnPageNumber = null;
         self.swipeLength = 100;
+        self.lastPage = null;
 
         components.searchResult = this;
     }
@@ -229,6 +230,9 @@ class SearchResult {
 
                 self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
             });
+
+            self.calcLastPage();
+
         }
     }
 
@@ -254,14 +258,17 @@ class SearchResult {
         self.setPage(pageNum == undefined ? parseInt(button.DOMElement.innerHTML) : pageNum);
     }
 
-    isLastPage(){
+    calcLastPage(){
         if (videoArr.length < 15){
             var lastVideos = videoArr.length / videosOnPage();
             if(Math.ceil(lastVideos) === lastVideos){
-                self.lastPage = self.page + Math.ceil(lastVideos);
-                return self.lastPAge;
+                //self.lastPage = self.page + Math.ceil(lastVideos);
+                self.lastPage = components.videoNodes.length / videosOnPage();
+            } else {
+                self.lastPage = Math.ceil(components.videoNodes.length / videosOnPage());
             }
         }
+        return self.lastPage;
     }
 
     renderNewVideos() {

@@ -6,6 +6,8 @@ class VideoNode{
         this.width = videoNodeWidth;
         
         this.rendered = false;
+
+        
     }
     
     create(responseItem){
@@ -14,10 +16,18 @@ class VideoNode{
         this.image = ElementFactory.create('img', {src: responseItem.snippet.thumbnails.high.url}, {});
         this.title = ElementFactory.create('span', {class: 'title'}, {innerHTML: responseItem.snippet.title});
         this.viewCount = ElementFactory.create('div', {class: 'viewCount'}, {innerHTML: responseItem.statistics.viewCount});
-        this.author = ElementFactory.create('div', {class: 'viewCount'}, {innerHTML: responseItem.snippet.channelTitle});
+        this.author = ElementFactory.create('div', {class: 'author'}, {innerHTML: responseItem.snippet.channelTitle});
         this.date = ElementFactory.create('span', {class: 'date'}, {innerHTML: responseItem.snippet.publishedAt});
         this.description = ElementFactory.create('div', {class: 'description'}, {innerHTML: responseItem.snippet.description});
 
+        let node = this.DOMElement;
+        node.onmousedown = function(e) {
+            node.style.cursor = '-webkit-grabbing';
+        }
+
+        node.onmouseup = function(e) {
+            node.style.cursor = 'pointer';
+        }
         
     }
 
@@ -54,4 +64,6 @@ class VideoNode{
     getContainerProperties(){
         return { style:{margin:'0', width: `${this.width}px`}};
     }
+
+    
 }
