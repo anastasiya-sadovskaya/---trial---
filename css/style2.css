@@ -53,6 +53,7 @@ img{
     /* width: 360px; */
     height: auto;
     max-width: 100%;
+    padding: 0;
 }
 
 
@@ -70,7 +71,13 @@ img{
 }
 
 .description{
-    
+    height: 100px;
+    overflow: hidden;
+    line-height: 25px;
+    position: relative;
+    top: 60px;
+    padding: 20px 0 0 20px;
+    border-top: 2px solid #e6e9ed;
 }
 
 .resultList:hover{
@@ -94,10 +101,10 @@ img{
 
 .videoNode{
     /*width:400px;*/
-    height:90%;
+    height: 550px;
     background: #fff;
     display: inline-block;
-    border: 2px solid #e6e9ed;
+    /* border: 2px solid #e6e9ed; */
     box-sizing: border-box;
     overflow: hidden;
     position: relative;

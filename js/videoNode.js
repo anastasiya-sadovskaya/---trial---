@@ -14,7 +14,8 @@ class VideoNode{
         this.DOMElement = ElementFactory.create('div', this.getContainerAttributes(), this.getContainerProperties());
         this.play = ElementFactory.create('div', {class: 'playVideo'}, {style: {display: 'none'}});
         this.image = ElementFactory.create('img', {src: responseItem.snippet.thumbnails.high.url}, {});
-        this.title = ElementFactory.create('span', {class: 'title'}, {innerHTML: responseItem.snippet.title});
+        this.info = ElementFactory.create('div', {class: 'info'});
+        this.title = ElementFactory.create('a', {class: 'title', href: `https://www.youtube.com/watch?v=${responseItem.id}`, target: '_blank'}, {innerHTML: responseItem.snippet.title});
         this.viewCount = ElementFactory.create('div', {class: 'viewCount'}, {innerHTML: responseItem.statistics.viewCount});
         this.author = ElementFactory.create('div', {class: 'author'}, {innerHTML: responseItem.snippet.channelTitle});
         this.date = ElementFactory.create('span', {class: 'date'}, {innerHTML: responseItem.snippet.publishedAt});
@@ -35,12 +36,13 @@ class VideoNode{
         this.setMargin();
         ElementFactory.render(this.DOMElement, components.searchResult.DOMElement);
         ElementFactory.render(this.image, this.DOMElement);
-        ElementFactory.render(this.title, this.DOMElement);
-        ElementFactory.render(this.play, this.DOMElement);
-        ElementFactory.render(this.viewCount, this.DOMElement);
-        ElementFactory.render(this.author, this.DOMElement);
-        ElementFactory.render(this.date, this.DOMElement);
-        ElementFactory.render(this.description, this.DOMElement);
+        ElementFactory.render(this.info, this.DOMElement);
+        ElementFactory.render(this.title, this.info);
+        ElementFactory.render(this.play, this.info);
+        ElementFactory.render(this.viewCount, this.info);
+        ElementFactory.render(this.author, this.info);
+        ElementFactory.render(this.date, this.info);
+        ElementFactory.render(this.description, this.info);
 
         // this.DOMElement.appendChild(this.play);
         // this.DOMElement.appendChild(this.viewCount);

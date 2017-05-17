@@ -13,116 +13,132 @@ class SearchResult {
         self.prevVideosOnPageNumber = null;
         self.swipeLength = 100;
         self.lastPage = null;
+        self.noResults = false;
 
         components.searchResult = this;
     }
 
     create() {
         this.DOMElement = ElementFactory.create('div', { class: 'resultList' });
-        if(screenWidth < 400){
-            self.createNodes(screenWidth);
-        } else {
-            self.createNodes(400);
-        }
-        for (let i = 0; i < videoArr.length; i++) {
-            self.videoNodes[i].render();
-        }
-        this.buttons = [];
-
-        let countOfVideos = this.videosOnPage();
-        let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
-        this.setMargin(margin);
-
-        let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
-        this.setWidth(width);
-
-        body.appendChild(self.DOMElement);
-        self.controllers = ElementFactory.create('div', { class: 'controllers' }, {style: {background: 'red'}});
-        body.appendChild(self.controllers);
-        
-        for (let i = 0; i < 5; i++) {
-            this.buttons.push(new Button);
-            this.buttons[i].create();
-            if (i > 0 && i < 4) {
-                this.buttons[i].DOMElement.innerHTML = i;
-                this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
+        if (videoArr.length != 0) {
+            if (screenWidth < 400) {
+                self.createNodes(screenWidth);
+            } else {
+                self.createNodes(400);
             }
+            for (let i = 0; i < videoArr.length; i++) {
+                self.videoNodes[i].render();
+            }
+            this.buttons = [];
+
+            let countOfVideos = self.videosOnPage();
+            let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+            this.setMargin(margin);
+
+            let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
+            this.setWidth(width);
+
+            body.appendChild(self.DOMElement);
+            self.controllers = ElementFactory.create('div', { class: 'controllers' }, { style: { background: 'red' } });
+            body.appendChild(self.controllers);
+
+            for (let i = 0; i < 5; i++) {
+                this.buttons.push(new Button);
+                this.buttons[i].create();
+                if (i > 0 && i < 4) {
+                    this.buttons[i].DOMElement.innerHTML = i;
+                    this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
+                }
+            }
+
+            this.buttons[0].DOMElement.innerHTML = 'Prev';
+            this.buttons[0].DOMElement.onclick = self.prevPage;
+            this.buttons[4].DOMElement.innerHTML = 'Next';
+            this.buttons[4].DOMElement.onclick = self.nextPage;
+            self.calcLastPage();
+            self.setPage(1);
+            
+        } else {
+           self.setWidth(screenWidth);
+           body.appendChild(self.DOMElement);
+           self.setPage(1);
+           self.DOMElement.innerHTML = 'Not founded';
+           self.noResults = true;
+ 
         }
 
-        this.buttons[0].DOMElement.innerHTML = 'Prev';
-        this.buttons[0].DOMElement.onclick = self.prevPage;
-        this.buttons[4].DOMElement.innerHTML = 'Next';
-        this.buttons[4].DOMElement.onclick = self.nextPage;
-        self.setPage(1);
-
         
-                                    var list = self.DOMElement;
-                                    list.onmousedown = function(e) {
-                                    var coords = getCoords(list);
-                                    var shiftX = e.pageX - coords.left;
-                                    self.screenX = event.screenX;
-                                    self.DOMElement.style.cursor = '-webkit-grabbing';
+        var list = self.DOMElement;
+        list.onmousedown = function (e) {
+            var coords = getCoords(list);
+            var shiftX = e.pageX - coords.left;
+            self.screenX = event.screenX;
+            self.DOMElement.style.cursor = '-webkit-grabbing';
 
-                                    list.style.position = 'relative';
-                                    moveAt(e);
+            list.style.position = 'relative';
+            moveAt(e);
 
-                                    function moveAt(e) {
-                                        list.style.transition = 'none';
-                                        list.style.transform = `translate(${e.pageX - shiftX}px)`;
-                                        self.deltaTranslate = e.pageX - shiftX;
-                                    }
+            function moveAt(e) {
+                list.style.transition = 'none';
+                list.style.transform = `translate(${e.pageX - shiftX}px)`;
+                self.deltaTranslate = e.pageX - shiftX;
+            }
 
-                                    document.onmousemove = function(e) {
-                                        moveAt(e);
-                                    };
+            document.onmousemove = function (e) {
+                moveAt(e);
+            };
 
-                                    list.onmouseup = function() {
-                                        list.style.transition = 'transform 1s';
-                                        document.onmousemove = document.onmouseup = null;
-                                        list.onmouseup = list.onmousemove = null;
-                                        self.DOMElement.style.cursor = '-webkit-grab';
-                                        var delta = self.screenX - event.screenX;
-                                        if (delta < 0){
-                                            if( delta < -self.swipeLength) {
-                                                if(self.page > 1){
-                                                
-                                                    self.prevPage();
-                                                } else {
-                                                    list.style.transform = `translate(${self.currentTranslate}px)`;
-                                                } 
-                                            } else {
-                                                list.style.transform = `translate(${self.currentTranslate}px)`;
-                                                
-                                            }
-                                        }
+            list.onmouseup = function () {
+                list.style.transition = 'transform 1s';
+                document.onmousemove = document.onmouseup = null;
+                list.onmouseup = list.onmousemove = null;
+                self.DOMElement.style.cursor = '-webkit-grab';
+                var delta = self.screenX - event.screenX;
+                if (delta < 0) {
+                    if (delta < -self.swipeLength) {
+                        if (self.page > 1) {
 
-                                        if (delta > 0){
-                                            if(delta > self.swipeLength) {
-                                                self.nextPage();
-                                            } else {
-                                                list.style.transform = `translate(${self.currentTranslate}px)`;
-                                            }
-                                        }
-                                    };
+                            self.prevPage();
+                        } else {
+                            list.style.transform = `translate(${self.currentTranslate}px)`;
+                        }
+                    } else {
+                        list.style.transform = `translate(${self.currentTranslate}px)`;
 
-                                    function getCoords(elem) {
-                                        var box = elem.getBoundingClientRect();
+                    }
+                }
 
-                                        return {
-                                            left: box.left + pageXOffset
-                                        };
+                if (delta > 0) {
+                    if (delta > self.swipeLength) {
+                        if (self.page != self.lastPage) {
+                            self.nextPage();
+                        } else {
+                            list.style.transform = `translate(${self.currentTranslate}px)`;
+                        }
+                    } else {
+                        list.style.transform = `translate(${self.currentTranslate}px)`;
+                    }
+                }
+            };
 
-                                        }
-                                    return false;
-                                    }
+            function getCoords(elem) {
+                var box = elem.getBoundingClientRect();
 
-                                    list.ondragstart = function() {
-                                    return false;
-                                };
+                return {
+                    left: box.left + pageXOffset
+                };
 
-                                disableScreen.style.display = 'none';
-                                
-                                
+            }
+            return false;
+        }
+
+        list.ondragstart = function () {
+            return false;
+        };
+
+        disableScreen.style.display = 'none';
+
+
 
 
         // self.DOMElement.onmousedown = function (event) {
@@ -159,7 +175,12 @@ class SearchResult {
 
     setWidth(width) {
         this.width = width;
-        this.DOMElement.style.width = `${this.width}px`;
+        if(Math.ceil(this.width / screenWidth) == (this.width / screenWidth)){
+            this.DOMElement.style.width = `${this.width}px`;
+        } else {
+            this.width = Math.ceil(this.width / screenWidth) * screenWidth;
+            this.DOMElement.style.width = `${this.width}px`;
+        }
     }
 
     setMargin(margin) {
@@ -172,13 +193,19 @@ class SearchResult {
 
     videosOnPage() {
         if (this.videosOnPageNumber == null) {
+            if(components.videoNodes.length != 0){
             this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width)
+            } else{
+                this.videosOnPageNumber = 0;
+            }
             this.prevVideosOnPageNumber = this.videosOnPageNumber;
-        }
+        }else {
 
-        this.prevVideosOnPageNumber = this.videosOnPageNumber;
-        this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width);
-        return this.videosOnPageNumber;
+            this.prevVideosOnPageNumber = this.videosOnPageNumber;
+            this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width);
+        }
+            return this.videosOnPageNumber;
+        
     }
 
     setPage(pageNum) {
@@ -188,19 +215,21 @@ class SearchResult {
         self.currentTranslate = -((pageNum - 1) * screenWidth);
         self.calcLoadPage();
 
-        if (self.page <= 1) {
-            self.buttons[0].DOMElement.style.opacity = '0';
-            self.buttons[0].DOMElement.onclick = 'none';
-            for (let i = 1; i < 4; i++) {
-                self.buttons[i].DOMElement.innerHTML = i;
-            }
-        } else {
-            self.buttons[0].DOMElement.style.opacity = '1';
-            this.buttons[0].DOMElement.onclick = self.prevPage;
-            for (var key in self.pageFunctions) {
-                this.buttons[key].DOMElement.innerHTML = self.pageFunctions[key](self.page);
+        if(videoArr.length){
+            if (self.page <= 1) {
+                self.buttons[0].DOMElement.style.opacity = '0';
+                self.buttons[0].DOMElement.onclick = 'none';
+                for (let i = 1; i < 4; i++) {
+                    self.buttons[i].DOMElement.innerHTML = i;
+                }
+            } else {
+                self.buttons[0].DOMElement.style.opacity = '1';
+                this.buttons[0].DOMElement.onclick = self.prevPage;
+                for (var key in self.pageFunctions) {
+                    this.buttons[key].DOMElement.innerHTML = self.pageFunctions[key](self.page);
             }
         }
+    
 
         for (let i = 1; i < 4; i++) {
 
@@ -208,14 +237,23 @@ class SearchResult {
             buttonController.setActive(buttonController.DOMElement.innerHTML == pageNum);
         }
 
+        if (self.isLastPage()) {
+            self.buttons[4].DOMElement.style.opacity = '0';
+            self.buttons[4].DOMElement.onclick = 'none';
+        } else {
+            self.buttons[0].DOMElement.style.opacity = '1';
+            this.buttons[0].DOMElement.onclick = self.prevPage;
+        }
+
         self.onPageSet();
+        }
     }
 
     onPageSet() {
         if (self.page === self.pageForLoad) {
             YouTubeApiClient.search(function (response) {
                 videoArr = response.items;
-                if(screenWidth < 400){
+                if (screenWidth < 400) {
                     self.createNodes(screenWidth);
                 } else {
                     self.createNodes(400);
@@ -258,28 +296,40 @@ class SearchResult {
         self.setPage(pageNum == undefined ? parseInt(button.DOMElement.innerHTML) : pageNum);
     }
 
-    calcLastPage(){
-        if (videoArr.length < 15){
-            var lastVideos = videoArr.length / videosOnPage();
-            if(Math.ceil(lastVideos) === lastVideos){
+    calcLastPage() {
+        if (videoArr.length < 15) {
+            var lastVideos = videoArr.length / self.videosOnPage();
+            if (Math.ceil(lastVideos) === lastVideos) {
                 //self.lastPage = self.page + Math.ceil(lastVideos);
-                self.lastPage = components.videoNodes.length / videosOnPage();
+                self.lastPage = components.videoNodes.length / self.videosOnPage();
             } else {
-                self.lastPage = Math.ceil(components.videoNodes.length / videosOnPage());
+                self.lastPage = Math.ceil(components.videoNodes.length / self.videosOnPage());
             }
         }
         return self.lastPage;
     }
 
-    renderNewVideos() {
+    isLastPage() {
+        if (self.page === self.lastPage) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    // renderNewVideos() {
+    // }
+
     remove() {
-        body.removeChild(components.searchResult.controllers);
-        components.videoNodes = [];
-        nextPageToken = null;
-        videoArr = [];
-        self.DOMElement.parentNode.removeChild(self.DOMElement);
-        components.searchResult = null;
+        if(self.noResults){
+            self.DOMElement.parentNode.removeChild(self.DOMElement);
+        } else {
+            body.removeChild(components.searchResult.controllers);
+            components.videoNodes = [];
+            nextPageToken = null;
+            videoArr = [];
+            self.DOMElement.parentNode.removeChild(self.DOMElement);
+            components.searchResult = null;
+        }
     }
 }
