@@ -215,7 +215,7 @@ class SearchResult {
         self.currentTranslate = -((pageNum - 1) * screenWidth);
         self.calcLoadPage();
 
-        if(videoArr.length){
+        if(videoArr.length){        // ?Добавить убирание кнопок ,если мало видео
             if (self.page <= 1) {
                 self.buttons[0].DOMElement.style.opacity = '0';
                 self.buttons[0].DOMElement.onclick = 'none';

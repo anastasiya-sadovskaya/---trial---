@@ -9,12 +9,11 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #f2f5f7;
+    background-image: url(../img/background3.jpg);
     justify-content: center;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: 'Raleway';
 }
 
 
@@ -50,10 +49,9 @@ body{
 
 img{
     display: inline-block;
-    /* width: 360px; */
+    width: 360px;
     height: auto;
     max-width: 100%;
-    padding: 0;
 }
 
 
@@ -63,7 +61,7 @@ img{
 }
 
 .resultList{
-    background: #f2f5f7;
+    background: #795548;
     width: 7150px;
     height: 90%;
     transform: translate(0);
@@ -71,13 +69,7 @@ img{
 }
 
 .description{
-    height: 100px;
-    overflow: hidden;
-    line-height: 25px;
-    position: relative;
-    top: 60px;
-    padding: 20px 0 0 20px;
-    border-top: 2px solid #e6e9ed;
+
 }
 
 .resultList:hover{
@@ -101,17 +93,22 @@ img{
 
 .videoNode{
     /*width:400px;*/
-    height: 550px;
-    background: #fff;
+    height:90%;
+    /*background: green;*/
     display: inline-block;
-    /* border: 2px solid #e6e9ed; */
+    border: solid 2px #485784;
     box-sizing: border-box;
     overflow: hidden;
-    position: relative;
-    /* padding: 10px; */
-    transition: all 0.1s;
+    
 }
 
+.videoNode:hover{
+    cursor: pointer;
+}
+
+.info{
+    
+}
 .pageController{
     /*position: fixed;*/
 
