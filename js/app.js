@@ -14,8 +14,13 @@ body.onresize = function () {
     screenWidth = body.offsetWidth;
     if(screenWidth < 400){
         videoNodeWidth = screenWidth;
+        body.className = 'phone';
+        input.className = 'phone';
     } else {
         videoNodeWidth = videoNodeWidthExceptPhones;
+        body.className = '';
+        input.className = '';
+        
     }
     components.videoNodes.map(function(el){el.DOMElement.style.width = `${videoNodeWidth}px`});
     if(components.searchResult){
@@ -36,7 +41,7 @@ body.onresize = function () {
     }
 };
 
-var input = ElementFactory.create('input', { type: 'text', class: 'input', id: 'query', autofocus: '' });
+var input = ElementFactory.create('input', { type: 'text', class: 'input', id: 'query', autofocus: '' , placeholder: 'Enter request...'});
 ElementFactory.render(input);
 var searchButton = ElementFactory.create('button', { class: 'search', id: 'search' }, {
     innerHTML: 'Search', onclick: onSearchSuccessCallback});
@@ -61,5 +66,9 @@ function onSearchSuccessCallback() {
         console.log(response);
         body.style.display = 'block';
         renderPreviews();
+        if(screenWidth < 400){
+            body.className = 'phone';
+            input.className = 'phone';
+        }
     });
 }

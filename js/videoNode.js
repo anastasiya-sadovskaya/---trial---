@@ -14,8 +14,8 @@ class VideoNode{
         let date = responseItem.snippet.publishedAt.substring(0, 10);
         
         this.DOMElement = ElementFactory.create('div', this.getContainerAttributes(), this.getContainerProperties());
-        this.play = ElementFactory.create('div', {class: 'playVideo'}, {style: {display: 'none'}});
-        this.image = ElementFactory.create('img', {src: responseItem.snippet.thumbnails.high.url}, {});
+        this.play = ElementFactory.create('div', {class: 'playVideo'}, {style: {display: 'none'}, innerHTML: '<i class="fa fa-play" aria-hidden="true"></i>'});
+        this.image = ElementFactory.create('div', {class: 'preview'}, {style:{backgroundImage: `url(${responseItem.snippet.thumbnails.high.url})`}});
         this.info = ElementFactory.create('div', {class: 'info'});
         this.title = ElementFactory.create('a', {class: 'title', href: `https://www.youtube.com/watch?v=${responseItem.id}`, target: '_blank'}, {innerHTML: responseItem.snippet.title});
         this.viewCount = ElementFactory.create('div', {class: 'viewCount'}, {innerHTML: responseItem.statistics.viewCount});
@@ -41,7 +41,7 @@ class VideoNode{
         ElementFactory.render(this.image, this.DOMElement);
         ElementFactory.render(this.info, this.DOMElement);
         ElementFactory.render(this.title, this.info);
-        ElementFactory.render(this.play, this.info);
+        ElementFactory.render(this.play, this.DOMElement);
         ElementFactory.render(this.viewCount, this.info);
         ElementFactory.render(this.author, this.info);
         ElementFactory.render(this.date, this.info);
