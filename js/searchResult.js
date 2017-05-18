@@ -208,26 +208,30 @@ class SearchResult {
         self.currentTranslate = -((pageNum - 1) * screenWidth);
         self.onPageSet();
         self.calcLoadPage();
+        if (videoArr.length) {  
+            if (self.page !== self.pageForLoad && (self.page + 1) != self.lastPage ) {
+                if (self.page <= 1) {
+                    if (screenWidth > 767) {
+                        self.buttons[0].DOMElement.style.opacity = '0';
+                    }
+                    self.buttons[0].DOMElement.onclick = 'none';
+                    for (let i = 1; i < 4; i++) {
+                        self.buttons[i].DOMElement.innerHTML = i;
+                    }
 
-        if (videoArr.length) {        // ?Добавить убирание кнопок ,если мало видео
-            if (self.page <= 1) {
-                if (screenWidth > 767) {
-                    self.buttons[0].DOMElement.style.opacity = '0';
+                } else {
+                    self.buttons[0].DOMElement.style.opacity = '1';
+                    this.buttons[0].DOMElement.onclick = self.prevPage;
+                    for (var key in self.pageFunctions) {
+                        this.buttons[key].DOMElement.innerHTML = self.pageFunctions[key](self.page);
+                    }
                 }
-                self.buttons[0].DOMElement.onclick = 'none';
-                for (let i = 1; i < 4; i++) {
-                    self.buttons[i].DOMElement.innerHTML = i;
-                }
 
-            } else {
-                self.buttons[0].DOMElement.style.opacity = '1';
-                this.buttons[0].DOMElement.onclick = self.prevPage;
-                for (var key in self.pageFunctions) {
-                    this.buttons[key].DOMElement.innerHTML = self.pageFunctions[key](self.page);
-                }
-            }
+                self.buttons[4].DOMElement.style.opacity = '1';
+                self.buttons[4].DOMElement.onclick = self.nextPage;
 
-
+            } 
+        }
             for (let i = 1; i < 4; i++) {
 
                 var buttonController = this.buttons[i];
@@ -247,11 +251,14 @@ class SearchResult {
             // }
 
 
-        }
+        
+
     }
 
     onPageSet() {
-        if ((self.page + 1) === self.pageForLoad) {
+        if ((self.pageForLoad + 1) != self.lastPage){
+            if(self.page === self.pageForLoad) {
+            
             
             
                 YouTubeApiClient.search(function (response) {
@@ -273,23 +280,28 @@ class SearchResult {
                         self.setWidth(width);
 
                         self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
-                        if (self.isLastPage()) {
-                            if (screenWidth > 767) {
-                                self.buttons[4].DOMElement.style.opacity = '0';
-                            }
-                            self.buttons[4].DOMElement.onclick = 'none';
-                        } else {
+                        // if (self.isLastPage()) {
+                        //     if (screenWidth > 767) {
+                        //         self.buttons[4].DOMElement.style.opacity = '0';
+                        //     }
+                        //     self.buttons[4].DOMElement.onclick = 'none';
+                        // } else {
                             self.buttons[4].DOMElement.style.opacity = '1';
                             self.buttons[4].DOMElement.onclick = self.nextPage;
-                        }
+                        //}
 
-                    }
+                    } 
                 });
             
 
                 // self.calcLastPage();
 
             
+        }else {
+            if (screenWidth > 767) {
+                self.buttons[4].DOMElement.style.opacity = '0';
+            }
+                self.buttons[4].DOMElement.onclick = 'none';
         }
     }
 
@@ -299,7 +311,7 @@ class SearchResult {
         if (Number.isInteger(tempPageForLoad)) {
             self.pageForLoad = tempPageForLoad + 1;
         } else {
-            self.pageForLoad = Math.ceil(tempPageForLoad);
+            self.pageForLoad = Math.floor(tempPageForLoad);
         }
     }
 
