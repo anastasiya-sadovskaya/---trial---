@@ -16,11 +16,12 @@ body.onresize = function () {
         videoNodeWidth = screenWidth;
         body.className = 'phone';
         input.className = 'phone';
+        search.className += ' phone';
     } else {
         videoNodeWidth = videoNodeWidthExceptPhones;
         body.className = '';
         input.className = '';
-        
+        search.className = 'search';
     }
     components.videoNodes.map(function(el){el.DOMElement.style.width = `${videoNodeWidth}px`});
     if(components.searchResult){
@@ -69,6 +70,7 @@ function onSearchSuccessCallback() {
         if(screenWidth < 400){
             body.className = 'phone';
             input.className = 'phone';
+            search.className += ' phone';
         }
     });
 }
