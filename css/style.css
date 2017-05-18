@@ -114,7 +114,7 @@ img{
     box-sizing: border-box;
     border-top: none;
     padding: 20px 0 100px 0;
-    height: calc(50% - 30px);
+    height: 60%;
     margin: 0;
     /* position: relative; */
     width: 100%;
@@ -344,6 +344,10 @@ font-size: 13px;
     /* overflow-y:  scroll; */
 }
 
+.info{
+    height: calc(50% - 30px);
+}
+
 
 
    /*.videoNode{
@@ -387,6 +391,9 @@ font-size: 13px;
 
     .playVideo{
         display:none!important;
+    }
+    .more{
+        top:0;
     }
 }
 
