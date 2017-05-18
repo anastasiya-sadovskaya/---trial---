@@ -24,7 +24,7 @@ class SearchResult {
             if (screenWidth < 400) {
                 self.createNodes(screenWidth);
             } else {
-                self.createNodes(400);
+!!!!!                self.createNodes(400);
             }
             for (let i = 0; i < videoArr.length; i++) {
                 self.videoNodes[i].render();
@@ -42,6 +42,10 @@ class SearchResult {
             self.controllers = ElementFactory.create('div', { class: 'controllers' });
             body.appendChild(self.controllers);
 
+                                // var firstLoadPagesCount = Math.ceil(videoArr.length / self.videosOnPage());
+                                // var i = 3;
+                                // if(firstLoadPagesCount > 2){
+
             for (let i = 0; i < 5; i++) {
                 this.buttons.push(new Button);
                 this.buttons[i].create();
@@ -57,6 +61,10 @@ class SearchResult {
             this.buttons[4].DOMElement.innerHTML = 'Next';
             this.buttons[4].DOMElement.id = 'next';
             this.buttons[4].DOMElement.onclick = self.nextPage;
+
+                                // } else {
+
+                                // }
             self.calcLastPage();
             self.setPage(1);
 
@@ -228,44 +236,60 @@ class SearchResult {
 
             self.calcLastPage();
 
-            if (self.isLastPage()) {
-                if (screenWidth > 767) {
-                    self.buttons[4].DOMElement.style.opacity = '0';
-                }
-                self.buttons[4].DOMElement.onclick = 'none';
-            } else {
-                self.buttons[4].DOMElement.style.opacity = '1';
-                this.buttons[4].DOMElement.onclick = self.nextPage;
-            }
+            // if (self.isLastPage()) {
+            //     if (screenWidth > 767) {
+            //         self.buttons[4].DOMElement.style.opacity = '0';
+            //     }
+            //     self.buttons[4].DOMElement.onclick = 'none';
+            // } else {
+            //     self.buttons[4].DOMElement.style.opacity = '1';
+            //     this.buttons[4].DOMElement.onclick = self.nextPage;
+            // }
 
 
         }
     }
 
     onPageSet() {
-        if (self.page === self.pageForLoad) {
-            if(self.page != self.lastPage){
+        if ((self.page + 1) === self.pageForLoad) {
+            
+            
                 YouTubeApiClient.search(function (response) {
                     videoArr = response.items;
-                    if (screenWidth < 400) {
-                        self.createNodes(screenWidth);
-                    } else {
-                        self.createNodes(400);
+                    self.calcLastPage();
+                    if(self.page != self.lastPage){
+                        if (screenWidth < 400) {
+                            self.createNodes(screenWidth);
+                        } else {
+                            self.createNodes(400);
+                        }
+                        self.calcLastPage();
+                        disableScreen.style.display = 'none';
+                        let countOfVideos = self.videosOnPage();
+                        let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+                        self.setMargin(margin);
+
+                        let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
+                        self.setWidth(width);
+
+                        self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
+                        if (self.isLastPage()) {
+                            if (screenWidth > 767) {
+                                self.buttons[4].DOMElement.style.opacity = '0';
+                            }
+                            self.buttons[4].DOMElement.onclick = 'none';
+                        } else {
+                            self.buttons[4].DOMElement.style.opacity = '1';
+                            self.buttons[4].DOMElement.onclick = self.nextPage;
+                        }
+
                     }
-                    disableScreen.style.display = 'none';
-                    let countOfVideos = self.videosOnPage();
-                    let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
-                    self.setMargin(margin);
-
-                    let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
-                    self.setWidth(width);
-
-                    self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
                 });
+            
 
-                self.calcLastPage();
+                // self.calcLastPage();
 
-            }
+            
         }
     }
 
@@ -297,12 +321,12 @@ class SearchResult {
             var lastVideos = videoArr.length / self.videosOnPage();
             if (Math.ceil(lastVideos) === lastVideos) {
                 //self.lastPage = self.page + Math.ceil(lastVideos);
-                self.lastPage = components.videoNodes.length / self.videosOnPage();
+                self.lastPage = responsItemsCount / self.videosOnPage();
             } else {
-                self.lastPage =  Math.ceil(components.videoNodes.length / self.videosOnPage());
+                self.lastPage =  Math.ceil(responsItemsCount / self.videosOnPage());
             }
         } else {
-            self.lastPage =  Math.ceil(components.videoNodes.length / self.videosOnPage());
+            self.lastPage =  Math.ceil(responsItemsCount / self.videosOnPage());
         }
         console.log(self.lastPage);
         return self.lastPage;
@@ -322,6 +346,7 @@ class SearchResult {
     remove() {
         if (self.noResults) {
             self.DOMElement.parentNode.removeChild(self.DOMElement);
+            
         } else {
             body.removeChild(components.searchResult.controllers);
             components.videoNodes = [];
@@ -329,6 +354,7 @@ class SearchResult {
             videoArr = [];
             self.DOMElement.parentNode.removeChild(self.DOMElement);
             components.searchResult = null;
+            responsItemsCount = 0;
         }
     }
 }

@@ -62,6 +62,7 @@ window.YouTubeApiClient = (function (...args) {
                 .then(function(response){
                     //console.log(response);
                     videoArr = response.items;
+                    responsItemsCount +=  response.items.length;
                     successCallback(response);
                     
                 })

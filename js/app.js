@@ -9,6 +9,7 @@ var nextPageToken = null;
 var disableScreen = ElementFactory.create('div', {class: 'disableScreen'});
 body.appendChild(disableScreen);
 disableScreen.style.display = 'none';
+var responsItemsCount = 0;
 
 body.onresize = function () {
     screenWidth = body.offsetWidth;
