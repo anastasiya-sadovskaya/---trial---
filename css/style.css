@@ -114,9 +114,9 @@ img{
     box-sizing: border-box;
     border-top: none;
     padding: 20px 0 100px 0;
-    height: 60%;
+    height: calc(50% - 30px);
     margin: 0;
-    /* position: absolute; */
+    /* position: relative; */
     width: 100%;
 }
 
@@ -330,6 +330,7 @@ font-size: 13px;
    
    .videoNode{
        height: 100vh;
+       overflow-y: scroll;
    }
 
    .controllers{
@@ -340,6 +341,7 @@ font-size: 13px;
 
 .description{
     bottom: 85px;
+    /* overflow-y:  scroll; */
 }
 
 
