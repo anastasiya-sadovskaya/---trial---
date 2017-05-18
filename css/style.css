@@ -16,7 +16,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #f2f5f7;
+    background: #eceef1;
     justify-content: center;
     margin: 0;
     padding: 0;
@@ -98,7 +98,7 @@ img{
 }
 
 .resultList{
-    background: #f2f5f7;
+    background: #eceef1;
     width: 7150px;
     height: calc(100vh - 130px);
     transform: translate(0);
@@ -194,24 +194,29 @@ img{
     max-width: 150px;
     max-height: 150px;
     background: #fff;
-    border: solid 2px #000;
+    border: solid 2px #9fa9a9;
     border-radius: 90px;
     position:absolute;
     top:40%;
     left:50%;
     transform: translate(-50%, -50%);
     font-size: 100px;
+    cursor: pointer;
     /* display: flex; */
     /* text-align: center; */
     /* align-items: center; */
     /* justify-content: center; */
 }
+.playVideo:hover{
+    background: #31716b;
+}
 
-   .playVideo i{
-        position: absolute;
-        top: 17%;
-        left: 33%;
-   }
+.playVideo i{
+    position: absolute;
+    top: 17%;
+    left: 33%;
+}
+
 .description{
     
 height: 100px;
@@ -245,17 +250,14 @@ font-size: 13px;
 }
 
 .videoNode{
-    /*width:400px;*/
     height: calc(100vh - 130px);
     background: #fff;
     display: inline-block;
-    /* border: 2px solid #e6e9ed; */
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
-    /* padding: 10px; */
     transition: all 0.1s;
-    /*overflow-x: scroll;*/
+    cursor: -webkit-grab;
 }
 
 
@@ -269,7 +271,6 @@ font-size: 13px;
 
 .videoNode:hover .playVideo{
     display: block!important;
-    cursor: pointer;
 }
 
 
@@ -278,12 +279,17 @@ font-size: 13px;
     }
 
 .pageController{
-    /*position: fixed;*/
     height: 55px;
-    color: #fff;
+    color: #c3cac9;
     background: #31716b;
     width: 20%;
-    border: solid 0.5px rgb(7, 86, 79);
+    border: solid 0.5px #869e9c;
+    font: 600 16px 'Poiret One';
+}
+
+.pageController:focus, .pageController:active{
+    outline:0;
+    border:0;
 }
 
 .pageController:hover{
@@ -294,12 +300,20 @@ font-size: 13px;
     background: #1d423e;
 }
 
+#prev{
+    border-radius: 40px 0 0;
+}
+
+#next{
+    border-radius: 0 40px 0 0;
+}
+
 .controllers{
     position: absolute;
     bottom: 0;
-    width: 500px;
+    width: 400px;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -200px;
 }
 
 .more{

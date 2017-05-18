@@ -39,7 +39,7 @@ class SearchResult {
             this.setWidth(width);
 
             body.appendChild(self.DOMElement);
-            self.controllers = ElementFactory.create('div', { class: 'controllers' }, { style: { background: 'red' } });
+            self.controllers = ElementFactory.create('div', { class: 'controllers'});
             body.appendChild(self.controllers);
 
             for (let i = 0; i < 5; i++) {
@@ -52,8 +52,10 @@ class SearchResult {
             }
 
             this.buttons[0].DOMElement.innerHTML = 'Prev';
+            this.buttons[0].DOMElement.id = 'prev';
             this.buttons[0].DOMElement.onclick = self.prevPage;
             this.buttons[4].DOMElement.innerHTML = 'Next';
+            this.buttons[4].DOMElement.id = 'next';
             this.buttons[4].DOMElement.onclick = self.nextPage;
             self.calcLastPage();
             self.setPage(1);
@@ -227,8 +229,8 @@ class SearchResult {
             self.buttons[4].DOMElement.style.opacity = '0';
             self.buttons[4].DOMElement.onclick = 'none';
         } else {
-            self.buttons[0].DOMElement.style.opacity = '1';
-            this.buttons[0].DOMElement.onclick = self.prevPage;
+            self.buttons[4].DOMElement.style.opacity = '1';
+            this.buttons[4].DOMElement.onclick = self.nextPage;
         }
 
         
