@@ -7,8 +7,11 @@ var videoNodeWidthExceptPhones = 400;
 var videoNodeWidth = 400;
 var nextPageToken = null;
 var disableScreen = ElementFactory.create('div', {class: 'disableScreen'});
+var spiner = ElementFactory.create('img', {class: 'spiner', src: 'img/spiner2.gif'});
 body.appendChild(disableScreen);
 disableScreen.style.display = 'none';
+body.appendChild(spiner);
+spiner.style.display = 'none';
 var responsItemsCount = 0;
 
 body.onresize = function () {

@@ -6,6 +6,7 @@ window.YouTubeApiClient = (function (...args) {
         search: function (successCallback) {
             return new Promise(function (resolve, reject) {
                 disableScreen.style.display = 'block';
+                spiner.style.display = 'block';
                 var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
                 var q = input.value;
                 var xhr = new XHR();

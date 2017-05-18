@@ -4,7 +4,6 @@ class VideoNode{
         this.margin = 0;
         videoNodeWidth = width;
         this.width = videoNodeWidth;
-        
         this.rendered = false;
 
         

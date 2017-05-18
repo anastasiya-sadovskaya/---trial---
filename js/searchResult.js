@@ -24,7 +24,7 @@ class SearchResult {
             if (screenWidth < 400) {
                 self.createNodes(screenWidth);
             } else {
-!!!!!                self.createNodes(400);
+                self.createNodes(400);
             }
             for (let i = 0; i < videoArr.length; i++) {
                 self.videoNodes[i].render();
@@ -42,9 +42,7 @@ class SearchResult {
             self.controllers = ElementFactory.create('div', { class: 'controllers' });
             body.appendChild(self.controllers);
 
-                                // var firstLoadPagesCount = Math.ceil(videoArr.length / self.videosOnPage());
-                                // var i = 3;
-                                // if(firstLoadPagesCount > 2){
+                                
 
             for (let i = 0; i < 5; i++) {
                 this.buttons.push(new Button);
@@ -54,6 +52,9 @@ class SearchResult {
                     this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
                 }
             }
+            if(screenWidth > 767){
+                this.buttons.map(function(el){el.DOMElement.style.opacity = 0;})
+            }
 
             this.buttons[0].DOMElement.innerHTML = 'Prev';
             this.buttons[0].DOMElement.id = 'prev';
@@ -62,11 +63,37 @@ class SearchResult {
             this.buttons[4].DOMElement.id = 'next';
             this.buttons[4].DOMElement.onclick = self.nextPage;
 
-                                // } else {
+            var firstLoadPagesCount = Math.ceil(videoArr.length / self.videosOnPage());
+            if(firstLoadPagesCount < 4){
+                for(var i = 1; i <= firstLoadPagesCount; i++ ){
+                    this.buttons[i].DOMElement.style.opacity = 1;
 
-                                // }
+                }
+            } else {
+                for(var i = 1; i < 4; i++ ){
+                    this.buttons[i].DOMElement.style.opacity = 1;
+
+                }
+            }
+
+            // for (let i = 0; i < 5; i++) {
+            //      this.buttons.push(new Button);
+            // }
+
+            // var firstLoadPagesCount = Math.ceil(videoArr.length / self.videosOnPage());
+            // if(firstLoadPagesCount < 4){
+            //     for(var i = 1; i <= firstLoadPagesCount; i++ ){
+            //         this.buttons[i].create();
+            //         this.buttons[i].DOMElement.innerHTML = i;
+            //         this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
+            //     }
+            // }
+
+                                
             self.calcLastPage();
             self.setPage(1);
+
+            
 
         } else {
             self.setWidth(screenWidth);
@@ -151,6 +178,7 @@ class SearchResult {
         }
 
         disableScreen.style.display = 'none';
+        spiner.style.display = 'none';
     }
 
 
@@ -233,10 +261,12 @@ class SearchResult {
             } 
         }
             for (let i = 1; i < 4; i++) {
-
-                var buttonController = this.buttons[i];
-                buttonController.setActive(buttonController.DOMElement.innerHTML == pageNum);
+                if(this.buttons[i].DOMElement){
+                    var buttonController = this.buttons[i];
+                    buttonController.setActive(buttonController.DOMElement.innerHTML == pageNum);
+                }
             }
+            
 
             self.calcLastPage();
 
@@ -256,11 +286,8 @@ class SearchResult {
     }
 
     onPageSet() {
-        if ((self.pageForLoad + 1) != self.lastPage){
+        if (self.pageForLoad != self.lastPage){
             if(self.page === self.pageForLoad) {
-            
-            
-            
                 YouTubeApiClient.search(function (response) {
                     videoArr = response.items;
                     self.calcLastPage();
@@ -272,6 +299,7 @@ class SearchResult {
                         }
                         self.calcLastPage();
                         disableScreen.style.display = 'none';
+                        spiner.style.display = 'none';
                         let countOfVideos = self.videosOnPage();
                         let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
                         self.setMargin(margin);
@@ -286,8 +314,11 @@ class SearchResult {
                         //     }
                         //     self.buttons[4].DOMElement.onclick = 'none';
                         // } else {
+
                             self.buttons[4].DOMElement.style.opacity = '1';
                             self.buttons[4].DOMElement.onclick = self.nextPage;
+                            
+
                         //}
 
                     } 
@@ -297,7 +328,8 @@ class SearchResult {
                 // self.calcLastPage();
 
             
-        }else {
+        }
+    }else {
             if (screenWidth > 767) {
                 self.buttons[4].DOMElement.style.opacity = '0';
             }
@@ -309,7 +341,7 @@ class SearchResult {
         self.pageForLoad;
         var tempPageForLoad = components.videoNodes.length / self.videosOnPage();
         if (Number.isInteger(tempPageForLoad)) {
-            self.pageForLoad = tempPageForLoad + 1;
+            self.pageForLoad = tempPageForLoad-1;
         } else {
             self.pageForLoad = Math.floor(tempPageForLoad);
         }
