@@ -330,7 +330,7 @@ font-size: 13px;
    
    .videoNode{
        height: 100vh;
-       /* overflow-y: scroll; */
+       overflow-y: scroll;
    }
 
    .controllers{
@@ -341,7 +341,7 @@ font-size: 13px;
 
 .description{
     bottom: 85px;
-    overflow-y:  scroll;
+    /* overflow-y:  scroll; */
 }
 
 
