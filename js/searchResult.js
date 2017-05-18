@@ -62,13 +62,15 @@ class SearchResult {
            self.setWidth(screenWidth);
            body.appendChild(self.DOMElement);
            self.page = 1;
-           self.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was founded :(</span>';
+           self.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was found :(</span>';
+           self.DOMElement.style.cursor = 'default';
            self.noResults = true;
  
         }
 
         
         var list = self.DOMElement;
+        if(!self.noResults){    
         list.onmousedown = function (e) {
             var coords = getCoords(list);
             var shiftX = e.pageX - coords.left;
@@ -136,29 +138,9 @@ class SearchResult {
             return false;
         };
 
+}
+
         disableScreen.style.display = 'none';
-
-
-
-
-
-        // self.DOMElement.onmousedown = function (event) {
-        //     self.screenX = event.screenX;
-        //     self.screenY = event.screenY;
-        // }
-
-        // self.DOMElement.onmouseup = function (event) {
-        //     var delta = self.screenX - event.screenX;
-        //     if (delta < 0 && delta < -self.swipeLength) {
-        //         if(self.page > 1){
-        //             self.prevPage();
-        //         }
-        //     }
-
-        //     if (delta > 0 && delta > self.swipeLength) {
-        //         self.nextPage();
-        //     }
-        // }
     }
 
 
