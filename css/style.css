@@ -93,7 +93,7 @@ img{
     width: 7150px;
     height: calc(100vh - 130px);
     transform: translate(0);
-    /*transition: transform 1s;*/
+    transition: transform 1s;
 }
 .resultList:hover{
     cursor: -webkit-grab;
