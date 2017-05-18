@@ -244,26 +244,28 @@ class SearchResult {
 
     onPageSet() {
         if (self.page === self.pageForLoad) {
-            YouTubeApiClient.search(function (response) {
-                videoArr = response.items;
-                if (screenWidth < 400) {
-                    self.createNodes(screenWidth);
-                } else {
-                    self.createNodes(400);
-                }
-                disableScreen.style.display = 'none';
-                let countOfVideos = self.videosOnPage();
-                let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
-                self.setMargin(margin);
+            if(self.page != self.lastPage){
+                YouTubeApiClient.search(function (response) {
+                    videoArr = response.items;
+                    if (screenWidth < 400) {
+                        self.createNodes(screenWidth);
+                    } else {
+                        self.createNodes(400);
+                    }
+                    disableScreen.style.display = 'none';
+                    let countOfVideos = self.videosOnPage();
+                    let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+                    self.setMargin(margin);
 
-                let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
-                self.setWidth(width);
+                    let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
+                    self.setWidth(width);
 
-                self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
-            });
+                    self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
+                });
 
-            self.calcLastPage();
+                self.calcLastPage();
 
+            }
         }
     }
 
@@ -295,12 +297,12 @@ class SearchResult {
             var lastVideos = videoArr.length / self.videosOnPage();
             if (Math.ceil(lastVideos) === lastVideos) {
                 //self.lastPage = self.page + Math.ceil(lastVideos);
-                self.lastPage = self.page + components.videoNodes.length / self.videosOnPage();
+                self.lastPage = components.videoNodes.length / self.videosOnPage();
             } else {
-                self.lastPage = self.page + Math.ceil(components.videoNodes.length / self.videosOnPage());
+                self.lastPage =  Math.ceil(components.videoNodes.length / self.videosOnPage());
             }
         } else {
-            self.lastPage = self.page + Math.ceil(components.videoNodes.length / self.videosOnPage());
+            self.lastPage =  Math.ceil(components.videoNodes.length / self.videosOnPage());
         }
         console.log(self.lastPage);
         return self.lastPage;
