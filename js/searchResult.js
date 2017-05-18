@@ -39,7 +39,7 @@ class SearchResult {
             this.setWidth(width);
 
             body.appendChild(self.DOMElement);
-            self.controllers = ElementFactory.create('div', { class: 'controllers'});
+            self.controllers = ElementFactory.create('div', { class: 'controllers' });
             body.appendChild(self.controllers);
 
             for (let i = 0; i < 5; i++) {
@@ -59,88 +59,88 @@ class SearchResult {
             this.buttons[4].DOMElement.onclick = self.nextPage;
             self.calcLastPage();
             self.setPage(1);
-            
+
         } else {
-           self.setWidth(screenWidth);
-           body.appendChild(self.DOMElement);
-           self.page = 1;
-           self.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was found :(</span>';
-           self.DOMElement.style.cursor = 'default';
-           self.noResults = true;
- 
+            self.setWidth(screenWidth);
+            body.appendChild(self.DOMElement);
+            self.page = 1;
+            self.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was found :(</span>';
+            self.DOMElement.style.cursor = 'default';
+            self.noResults = true;
+
         }
 
-        
+
         var list = self.DOMElement;
-        if(!self.noResults){    
-        list.onmousedown = function (e) {
-            var coords = getCoords(list);
-            var shiftX = e.pageX - coords.left;
-            self.screenX = event.screenX;
-            self.DOMElement.style.cursor = '-webkit-grabbing';
+        if (!self.noResults) {
+            list.onmousedown = function (e) {
+                var coords = getCoords(list);
+                var shiftX = e.pageX - coords.left;
+                self.screenX = event.screenX;
+                self.DOMElement.style.cursor = '-webkit-grabbing';
 
-            list.style.position = 'relative';
-            moveAt(e);
-
-            function moveAt(e) {
-                list.style.transition = 'none';
-                list.style.transform = `translate(${e.pageX - shiftX}px)`;
-                self.deltaTranslate = e.pageX - shiftX;
-            }
-
-            document.onmousemove = function (e) {
+                list.style.position = 'relative';
                 moveAt(e);
-            };
 
-            list.onmouseup = function () {
-                list.style.transition = 'transform 1s';
-                document.onmousemove = document.onmouseup = null;
-                list.onmouseup = list.onmousemove = null;
-                self.DOMElement.style.cursor = '-webkit-grab';
-                var delta = self.screenX - event.screenX;
-                if (delta < 0) {
-                    if (delta < -self.swipeLength) {
-                        if (self.page > 1) {
-
-                            self.prevPage();
-                        } else {
-                            list.style.transform = `translate(${self.currentTranslate}px)`;
-                        }
-                    } else {
-                        list.style.transform = `translate(${self.currentTranslate}px)`;
-
-                    }
+                function moveAt(e) {
+                    list.style.transition = 'none';
+                    list.style.transform = `translate(${e.pageX - shiftX}px)`;
+                    self.deltaTranslate = e.pageX - shiftX;
                 }
 
-                if (delta > 0) {
-                    if (delta > self.swipeLength) {
-                        if (self.page != self.lastPage) {
-                            self.nextPage();
-                        } else {
-                            list.style.transform = `translate(${self.currentTranslate}px)`;
-                        }
-                    } else {
-                        list.style.transform = `translate(${self.currentTranslate}px)`;
-                    }
-                }
-            };
-
-            function getCoords(elem) {
-                var box = elem.getBoundingClientRect();
-
-                return {
-                    left: box.left + pageXOffset
+                document.onmousemove = function (e) {
+                    moveAt(e);
                 };
 
+                list.onmouseup = function () {
+                    list.style.transition = 'transform 1s';
+                    document.onmousemove = document.onmouseup = null;
+                    list.onmouseup = list.onmousemove = null;
+                    self.DOMElement.style.cursor = '-webkit-grab';
+                    var delta = self.screenX - event.screenX;
+                    if (delta < 0) {
+                        if (delta < -self.swipeLength) {
+                            if (self.page > 1) {
+
+                                self.prevPage();
+                            } else {
+                                list.style.transform = `translate(${self.currentTranslate}px)`;
+                            }
+                        } else {
+                            list.style.transform = `translate(${self.currentTranslate}px)`;
+
+                        }
+                    }
+
+                    if (delta > 0) {
+                        if (delta > self.swipeLength) {
+                            if (self.page != self.lastPage) {
+                                self.nextPage();
+                            } else {
+                                list.style.transform = `translate(${self.currentTranslate}px)`;
+                            }
+                        } else {
+                            list.style.transform = `translate(${self.currentTranslate}px)`;
+                        }
+                    }
+                };
+
+                function getCoords(elem) {
+                    var box = elem.getBoundingClientRect();
+
+                    return {
+                        left: box.left + pageXOffset
+                    };
+
+                }
+                return false;
             }
-            return false;
+
+            list.ondragstart = function () {
+                return false;
+            };
+
         }
-
-        list.ondragstart = function () {
-            return false;
-        };
-
-}
 
         disableScreen.style.display = 'none';
     }
@@ -160,7 +160,7 @@ class SearchResult {
 
     setWidth(width) {
         this.width = width;
-        if(Math.ceil(this.width / screenWidth) == (this.width / screenWidth)){
+        if (Math.ceil(this.width / screenWidth) == (this.width / screenWidth)) {
             this.DOMElement.style.width = `${this.width}px`;
         } else {
             this.width = Math.ceil(this.width / screenWidth) * screenWidth;
@@ -178,19 +178,19 @@ class SearchResult {
 
     videosOnPage() {
         if (this.videosOnPageNumber == null) {
-            if(components.videoNodes.length != 0){
-            this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width)
-            } else{
+            if (components.videoNodes.length != 0) {
+                this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width)
+            } else {
                 this.videosOnPageNumber = 0;
             }
             this.prevVideosOnPageNumber = this.videosOnPageNumber;
-        }else {
+        } else {
 
             this.prevVideosOnPageNumber = this.videosOnPageNumber;
             this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width);
         }
-            return this.videosOnPageNumber;
-        
+        return this.videosOnPageNumber;
+
     }
 
     setPage(pageNum) {
@@ -201,39 +201,44 @@ class SearchResult {
         self.onPageSet();
         self.calcLoadPage();
 
-        if(videoArr.length){        // ?Добавить убирание кнопок ,если мало видео
+        if (videoArr.length) {        // ?Добавить убирание кнопок ,если мало видео
             if (self.page <= 1) {
-                self.buttons[0].DOMElement.style.opacity = '0';
+                if (screenWidth > 767) {
+                    self.buttons[0].DOMElement.style.opacity = '0';
+                }
                 self.buttons[0].DOMElement.onclick = 'none';
                 for (let i = 1; i < 4; i++) {
                     self.buttons[i].DOMElement.innerHTML = i;
                 }
+
             } else {
                 self.buttons[0].DOMElement.style.opacity = '1';
                 this.buttons[0].DOMElement.onclick = self.prevPage;
                 for (var key in self.pageFunctions) {
                     this.buttons[key].DOMElement.innerHTML = self.pageFunctions[key](self.page);
+                }
             }
-        }
-    
 
-        for (let i = 1; i < 4; i++) {
 
-            var buttonController = this.buttons[i];
-            buttonController.setActive(buttonController.DOMElement.innerHTML == pageNum);
-        }
+            for (let i = 1; i < 4; i++) {
 
-        self.calcLastPage();
+                var buttonController = this.buttons[i];
+                buttonController.setActive(buttonController.DOMElement.innerHTML == pageNum);
+            }
 
-        if (self.isLastPage()) {
-            self.buttons[4].DOMElement.style.opacity = '0';
-            self.buttons[4].DOMElement.onclick = 'none';
-        } else {
-            self.buttons[4].DOMElement.style.opacity = '1';
-            this.buttons[4].DOMElement.onclick = self.nextPage;
-        }
+            self.calcLastPage();
 
-        
+            if (self.isLastPage()) {
+                if (screenWidth > 767) {
+                    self.buttons[4].DOMElement.style.opacity = '0';
+                }
+                self.buttons[4].DOMElement.onclick = 'none';
+            } else {
+                self.buttons[4].DOMElement.style.opacity = '1';
+                this.buttons[4].DOMElement.onclick = self.nextPage;
+            }
+
+
         }
     }
 
@@ -313,7 +318,7 @@ class SearchResult {
     // }
 
     remove() {
-        if(self.noResults){
+        if (self.noResults) {
             self.DOMElement.parentNode.removeChild(self.DOMElement);
         } else {
             body.removeChild(components.searchResult.controllers);

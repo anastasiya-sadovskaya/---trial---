@@ -363,11 +363,20 @@ font-size: 13px;
 
 .description{
     bottom: 85px;
-    /* overflow-y:  scroll; */
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .info{
     height: calc(50% - 30px);
+}
+
+#prev{
+    border-radius: 0;
+}
+
+#next{
+    border-radius: 0;
 }
 
 
