@@ -317,6 +317,12 @@ font-size: 13px;
     background: #c9ecf1;
 }
 
+.nullRes{
+    margin: 20px;
+    display: block;
+    font-size: 25px;
+}
+
 @media (max-width: 767px) {
    body {
         position:fixed;

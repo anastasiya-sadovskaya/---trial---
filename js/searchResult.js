@@ -61,8 +61,8 @@ class SearchResult {
         } else {
            self.setWidth(screenWidth);
            body.appendChild(self.DOMElement);
-           self.setPage(1);
-           self.DOMElement.innerHTML = 'Not founded';
+           self.page = 1;
+           self.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was founded :(</span>';
            self.noResults = true;
  
         }
@@ -214,6 +214,7 @@ class SearchResult {
         self.DOMElement.style.left = '0px';
         self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * screenWidth}px)`;
         self.currentTranslate = -((pageNum - 1) * screenWidth);
+        self.onPageSet();
         self.calcLoadPage();
 
         if(videoArr.length){        // ?Добавить убирание кнопок ,если мало видео
@@ -238,6 +239,8 @@ class SearchResult {
             buttonController.setActive(buttonController.DOMElement.innerHTML == pageNum);
         }
 
+        self.calcLastPage();
+
         if (self.isLastPage()) {
             self.buttons[4].DOMElement.style.opacity = '0';
             self.buttons[4].DOMElement.onclick = 'none';
@@ -246,7 +249,7 @@ class SearchResult {
             this.buttons[0].DOMElement.onclick = self.prevPage;
         }
 
-        self.onPageSet();
+        
         }
     }
 
@@ -298,15 +301,19 @@ class SearchResult {
     }
 
     calcLastPage() {
+        console.log(self.page);
         if (videoArr.length < 15) {
             var lastVideos = videoArr.length / self.videosOnPage();
             if (Math.ceil(lastVideos) === lastVideos) {
                 //self.lastPage = self.page + Math.ceil(lastVideos);
-                self.lastPage = components.videoNodes.length / self.videosOnPage();
+                self.lastPage = self.page + components.videoNodes.length / self.videosOnPage();
             } else {
-                self.lastPage = Math.ceil(components.videoNodes.length / self.videosOnPage());
+                self.lastPage = self.page + Math.ceil(components.videoNodes.length / self.videosOnPage());
             }
+        } else {
+            self.lastPage = self.page + Math.ceil(components.videoNodes.length / self.videosOnPage());
         }
+        console.log(self.lastPage);
         return self.lastPage;
     }
 
