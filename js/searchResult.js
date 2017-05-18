@@ -141,6 +141,7 @@ class SearchResult {
 
 
 
+
         // self.DOMElement.onmousedown = function (event) {
         //     self.screenX = event.screenX;
         //     self.screenY = event.screenY;

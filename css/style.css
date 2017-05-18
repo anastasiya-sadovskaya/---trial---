@@ -137,9 +137,6 @@ img{
     box-sizing: border-box;
 }
 
-.title:hover {
-    font-weight: 600;
-}
 
 .date{  
     position: absolute;
@@ -275,6 +272,11 @@ font-size: 13px;
     cursor: pointer;
 }
 
+
+    .videoNode:hover .title{
+        font-weight: 600;
+    }
+
 .pageController{
     /*position: fixed;*/
     height: 55px;
@@ -388,6 +390,7 @@ font-size: 13px;
     .videoNode:hover .preview{
         filter:none;
     }
+
 
     .playVideo{
         display:none!important;
