@@ -1,4 +1,6 @@
-class VideoNode{
+import videoNodeWidth from './app';
+
+export default class VideoNode{
     constructor(width){
         components.videoNodes.push(this);
         this.margin = 0;

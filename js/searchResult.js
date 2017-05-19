@@ -1,4 +1,6 @@
-class SearchResult {
+import VideoNode from './videoNode';
+
+export default class SearchResult {
     constructor() {
         self = this;
         self.pageFunctions = {
@@ -21,8 +23,8 @@ class SearchResult {
     create() {
         this.DOMElement = ElementFactory.create('div', { class: 'resultList' });
         if (videoArr.length != 0) {
-            if (screenWidth < 400) {
-                self.createNodes(screenWidth);
+            if (AppManager.screenWidth < 400) {
+                self.createNodes(AppManager.screenWidth);
             } else {
                 self.createNodes(400);
             }
@@ -32,7 +34,7 @@ class SearchResult {
             this.buttons = [];
 
             let countOfVideos = self.videosOnPage();
-            let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+            let margin = ((AppManager.screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
             this.setMargin(margin);
 
             let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
@@ -52,7 +54,7 @@ class SearchResult {
                     this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
                 }
             }
-            if(screenWidth > 767){
+            if(AppManager.screenWidth > 767){
                 this.buttons.map(function(el){el.DOMElement.style.opacity = 0;})
             }
 
@@ -96,7 +98,7 @@ class SearchResult {
             
 
         } else {
-            self.setWidth(screenWidth);
+            self.setWidth(AppManager.screenWidth);
             body.appendChild(self.DOMElement);
             self.page = 1;
             self.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was found :(</span>';
@@ -196,10 +198,10 @@ class SearchResult {
 
     setWidth(width) {
         this.width = width;
-        if (Math.ceil(this.width / screenWidth) == (this.width / screenWidth)) {
+        if (Math.ceil(this.width / AppManager.screenWidth) == (this.width / AppManager.screenWidth)) {
             this.DOMElement.style.width = `${this.width}px`;
         } else {
-            this.width = Math.ceil(this.width / screenWidth) * screenWidth;
+            this.width = Math.ceil(this.width / AppManager.screenWidth) * AppManager.screenWidth;
             this.DOMElement.style.width = `${this.width}px`;
         }
     }
@@ -215,7 +217,7 @@ class SearchResult {
     videosOnPage() {
         if (this.videosOnPageNumber == null) {
             if (components.videoNodes.length != 0) {
-                this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width)
+                this.videosOnPageNumber = Math.floor(AppManager.screenWidth / components.videoNodes[0].width)
             } else {
                 this.videosOnPageNumber = 0;
             }
@@ -223,7 +225,7 @@ class SearchResult {
         } else {
 
             this.prevVideosOnPageNumber = this.videosOnPageNumber;
-            this.videosOnPageNumber = Math.floor(screenWidth / components.videoNodes[0].width);
+            this.videosOnPageNumber = Math.floor(AppManager.screenWidth / components.videoNodes[0].width);
         }
         return this.videosOnPageNumber;
 
@@ -232,14 +234,14 @@ class SearchResult {
     setPage(pageNum) {
         self.page = pageNum;
         self.DOMElement.style.left = '0px';
-        self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * screenWidth}px)`;
-        self.currentTranslate = -((pageNum - 1) * screenWidth);
+        self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * AppManager.screenWidth}px)`;
+        self.currentTranslate = -((pageNum - 1) * AppManager.screenWidth);
         self.onPageSet();
         self.calcLoadPage();
         if (videoArr.length) {  
             if (self.page !== self.pageForLoad && (self.page + 1) != self.lastPage ) {
                 if (self.page <= 1) {
-                    if (screenWidth > 767) {
+                    if (AppManager.screenWidth > 767) {
                         self.buttons[0].DOMElement.style.opacity = '0';
                     }
                     self.buttons[0].DOMElement.onclick = 'none';
@@ -271,7 +273,7 @@ class SearchResult {
             self.calcLastPage();
 
             // if (self.isLastPage()) {
-            //     if (screenWidth > 767) {
+            //     if (AppManager.screenWidth > 767) {
             //         self.buttons[4].DOMElement.style.opacity = '0';
             //     }
             //     self.buttons[4].DOMElement.onclick = 'none';
@@ -292,8 +294,8 @@ class SearchResult {
                     videoArr = response.items;
                     self.calcLastPage();
                     if(self.page != self.lastPage){
-                        if (screenWidth < 400) {
-                            self.createNodes(screenWidth);
+                        if (AppManager.screenWidth < 400) {
+                            self.createNodes(AppManager.screenWidth);
                         } else {
                             self.createNodes(400);
                         }
@@ -301,7 +303,7 @@ class SearchResult {
                         disableScreen.style.display = 'none';
                         spiner.style.display = 'none';
                         let countOfVideos = self.videosOnPage();
-                        let margin = ((screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+                        let margin = ((AppManager.screenWidth - (videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
                         self.setMargin(margin);
 
                         let width = (self.videoNodes.length * videoNodeWidth) + (self.videoNodes.length * margin * 2);
@@ -309,7 +311,7 @@ class SearchResult {
 
                         self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
                         // if (self.isLastPage()) {
-                        //     if (screenWidth > 767) {
+                        //     if (AppManager.screenWidth > 767) {
                         //         self.buttons[4].DOMElement.style.opacity = '0';
                         //     }
                         //     self.buttons[4].DOMElement.onclick = 'none';
@@ -330,7 +332,7 @@ class SearchResult {
             
         }
     }else {
-            if (screenWidth > 767) {
+            if (AppManager.screenWidth > 767) {
                 self.buttons[4].DOMElement.style.opacity = '0';
             }
                 self.buttons[4].DOMElement.onclick = 'none';
@@ -394,7 +396,7 @@ class SearchResult {
         } else {
             body.removeChild(components.searchResult.controllers);
             components.videoNodes = [];
-            nextPageToken = null;
+            AppSettings.nextPageToken = null;
             videoArr = [];
             self.DOMElement.parentNode.removeChild(self.DOMElement);
             components.searchResult = null;

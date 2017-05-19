@@ -1,4 +1,6 @@
-window.YouTubeApiClient = (function (...args) {
+import {components, disableScreen, spiner, body, input, searchButton, onSearchSuccessCallback} from './app.js';
+
+export default  (function YouTubeApiClient(...args) {
     var element = null,
         idArr = [],
         url = '';
@@ -11,8 +13,8 @@ window.YouTubeApiClient = (function (...args) {
                 var q = input.value;
                 var xhr = new XHR();
                 url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&alt=json&key=AIzaSyCCXDIVUSpoxFGLOAK3jx9iANFtCHb5PG0&q=${q}`;
-                if (nextPageToken) {
-                    url += `&pageToken=${nextPageToken}`;
+                if (AppSettings.nextPageToken) {
+                    url += `&pageToken=${bla-bla}`;
                 }
                 xhr.open('GET', url, true);
                 xhr.send();
@@ -27,7 +29,8 @@ window.YouTubeApiClient = (function (...args) {
                 };
             })
                 .then(function(response){
-                    nextPageToken = response.nextPageToken;
+                    console.log(a.b);
+                    AppSettings.nextPageToken = response.nextPageToken;
                     let ids = [];
                     for (let i = 0; i < response.items.length; i++) {
                         ids.push(response.items[i].id.videoId);
