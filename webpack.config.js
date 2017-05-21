@@ -1,16 +1,30 @@
+const path = require('path');
+
 module.exports = {
-  entry: './js/app.js',
+  entry: './src/js/app.js',
   output: {
-    //path: __dirname, 
-    filename: './bundle.js',
+    path: path.join(__dirname, './dist/'),
+    filename: 'bundle.js',
   },
 
   module: {
-    loaders: [
-        {
-            exclude: /node_modules/, 
-            loader: "babel-loader" 
+    rules: [
+      {
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          outputReport: {
+            filePath: 'checkstyle.txt',
+            formatter: require('eslint/lib/formatters/checkstyle')
+          }
         }
+      }
+    ],
+    loaders: [
+      {
+        exclude: /node_modules/,
+        loader: ['babel-loader'],
+      }
     ]
   }
 };
