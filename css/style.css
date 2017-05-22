@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One|Raleway|Slabo+27px');
 @import url("../node_modules/font-awesome/css/font-awesome.css");
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 
 a{
     text-decoration: none;
@@ -385,10 +386,17 @@ img{
         height: 100vh;
    }
    
-   .videoNode{
-       height: 100vh;
-       overflow-y: scroll;
-   }
+   .videoNode:hover .playVideo{
+        display:none!important;
+    }
+
+    .videoNode:hover{
+        box-shadow: none;
+    }
+
+    .videoNode:hover .preview{
+        filter:none;
+    }
 
    .controllers{
     width: 100%;
@@ -415,7 +423,7 @@ img{
     border-radius: 0;
 }
 
-more{
+.more{
     top:0;
  }
 
@@ -445,20 +453,6 @@ more{
     .videoNode{
         height: calc(100vh - 85px);
     }
-
-    .videoNode:hover .playVideo{
-        display:none!important;
-    }
-
-    .videoNode:hover{
-        box-shadow: none;
-    }
-
-    .videoNode:hover .preview{
-        filter:none;
-    }
-
-
     .playVideo{
         display:none!important;
     }
