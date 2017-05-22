@@ -509,6 +509,21 @@ class SearchResult {
             };
 
             list.ondragstart = () => false;
+
+            list.addEventListener('touchstart', (e) => {
+                console.log(e.touches[0].clientX);
+                list.startSwipe = e.touches[0].clientX;
+            });
+
+            list.addEventListener('touchend', (e) => {
+                const delta = list.startSwipe - e.changedTouches[0].clientX;
+                if (Math.abs(delta) >= 50 && delta < 0) {
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.prevPage();
+                }
+                if (Math.abs(delta) >= 50 && delta > 0) {
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.nextPage();
+                }
+            });
         }
 
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].disableScreen.style.display = 'none';

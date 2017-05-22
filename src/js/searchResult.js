@@ -187,6 +187,20 @@ export default class SearchResult {
             };
 
             list.ondragstart = () => false;
+
+            list.addEventListener('touchstart', (e) => {
+                list.startSwipe = e.touches[0].clientX;
+            });
+
+            list.addEventListener('touchend', (e) => {
+                const delta = list.startSwipe - e.changedTouches[0].clientX;
+                if (Math.abs(delta) >= 50 && delta < 0) {
+                    AppManager.resultsList.prevPage();
+                }
+                if (Math.abs(delta) >= 50 && delta > 0) {
+                    AppManager.resultsList.nextPage();
+                }
+            });
         }
 
         AppManager.disableScreen.style.display = 'none';
