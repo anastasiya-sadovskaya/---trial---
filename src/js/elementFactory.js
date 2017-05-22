@@ -4,9 +4,9 @@ export default (function ElementFactory() {
         create(tagName, attrs, props) {
             element = document.createElement(tagName);
 
-            for (let attr in attrs) {
+            Object.keys(attrs).forEach((attr) => {
                 element.setAttribute(attr, attrs[attr]);
-            }
+            });
 
             Object.assign(element, props);
             if (props && props.style) {

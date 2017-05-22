@@ -73,9 +73,7 @@
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__elementFactory__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(4);
-// import 'babel-polyfill';
 
-// import YouTubeApiClient from './youTubeApiClient';
 
 
 /* harmony default export */ __webpack_exports__["a"] = (function AppManager() {
@@ -119,9 +117,9 @@
         create(tagName, attrs, props) {
             element = document.createElement(tagName);
 
-            for (let attr in attrs) {
+            Object.keys(attrs).forEach((attr) => {
                 element.setAttribute(attr, attrs[attr]);
-            }
+            });
 
             Object.assign(element, props);
             if (props && props.style) {
@@ -149,15 +147,8 @@
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appManager__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appSettings__ = __webpack_require__(1);
-// import AppSettings from './appSettings';
 
 
-
-// import YouTubeApiClient from './youTubeApiClient';
-// import ElementFactory from './elementFactory';
-// import VideoNode from './videoNode';
-// import SearchResult from './searchResult';
-// import onSearchSuccessCallback from './app';
 
 /* harmony default export */ __webpack_exports__["a"] = (function YouTubeApiClient() {
     let url = '';
@@ -324,7 +315,7 @@ function onSearchSuccessCallback() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appManager__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appSettings_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appSettings__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__elementFactory__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__youTubeApiClient__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__videoNode__ = __webpack_require__(7);
@@ -340,10 +331,10 @@ class SearchResult {
     constructor() {
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList = this;
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageFunctions = {
-            1: function (page) { return page - 1; },
-            2: function (page) { return page; },
-            3: function (page) { return page + 1; }
-        }
+            1: page => page - 1,
+            2: page => page,
+            3: page => page + 1,
+        };
 
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes = [];
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page = 1;
@@ -352,185 +343,172 @@ class SearchResult {
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.swipeLength = 100;
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage = null;
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.noResults = false;
-
-        
     }
 
     create() {
         this.DOMElement = __WEBPACK_IMPORTED_MODULE_2__elementFactory__["a" /* default */].create('div', { class: 'resultList' });
-        if (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount != 0) {
-            if (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth < 400) {
-                __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.createNodes(__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth);
+        if (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount !== 0) {
+            if (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth < 400) {
+                __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.createNodes(__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth);
             } else {
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.createNodes(400);
             }
-            for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount; i++) {
+            for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount; i += 1) {
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes[i].render();
             }
-            this.buttons = [];
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons = [];
 
-            let countOfVideos = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
-            let margin = ((__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth - (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+            const countOfVideos = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
+            const margin = ((__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth - (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
             this.setMargin(margin);
 
-            let width = (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].videoNodeWidth) + (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * margin * 2);
+            const width = (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].videoNodeWidth) + (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * margin * 2);
             this.setWidth(width);
 
             document.body.appendChild(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement);
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.controllers = __WEBPACK_IMPORTED_MODULE_2__elementFactory__["a" /* default */].create('div', { class: 'controllers' });
             document.body.appendChild(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.controllers);
 
-
-
-            for (let i = 0; i < 5; i++) {
-                this.buttons.push(new __WEBPACK_IMPORTED_MODULE_5__button__["a" /* default */]);
-                this.buttons[i].create();
+            for (let i = 0; i < 5; i += 1) {
+                __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons.push(new __WEBPACK_IMPORTED_MODULE_5__button__["a" /* default */]());
+                __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[i].create();
                 if (i > 0 && i < 4) {
-                    this.buttons[i].DOMElement.innerHTML = i;
-                    this.buttons[i].DOMElement.onclick = () => __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.changePage(this.buttons[i], undefined);
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[i].DOMElement.innerHTML = i;
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[i].DOMElement.onclick = () => __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.changePage(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[i], undefined);
                 }
             }
-            if (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth > 767) {
-                this.buttons.map(function (el) { el.DOMElement.className = 'pageController'; })
+            if (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth > 767) {
+                __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons.map((el, index) => {
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[index].DOMElement.className = 'pageController';
+                    return el;
+                });
             }
 
-            this.buttons[0].DOMElement.innerHTML = 'Prev';
-            this.buttons[0].DOMElement.id = 'prev';
-            this.buttons[0].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.prevPage;
-            this.buttons[4].DOMElement.innerHTML = 'Next';
-            this.buttons[4].DOMElement.id = 'next';
-            this.buttons[4].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.nextPage;
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[0].DOMElement.innerHTML = 'Prev';
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[0].DOMElement.id = 'prev';
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[0].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.prevPage;
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.innerHTML = 'Next';
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.id = 'next';
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.nextPage;
 
-            var firstLoadPagesCount = Math.ceil(__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage());
+            const firstLoadPagesCount = Math.ceil(__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage());
             if (firstLoadPagesCount < 4) {
-                for (var i = 1; i <= firstLoadPagesCount; i++) {
-                    this.buttons[i].DOMElement.className = 'pageController';
-
+                for (let i = 1; i <= firstLoadPagesCount; i += 1) {
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[i].DOMElement.className = 'pageController';
                 }
             } else {
-                for (var i = 1; i < 4; i++) {
-                    this.buttons[i].DOMElement.className = 'pageController';
-
+                for (let i = 1; i < 4; i += 1) {
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[i].DOMElement.className = 'pageController';
                 }
             }
 
-            // for (let i = 0; i < 5; i++) {
-            //      this.buttons.push(new Button);
+            // for (let i = 0; i < 5; i += 1) {
+            //      AppManager.resultsList.buttons.push(new Button);
             // }
 
             // var firstLoadPagesCount = Math.ceil(AppSettings.responsItemsCount / AppManager.resultsList.videosOnPage());
             // if(firstLoadPagesCount < 4){
-            //     for(var i = 1; i <= firstLoadPagesCount; i++ ){
-            //         this.buttons[i].create();
-            //         this.buttons[i].DOMElement.innerHTML = i;
-            //         this.buttons[i].DOMElement.onclick = () => AppManager.resultsList.changePage(this.buttons[i], undefined);
+            //     for(var i = 1; i <= firstLoadPagesCount; i += 1 ){
+            //         AppManager.resultsList.buttons[i].create();
+            //         AppManager.resultsList.buttons[i].DOMElement.innerHTML = i;
+            //         AppManager.resultsList.buttons[i].DOMElement.onclick = () => AppManager.resultsList.changePage(AppManager.resultsList.buttons[i], undefined);
             //     }
             // }
 
 
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.calcLastPage();
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setPage(1);
-
-
-
         } else {
-            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setWidth(__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth);
+            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setWidth(__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth);
             document.body.appendChild(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement);
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page = 1;
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was found :(</span>';
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.style.cursor = 'default';
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.noResults = true;
-
         }
 
 
-        var list = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement;
+        const list = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement;
         if (!__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.noResults) {
-            list.onmousedown = function (e) {
-                var coords = getCoords(list);
-                var shiftX = e.pageX - coords.left;
+            list.onmousedown = (e) => {
+                function getCoords(elem) {
+                    const box = elem.getBoundingClientRect();
+
+                    return {
+                        left: box.left + pageXOffset,
+                    };
+                }
+
+                const coords = getCoords(list);
+                const shiftX = e.pageX - coords.left;
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.screenX = event.screenX;
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.style.cursor = '-webkit-grabbing';
+
+                function moveAt(ev) {
+                    list.style.transition = 'none';
+                    list.style.transform = `translate(${ev.pageX - shiftX}px)`;
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.deltaTranslate = ev.pageX - shiftX;
+                }
 
                 list.style.position = 'relative';
                 moveAt(e);
 
-                function moveAt(e) {
-                    list.style.transition = 'none';
-                    list.style.transform = `translate(${e.pageX - shiftX}px)`;
-                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.deltaTranslate = e.pageX - shiftX;
-                }
-
-                document.onmousemove = function (e) {
-                    moveAt(e);
+                document.onmousemove = (ev) => {
+                    moveAt(ev);
                 };
 
-                list.onmouseup = function () {
+                list.onmouseup = () => {
                     list.style.transition = 'transform 1s';
-                    document.onmousemove = document.onmouseup = null;
-                    list.onmouseup = list.onmousemove = null;
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                    list.onmouseup = null;
+                    list.onmousemove = null;
                     __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.style.cursor = '-webkit-grab';
-                    var delta = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.screenX - event.screenX;
+                    const delta = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.screenX - event.screenX;
                     if (delta < 0) {
                         if (delta < -__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.swipeLength) {
                             if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page > 1) {
-
                                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.prevPage();
                             } else {
                                 list.style.transform = `translate(${__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.currentTranslate}px)`;
                             }
                         } else {
                             list.style.transform = `translate(${__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.currentTranslate}px)`;
-
                         }
                     }
 
                     if (delta > 0) {
                         if (delta > __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.swipeLength) {
-                            if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page != __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage) {
+                            if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page !== __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage) {
                                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.nextPage();
                             } else {
                                 list.style.transform = `translate(${__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.currentTranslate}px)`;
-                                for (let i = 0; i < 5; i++){
-                                    if(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[i].DOMElement.innerHTML == __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page){
-                                        for(let j = 4; j > i; j--){
+                                for (let i = 0; i < 5; i += 1) {
+                                    if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[i].DOMElement.innerHTML === __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page) {
+                                        for (let j = 4; j > i; j -= 1) {
                                             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[j].DOMElement.className = 'pageController disable';
                                             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[j].DOMElement.onclick = 'none';
-
                                         }
                                     }
                                 }
                             }
                         } else {
                             list.style.transform = `translate(${__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.currentTranslate}px)`;
-                             for (let i = 0; i < 5; i++){
-                                    if(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[i].DOMElement.innerHTML == __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page){
-                                        for(let j = 4; j > i; j--){
-                                            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[j].DOMElement.className = 'pageController disable';
-                                            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[j].DOMElement.onclick = 'none';
-
-                                        }
+                            for (let i = 0; i < 5; i += 1) {
+                                if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[i].DOMElement.innerHTML === __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page) {
+                                    for (let j = 4; j > i; j -= 1) {
+                                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[j].DOMElement.className = 'pageController disable';
+                                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].pageControllers[j].DOMElement.onclick = 'none';
                                     }
                                 }
+                            }
                         }
                     }
                 };
-
-                function getCoords(elem) {
-                    var box = elem.getBoundingClientRect();
-
-                    return {
-                        left: box.left + pageXOffset
-                    };
-
-                }
-                return false;
-            }
-
-            list.ondragstart = function () {
                 return false;
             };
 
+            list.ondragstart = () => false;
         }
 
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].disableScreen.style.display = 'none';
@@ -539,8 +517,8 @@ class SearchResult {
 
 
     createNodes(width) {
-        for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount; i++) {
-            var videoNode = new __WEBPACK_IMPORTED_MODULE_4__videoNode__["a" /* default */](width);
+        for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount; i += 1) {
+            const videoNode = new __WEBPACK_IMPORTED_MODULE_4__videoNode__["a" /* default */](width);
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.push(videoNode);
             videoNode.create(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].currentVideos[i]);
         }
@@ -552,17 +530,17 @@ class SearchResult {
 
     setWidth(width) {
         this.width = width;
-        if (Math.ceil(this.width / __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth) == (this.width / __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth)) {
+        if (Math.ceil(this.width / __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth) === (this.width / __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth)) {
             this.DOMElement.style.width = `${this.width}px`;
         } else {
-            this.width = Math.ceil(this.width / __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth) * __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth;
+            this.width = Math.ceil(this.width / __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth) * __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth;
             this.DOMElement.style.width = `${this.width}px`;
         }
     }
 
     setMargin(margin) {
         if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length) {
-            for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length; i++) {
+            for (let i = 0; i < __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length; i += 1) {
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes[i].setMargin(margin);
             }
         }
@@ -570,59 +548,52 @@ class SearchResult {
 
     videosOnPage() {
         if (this.videosOnPageNumber == null) {
-            if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes.length != 0) {
-                this.videosOnPageNumber = Math.floor(__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes[0].width)
+            if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes.length !== 0) {
+                this.videosOnPageNumber = Math.floor(__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes[0].width);
             } else {
                 this.videosOnPageNumber = 0;
             }
             this.prevVideosOnPageNumber = this.videosOnPageNumber;
         } else {
-
             this.prevVideosOnPageNumber = this.videosOnPageNumber;
-            this.videosOnPageNumber = Math.floor(__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes[0].width);
+            this.videosOnPageNumber = Math.floor(__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes[0].width);
         }
         return this.videosOnPageNumber;
-
     }
 
     setPage(pageNum) {
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page = pageNum;
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.style.left = '0px';
-        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.style.transform = `translateX(-${(pageNum - 1) * __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth}px)`;
-        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.currentTranslate = -((pageNum - 1) * __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth);
+        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.style.transform = `translateX(-${(pageNum - 1) * __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth}px)`;
+        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.currentTranslate = -((pageNum - 1) * __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth);
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.calcLoadPage();
         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.onPageSet();
-        
-        if (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount) {
-            if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page !== __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageForLoad && (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page + 1) != __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage) {
+
+        if (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount) {
+            if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page !== __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageForLoad && (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page + 1) !== __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage) {
                 if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page <= 1) {
                     __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[0].DOMElement.className = 'pageController disable';
                     __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[0].DOMElement.onclick = 'none';
-                    for (let i = 1; i < 4; i++) {
+                    for (let i = 1; i < 4; i += 1) {
                         __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[i].DOMElement.innerHTML = i;
                     }
-
                 } else {
                     __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[0].DOMElement.className = 'pageController';
-                    this.buttons[0].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.prevPage;
-                    for (var key in __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageFunctions) {
-                        this.buttons[key].DOMElement.innerHTML = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageFunctions[key](__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page);
-                    }
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[0].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.prevPage;
+                    Object.keys(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageFunctions).forEach((key) => {
+                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[key].DOMElement.innerHTML = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageFunctions[key](__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page);
+                    });
                 }
 
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.className = 'pageController';
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.nextPage;
-
             }
-        } 
+        }
 
-        
-
-
-        for (let i = 1; i < 4; i++) {
+        for (let i = 1; i < 4; i += 1) {
             if (this.buttons[i].DOMElement) {
-                var buttonController = this.buttons[i];
-                buttonController.setActive(buttonController.DOMElement.innerHTML == pageNum);
+                const buttonController = this.buttons[i];
+                buttonController.setActive(buttonController.DOMElement.innerHTML === String(pageNum));
             }
         }
 
@@ -633,71 +604,59 @@ class SearchResult {
         //     AppManager.resultsList.buttons[4].DOMElement.onclick = 'none';
         // } else {
         //     AppManager.resultsList.buttons[4].DOMElement.className = 'pageController';
-        //     this.buttons[4].DOMElement.onclick = AppManager.resultsList.nextPage;
+        //     AppManager.resultsList.buttons[4].DOMElement.onclick = AppManager.resultsList.nextPage;
         // }
-
-
-
-
     }
 
     onPageSet() {
-        //if (AppManager.resultsList.pageForLoad != AppManager.resultsList.lastPage) {
-            if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page === __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageForLoad) {
-                __WEBPACK_IMPORTED_MODULE_3__youTubeApiClient__["a" /* default */].search(function (response) {
-                    console.log(response);
-                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].currentVideos = response.items;
-                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.calcLastPage();
-                    if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page != __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage) {
-                        if (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth < 400) {
-                            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.createNodes(__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth);
-                        } else {
-                            __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.createNodes(400);
-                        }
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.calcLastPage();
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].disableScreen.style.display = 'none';
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].spiner.style.display = 'none';
-                        let countOfVideos = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
-                        let margin = ((__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].screenWidth - (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setMargin(margin);
-
-                        let width = (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].videoNodeWidth) + (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * margin * 2);
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setWidth(width);
-
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
-                        // if (AppManager.resultsList.isLastPage()) {
-                        //     if (AppSettings.screenWidth > 767) {
-                        //         AppManager.resultsList.buttons[4].DOMElement.className = 'pageController disable';
-                        //     }
-                        //     AppManager.resultsList.buttons[4].DOMElement.onclick = 'none';
-                        // } else {
-
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.className = 'pageController';
-                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.nextPage;
-
-
-                        //}
-
+        // if (AppManager.resultsList.pageForLoad != AppManager.resultsList.lastPage) {
+        if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page === __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageForLoad) {
+            __WEBPACK_IMPORTED_MODULE_3__youTubeApiClient__["a" /* default */].search((response) => {
+                __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].currentVideos = response.items;
+                __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.calcLastPage();
+                if (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.page !== __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage) {
+                    if (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth < 400) {
+                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.createNodes(__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth);
+                    } else {
+                        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.createNodes(400);
                     }
-                });
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.calcLastPage();
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].disableScreen.style.display = 'none';
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].spiner.style.display = 'none';
+                    const countOfVideos = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
+                    const margin = ((__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].screenWidth - (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setMargin(margin);
+
+                    const width = (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].videoNodeWidth) + (__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.length * margin * 2);
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setWidth(width);
+
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videoNodes.filter(vn => vn.rendered === false).map(vn => vn.render());
+                    // if (AppManager.resultsList.isLastPage()) {
+                    //     if (AppSettings.screenWidth > 767) {
+                    //         AppManager.resultsList.buttons[4].DOMElement.className = 'pageController disable';
+                    //     }
+                    //     AppManager.resultsList.buttons[4].DOMElement.onclick = 'none';
+                    // } else {
+
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.className = 'pageController';
+                    __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.onclick = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.nextPage;
+                    // }
+                }
+            });
 
 
-                // AppManager.resultsList.calcLastPage();
+            // AppManager.resultsList.calcLastPage();
 
 
-           // }
+            // }
         } else {
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.className = 'pageController disable';
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.buttons[4].DOMElement.onclick = 'none';
         }
-
-        console.log('page for load: ' + __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageForLoad);
-                    console.log('last page: ' + __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage);
     }
 
     calcLoadPage() {
-        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageForLoad;
-        var tempPageForLoad = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes.length / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
+        const tempPageForLoad = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes.length / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
         if (Number.isInteger(tempPageForLoad)) {
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.pageForLoad = tempPageForLoad - 1;
         } else {
@@ -714,12 +673,12 @@ class SearchResult {
     }
 
     changePage(button, pageNum) {
-        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setPage(pageNum == undefined ? parseInt(button.DOMElement.innerHTML) : pageNum);
+        __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.setPage(pageNum === undefined ? parseInt(button.DOMElement.innerHTML, 10) : pageNum);
     }
 
     calcLastPage() {
-        let lastVideos = __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
-        if (__WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount < 15) {
+        const lastVideos = __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
+        if (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount < 15) {
             if (Math.ceil(lastVideos) === lastVideos) {
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.lastPage = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes.length / __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.videosOnPage();
             } else {
@@ -744,11 +703,11 @@ class SearchResult {
         } else {
             document.body.removeChild(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.controllers);
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].videoNodes = [];
-            __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].nextPageToken = null;
+            __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].nextPageToken = null;
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].currentVideos = [];
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement.parentNode.removeChild(__WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList.DOMElement);
             __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].resultsList = null;
-            __WEBPACK_IMPORTED_MODULE_1__appSettings_js__["a" /* default */].responsItemsCount = 0;
+            __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount = 0;
         }
     }
 }
