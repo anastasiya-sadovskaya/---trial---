@@ -1,6 +1,4 @@
-// import 'babel-polyfill';
 import ElementFactory from './elementFactory';
-// import YouTubeApiClient from './youTubeApiClient';
 import onSearchSuccessCallback from './app';
 
 export default (function AppManager() {

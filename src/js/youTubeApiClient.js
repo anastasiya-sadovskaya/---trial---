@@ -1,12 +1,5 @@
-// import AppSettings from './appSettings';
-
 import AppManager from './appManager';
 import AppSettings from './appSettings';
-// import YouTubeApiClient from './youTubeApiClient';
-// import ElementFactory from './elementFactory';
-// import VideoNode from './videoNode';
-// import SearchResult from './searchResult';
-// import onSearchSuccessCallback from './app';
 
 export default (function YouTubeApiClient() {
     let url = '';
