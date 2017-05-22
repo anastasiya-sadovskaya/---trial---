@@ -97,15 +97,16 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ((function AppSettings() {
+/* harmony default export */ __webpack_exports__["a"] = (function AppSettings() {
     return {
         nextPageToken: null,
         screenWidth: document.body.offsetWidth,
         videoNodeWidthExceptPhones: 400,
         videoNodeWidth: 400,
-        responsItemsCount: 0
-    }
-})());
+        responsItemsCount: 0,
+    };
+}());
+
 
 /***/ }),
 /* 2 */
@@ -148,88 +149,83 @@
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__appManager__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__appSettings__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__youTubeApiClient__ = __webpack_require__(3);
-//import AppSettings from './appSettings';
+// import AppSettings from './appSettings';
 
 
 
-
+// import YouTubeApiClient from './youTubeApiClient';
 // import ElementFactory from './elementFactory';
 // import VideoNode from './videoNode';
 // import SearchResult from './searchResult';
-//import onSearchSuccessCallback from './app';
+// import onSearchSuccessCallback from './app';
 
-/* harmony default export */ __webpack_exports__["a"] = ((function YouTubeApiClient(...args) {
-    var element = null,
-        idArr = [],
-        url = '';
-    var getVideoInfo = function (ids, successCallback) {
-        return new Promise(function (resolve, reject) {
-            var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-            var q = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].searchInput.value;
-            var xhr = new XHR();
-            url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&key=AIzaSyCCXDIVUSpoxFGLOAK3jx9iANFtCHb5PG0&id=`;
-            for (let i = 0; i < ids.length; i++) {
+/* harmony default export */ __webpack_exports__["a"] = (function YouTubeApiClient() {
+    let url = '';
+    const getVideoInfo = (ids, successCallback) => {
+        new Promise((resolve, reject) => {
+            const XHR = ('onload' in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+            const xhr = new XHR();
+            url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&key=AIzaSyCCXDIVUSpoxFGLOAK3jx9iANFtCHb5PG0&id=';
+            for (let i = 0; i < ids.length; i += 1) {
                 url += `${ids[i]},`;
             }
 
             xhr.open('GET', url, true);
             xhr.send();
-            xhr.onload = function () {
-                if (this.status == 200) {
-                    resolve(JSON.parse(this.response));
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.response));
                 } else {
-                    var error = new Error(this.statusText);
-                    error.code = this.status;
+                    const error = new Error(xhr.statusText);
+                    error.code = xhr.status;
                     reject(error);
                 }
             };
         })
 
-            .then(function (response) {
+            .then((response) => {
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].currentVideos = response.items;
                 __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].responsItemsCount = response.items.length;
                 successCallback(response);
-            })
-
+            });
     };
+
     return {
-        search: function (successCallback) {
-            return new Promise(function (resolve, reject) {
+        search(successCallback) {
+            return new Promise((resolve, reject) => {
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].disableScreen.style.display = 'block';
                 __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].spiner.style.display = 'block';
-                var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-                var q = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].searchInput.value;
-                var xhr = new XHR();
+                const XHR = ('onload' in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+                const q = __WEBPACK_IMPORTED_MODULE_0__appManager__["a" /* default */].searchInput.value;
+                const xhr = new XHR();
                 url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&alt=json&key=AIzaSyCCXDIVUSpoxFGLOAK3jx9iANFtCHb5PG0&q=${q}`;
                 if (__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].nextPageToken) {
                     url += `&pageToken=${__WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].nextPageToken}`;
                 }
                 xhr.open('GET', url, true);
                 xhr.send();
-                xhr.onload = function () {
-                    if (this.status == 200) {
-                        resolve(JSON.parse(this.response));
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.response));
                     } else {
-                        var error = new Error(this.statusText);
-                        error.code = this.status;
+                        const error = new Error(xhr.statusText);
+                        error.code = xhr.status;
                         reject(error);
                     }
                 };
             })
-                .then(function (response) {
-                    //console.log(a.b);
+                .then((response) => {
                     __WEBPACK_IMPORTED_MODULE_1__appSettings__["a" /* default */].nextPageToken = response.nextPageToken;
-                    let ids = [];
-                    for (let i = 0; i < response.items.length; i++) {
+                    const ids = [];
+                    for (let i = 0; i < response.items.length; i += 1) {
                         ids.push(response.items[i].id.videoId);
                     }
 
                     getVideoInfo(ids, successCallback);
-                })
-        }
+                });
+        },
     };
-})());
+}());
 
 
 /***/ }),
@@ -826,11 +822,11 @@ class VideoNode {
         this.more = __WEBPACK_IMPORTED_MODULE_2__elementFactory__["a" /* default */].create('a', { class: 'more', href: `https://www.youtube.com/watch?v=${responseItem.id}`, target: '_blank' }, { innerHTML: '...' });
 
         const node = this.DOMElement;
-        node.onmousedown = function () {
+        node.onmousedown = () => {
             node.style.cursor = '-webkit-grabbing';
         };
 
-        node.onmouseup = function () {
+        node.onmouseup = () => {
             node.style.cursor = 'pointer';
         };
     }
