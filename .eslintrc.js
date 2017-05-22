@@ -7,6 +7,7 @@ module.exports = {
     "rules": {
         "indent": ["error", 4],
         "class-methods-use-this" : ["off"],
+        "max-len" : ["off"],
         "strict": 0
     },
     "env": {

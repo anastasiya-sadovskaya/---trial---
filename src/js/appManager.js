@@ -1,7 +1,7 @@
-//import 'babel-polyfill';
+// import 'babel-polyfill';
 import ElementFactory from './elementFactory';
-import YouTubeApiClient from './youTubeApiClient';
-import { onSearchSuccessCallback } from './app'
+// import YouTubeApiClient from './youTubeApiClient';
+import onSearchSuccessCallback from './app';
 
 export default (function AppManager() {
     return {
@@ -13,5 +13,5 @@ export default (function AppManager() {
         resultsList: null,
         videoNodes: [],
         pageControllers: [],
-    }
-})();
+    };
+}());

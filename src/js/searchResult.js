@@ -7,47 +7,47 @@ import Button from './button';
 
 export default class SearchResult {
     constructor() {
-        self = this;
-        self.pageFunctions = {
+        AppManager.resultsList = this;
+        AppManager.resultsList.pageFunctions = {
             1: function (page) { return page - 1; },
             2: function (page) { return page; },
             3: function (page) { return page + 1; }
         }
 
-        self.videoNodes = [];
-        self.page = 1;
-        self.videosOnPageNumber = null;
-        self.prevVideosOnPageNumber = null;
-        self.swipeLength = 100;
-        self.lastPage = null;
-        self.noResults = false;
+        AppManager.resultsList.videoNodes = [];
+        AppManager.resultsList.page = 1;
+        AppManager.resultsList.videosOnPageNumber = null;
+        AppManager.resultsList.prevVideosOnPageNumber = null;
+        AppManager.resultsList.swipeLength = 100;
+        AppManager.resultsList.lastPage = null;
+        AppManager.resultsList.noResults = false;
 
-        AppManager.resultsList = this;
+        
     }
 
     create() {
         this.DOMElement = ElementFactory.create('div', { class: 'resultList' });
         if (AppSettings.responsItemsCount != 0) {
             if (AppSettings.screenWidth < 400) {
-                self.createNodes(AppSettings.screenWidth);
+                AppManager.resultsList.createNodes(AppSettings.screenWidth);
             } else {
-                self.createNodes(400);
+                AppManager.resultsList.createNodes(400);
             }
             for (let i = 0; i < AppSettings.responsItemsCount; i++) {
-                self.videoNodes[i].render();
+                AppManager.resultsList.videoNodes[i].render();
             }
             this.buttons = [];
 
-            let countOfVideos = self.videosOnPage();
+            let countOfVideos = AppManager.resultsList.videosOnPage();
             let margin = ((AppSettings.screenWidth - (AppSettings.videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
             this.setMargin(margin);
 
-            let width = (self.videoNodes.length * AppSettings.videoNodeWidth) + (self.videoNodes.length * margin * 2);
+            let width = (AppManager.resultsList.videoNodes.length * AppSettings.videoNodeWidth) + (AppManager.resultsList.videoNodes.length * margin * 2);
             this.setWidth(width);
 
-            document.body.appendChild(self.DOMElement);
-            self.controllers = ElementFactory.create('div', { class: 'controllers' });
-            document.body.appendChild(self.controllers);
+            document.body.appendChild(AppManager.resultsList.DOMElement);
+            AppManager.resultsList.controllers = ElementFactory.create('div', { class: 'controllers' });
+            document.body.appendChild(AppManager.resultsList.controllers);
 
 
 
@@ -56,7 +56,7 @@ export default class SearchResult {
                 this.buttons[i].create();
                 if (i > 0 && i < 4) {
                     this.buttons[i].DOMElement.innerHTML = i;
-                    this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
+                    this.buttons[i].DOMElement.onclick = () => AppManager.resultsList.changePage(this.buttons[i], undefined);
                 }
             }
             if (AppSettings.screenWidth > 767) {
@@ -65,12 +65,12 @@ export default class SearchResult {
 
             this.buttons[0].DOMElement.innerHTML = 'Prev';
             this.buttons[0].DOMElement.id = 'prev';
-            this.buttons[0].DOMElement.onclick = self.prevPage;
+            this.buttons[0].DOMElement.onclick = AppManager.resultsList.prevPage;
             this.buttons[4].DOMElement.innerHTML = 'Next';
             this.buttons[4].DOMElement.id = 'next';
-            this.buttons[4].DOMElement.onclick = self.nextPage;
+            this.buttons[4].DOMElement.onclick = AppManager.resultsList.nextPage;
 
-            var firstLoadPagesCount = Math.ceil(AppSettings.responsItemsCount / self.videosOnPage());
+            var firstLoadPagesCount = Math.ceil(AppSettings.responsItemsCount / AppManager.resultsList.videosOnPage());
             if (firstLoadPagesCount < 4) {
                 for (var i = 1; i <= firstLoadPagesCount; i++) {
                     this.buttons[i].DOMElement.className = 'pageController';
@@ -87,39 +87,39 @@ export default class SearchResult {
             //      this.buttons.push(new Button);
             // }
 
-            // var firstLoadPagesCount = Math.ceil(AppSettings.responsItemsCount / self.videosOnPage());
+            // var firstLoadPagesCount = Math.ceil(AppSettings.responsItemsCount / AppManager.resultsList.videosOnPage());
             // if(firstLoadPagesCount < 4){
             //     for(var i = 1; i <= firstLoadPagesCount; i++ ){
             //         this.buttons[i].create();
             //         this.buttons[i].DOMElement.innerHTML = i;
-            //         this.buttons[i].DOMElement.onclick = () => self.changePage(this.buttons[i], undefined);
+            //         this.buttons[i].DOMElement.onclick = () => AppManager.resultsList.changePage(this.buttons[i], undefined);
             //     }
             // }
 
 
-            self.calcLastPage();
-            self.setPage(1);
+            AppManager.resultsList.calcLastPage();
+            AppManager.resultsList.setPage(1);
 
 
 
         } else {
-            self.setWidth(AppSettings.screenWidth);
-            document.body.appendChild(self.DOMElement);
-            self.page = 1;
-            self.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was found :(</span>';
-            self.DOMElement.style.cursor = 'default';
-            self.noResults = true;
+            AppManager.resultsList.setWidth(AppSettings.screenWidth);
+            document.body.appendChild(AppManager.resultsList.DOMElement);
+            AppManager.resultsList.page = 1;
+            AppManager.resultsList.DOMElement.innerHTML = '<span class = "nullRes">Sorry, nothing was found :(</span>';
+            AppManager.resultsList.DOMElement.style.cursor = 'default';
+            AppManager.resultsList.noResults = true;
 
         }
 
 
-        var list = self.DOMElement;
-        if (!self.noResults) {
+        var list = AppManager.resultsList.DOMElement;
+        if (!AppManager.resultsList.noResults) {
             list.onmousedown = function (e) {
                 var coords = getCoords(list);
                 var shiftX = e.pageX - coords.left;
-                self.screenX = event.screenX;
-                self.DOMElement.style.cursor = '-webkit-grabbing';
+                AppManager.resultsList.screenX = event.screenX;
+                AppManager.resultsList.DOMElement.style.cursor = '-webkit-grabbing';
 
                 list.style.position = 'relative';
                 moveAt(e);
@@ -127,7 +127,7 @@ export default class SearchResult {
                 function moveAt(e) {
                     list.style.transition = 'none';
                     list.style.transform = `translate(${e.pageX - shiftX}px)`;
-                    self.deltaTranslate = e.pageX - shiftX;
+                    AppManager.resultsList.deltaTranslate = e.pageX - shiftX;
                 }
 
                 document.onmousemove = function (e) {
@@ -138,30 +138,30 @@ export default class SearchResult {
                     list.style.transition = 'transform 1s';
                     document.onmousemove = document.onmouseup = null;
                     list.onmouseup = list.onmousemove = null;
-                    self.DOMElement.style.cursor = '-webkit-grab';
-                    var delta = self.screenX - event.screenX;
+                    AppManager.resultsList.DOMElement.style.cursor = '-webkit-grab';
+                    var delta = AppManager.resultsList.screenX - event.screenX;
                     if (delta < 0) {
-                        if (delta < -self.swipeLength) {
-                            if (self.page > 1) {
+                        if (delta < -AppManager.resultsList.swipeLength) {
+                            if (AppManager.resultsList.page > 1) {
 
-                                self.prevPage();
+                                AppManager.resultsList.prevPage();
                             } else {
-                                list.style.transform = `translate(${self.currentTranslate}px)`;
+                                list.style.transform = `translate(${AppManager.resultsList.currentTranslate}px)`;
                             }
                         } else {
-                            list.style.transform = `translate(${self.currentTranslate}px)`;
+                            list.style.transform = `translate(${AppManager.resultsList.currentTranslate}px)`;
 
                         }
                     }
 
                     if (delta > 0) {
-                        if (delta > self.swipeLength) {
-                            if (self.page != self.lastPage) {
-                                self.nextPage();
+                        if (delta > AppManager.resultsList.swipeLength) {
+                            if (AppManager.resultsList.page != AppManager.resultsList.lastPage) {
+                                AppManager.resultsList.nextPage();
                             } else {
-                                list.style.transform = `translate(${self.currentTranslate}px)`;
+                                list.style.transform = `translate(${AppManager.resultsList.currentTranslate}px)`;
                                 for (let i = 0; i < 5; i++){
-                                    if(AppManager.pageControllers[i].DOMElement.innerHTML == self.page){
+                                    if(AppManager.pageControllers[i].DOMElement.innerHTML == AppManager.resultsList.page){
                                         for(let j = 4; j > i; j--){
                                             AppManager.pageControllers[j].DOMElement.className = 'pageController disable';
                                             AppManager.pageControllers[j].DOMElement.onclick = 'none';
@@ -171,9 +171,9 @@ export default class SearchResult {
                                 }
                             }
                         } else {
-                            list.style.transform = `translate(${self.currentTranslate}px)`;
+                            list.style.transform = `translate(${AppManager.resultsList.currentTranslate}px)`;
                              for (let i = 0; i < 5; i++){
-                                    if(AppManager.pageControllers[i].DOMElement.innerHTML == self.page){
+                                    if(AppManager.pageControllers[i].DOMElement.innerHTML == AppManager.resultsList.page){
                                         for(let j = 4; j > i; j--){
                                             AppManager.pageControllers[j].DOMElement.className = 'pageController disable';
                                             AppManager.pageControllers[j].DOMElement.onclick = 'none';
@@ -210,7 +210,7 @@ export default class SearchResult {
     createNodes(width) {
         for (let i = 0; i < AppSettings.responsItemsCount; i++) {
             var videoNode = new VideoNode(width);
-            self.videoNodes.push(videoNode);
+            AppManager.resultsList.videoNodes.push(videoNode);
             videoNode.create(AppManager.currentVideos[i]);
         }
     }
@@ -230,9 +230,9 @@ export default class SearchResult {
     }
 
     setMargin(margin) {
-        if (self.videoNodes.length) {
-            for (let i = 0; i < self.videoNodes.length; i++) {
-                self.videoNodes[i].setMargin(margin);
+        if (AppManager.resultsList.videoNodes.length) {
+            for (let i = 0; i < AppManager.resultsList.videoNodes.length; i++) {
+                AppManager.resultsList.videoNodes[i].setMargin(margin);
             }
         }
     }
@@ -255,32 +255,32 @@ export default class SearchResult {
     }
 
     setPage(pageNum) {
-        self.page = pageNum;
-        self.DOMElement.style.left = '0px';
-        self.DOMElement.style.transform = `translateX(-${(pageNum - 1) * AppSettings.screenWidth}px)`;
-        self.currentTranslate = -((pageNum - 1) * AppSettings.screenWidth);
-        self.calcLoadPage();
-        self.onPageSet();
+        AppManager.resultsList.page = pageNum;
+        AppManager.resultsList.DOMElement.style.left = '0px';
+        AppManager.resultsList.DOMElement.style.transform = `translateX(-${(pageNum - 1) * AppSettings.screenWidth}px)`;
+        AppManager.resultsList.currentTranslate = -((pageNum - 1) * AppSettings.screenWidth);
+        AppManager.resultsList.calcLoadPage();
+        AppManager.resultsList.onPageSet();
         
         if (AppSettings.responsItemsCount) {
-            if (self.page !== self.pageForLoad && (self.page + 1) != self.lastPage) {
-                if (self.page <= 1) {
-                    self.buttons[0].DOMElement.className = 'pageController disable';
-                    self.buttons[0].DOMElement.onclick = 'none';
+            if (AppManager.resultsList.page !== AppManager.resultsList.pageForLoad && (AppManager.resultsList.page + 1) != AppManager.resultsList.lastPage) {
+                if (AppManager.resultsList.page <= 1) {
+                    AppManager.resultsList.buttons[0].DOMElement.className = 'pageController disable';
+                    AppManager.resultsList.buttons[0].DOMElement.onclick = 'none';
                     for (let i = 1; i < 4; i++) {
-                        self.buttons[i].DOMElement.innerHTML = i;
+                        AppManager.resultsList.buttons[i].DOMElement.innerHTML = i;
                     }
 
                 } else {
-                    self.buttons[0].DOMElement.className = 'pageController';
-                    this.buttons[0].DOMElement.onclick = self.prevPage;
-                    for (var key in self.pageFunctions) {
-                        this.buttons[key].DOMElement.innerHTML = self.pageFunctions[key](self.page);
+                    AppManager.resultsList.buttons[0].DOMElement.className = 'pageController';
+                    this.buttons[0].DOMElement.onclick = AppManager.resultsList.prevPage;
+                    for (var key in AppManager.resultsList.pageFunctions) {
+                        this.buttons[key].DOMElement.innerHTML = AppManager.resultsList.pageFunctions[key](AppManager.resultsList.page);
                     }
                 }
 
-                self.buttons[4].DOMElement.className = 'pageController';
-                self.buttons[4].DOMElement.onclick = self.nextPage;
+                AppManager.resultsList.buttons[4].DOMElement.className = 'pageController';
+                AppManager.resultsList.buttons[4].DOMElement.onclick = AppManager.resultsList.nextPage;
 
             }
         } 
@@ -295,14 +295,14 @@ export default class SearchResult {
             }
         }
 
-        // if (self.isLastPage()) {
+        // if (AppManager.resultsList.isLastPage()) {
         //     if (AppSettings.screenWidth > 767) {
-        //         self.buttons[4].DOMElement.className = 'pageController disable';
+        //         AppManager.resultsList.buttons[4].DOMElement.className = 'pageController disable';
         //     }
-        //     self.buttons[4].DOMElement.onclick = 'none';
+        //     AppManager.resultsList.buttons[4].DOMElement.onclick = 'none';
         // } else {
-        //     self.buttons[4].DOMElement.className = 'pageController';
-        //     this.buttons[4].DOMElement.onclick = self.nextPage;
+        //     AppManager.resultsList.buttons[4].DOMElement.className = 'pageController';
+        //     this.buttons[4].DOMElement.onclick = AppManager.resultsList.nextPage;
         // }
 
 
@@ -311,38 +311,38 @@ export default class SearchResult {
     }
 
     onPageSet() {
-        //if (self.pageForLoad != self.lastPage) {
-            if (self.page === self.pageForLoad) {
+        //if (AppManager.resultsList.pageForLoad != AppManager.resultsList.lastPage) {
+            if (AppManager.resultsList.page === AppManager.resultsList.pageForLoad) {
                 YouTubeApiClient.search(function (response) {
                     console.log(response);
                     AppManager.currentVideos = response.items;
-                    self.calcLastPage();
-                    if (self.page != self.lastPage) {
+                    AppManager.resultsList.calcLastPage();
+                    if (AppManager.resultsList.page != AppManager.resultsList.lastPage) {
                         if (AppSettings.screenWidth < 400) {
-                            self.createNodes(AppSettings.screenWidth);
+                            AppManager.resultsList.createNodes(AppSettings.screenWidth);
                         } else {
-                            self.createNodes(400);
+                            AppManager.resultsList.createNodes(400);
                         }
-                        self.calcLastPage();
+                        AppManager.resultsList.calcLastPage();
                         AppManager.disableScreen.style.display = 'none';
                         AppManager.spiner.style.display = 'none';
-                        let countOfVideos = self.videosOnPage();
+                        let countOfVideos = AppManager.resultsList.videosOnPage();
                         let margin = ((AppSettings.screenWidth - (AppSettings.videoNodeWidth * countOfVideos)) / (countOfVideos * 2));
-                        self.setMargin(margin);
+                        AppManager.resultsList.setMargin(margin);
 
-                        let width = (self.videoNodes.length * AppSettings.videoNodeWidth) + (self.videoNodes.length * margin * 2);
-                        self.setWidth(width);
+                        let width = (AppManager.resultsList.videoNodes.length * AppSettings.videoNodeWidth) + (AppManager.resultsList.videoNodes.length * margin * 2);
+                        AppManager.resultsList.setWidth(width);
 
-                        self.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
-                        // if (self.isLastPage()) {
+                        AppManager.resultsList.videoNodes.filter(vn => vn.rendered == false).map(vn => vn.render());
+                        // if (AppManager.resultsList.isLastPage()) {
                         //     if (AppSettings.screenWidth > 767) {
-                        //         self.buttons[4].DOMElement.className = 'pageController disable';
+                        //         AppManager.resultsList.buttons[4].DOMElement.className = 'pageController disable';
                         //     }
-                        //     self.buttons[4].DOMElement.onclick = 'none';
+                        //     AppManager.resultsList.buttons[4].DOMElement.onclick = 'none';
                         // } else {
 
-                        self.buttons[4].DOMElement.className = 'pageController';
-                        self.buttons[4].DOMElement.onclick = self.nextPage;
+                        AppManager.resultsList.buttons[4].DOMElement.className = 'pageController';
+                        AppManager.resultsList.buttons[4].DOMElement.onclick = AppManager.resultsList.nextPage;
 
 
                         //}
@@ -351,71 +351,71 @@ export default class SearchResult {
                 });
 
 
-                // self.calcLastPage();
+                // AppManager.resultsList.calcLastPage();
 
 
            // }
         } else {
-            self.buttons[4].DOMElement.className = 'pageController disable';
-            self.buttons[4].DOMElement.onclick = 'none';
+            AppManager.resultsList.buttons[4].DOMElement.className = 'pageController disable';
+            AppManager.resultsList.buttons[4].DOMElement.onclick = 'none';
         }
 
-        console.log('page for load: ' + self.pageForLoad);
-                    console.log('last page: ' + self.lastPage);
+        console.log('page for load: ' + AppManager.resultsList.pageForLoad);
+                    console.log('last page: ' + AppManager.resultsList.lastPage);
     }
 
     calcLoadPage() {
-        self.pageForLoad;
-        var tempPageForLoad = AppManager.videoNodes.length / self.videosOnPage();
+        AppManager.resultsList.pageForLoad;
+        var tempPageForLoad = AppManager.videoNodes.length / AppManager.resultsList.videosOnPage();
         if (Number.isInteger(tempPageForLoad)) {
-            self.pageForLoad = tempPageForLoad - 1;
+            AppManager.resultsList.pageForLoad = tempPageForLoad - 1;
         } else {
-            self.pageForLoad = Math.floor(tempPageForLoad);
+            AppManager.resultsList.pageForLoad = Math.floor(tempPageForLoad);
         }
     }
 
     nextPage() {
-        self.setPage(self.page + 1);
+        AppManager.resultsList.setPage(AppManager.resultsList.page + 1);
     }
 
     prevPage() {
-        self.setPage(self.page - 1);
+        AppManager.resultsList.setPage(AppManager.resultsList.page - 1);
     }
 
     changePage(button, pageNum) {
-        self.setPage(pageNum == undefined ? parseInt(button.DOMElement.innerHTML) : pageNum);
+        AppManager.resultsList.setPage(pageNum == undefined ? parseInt(button.DOMElement.innerHTML) : pageNum);
     }
 
     calcLastPage() {
-        let lastVideos = AppSettings.responsItemsCount / self.videosOnPage();
+        let lastVideos = AppSettings.responsItemsCount / AppManager.resultsList.videosOnPage();
         if (AppSettings.responsItemsCount < 15) {
             if (Math.ceil(lastVideos) === lastVideos) {
-                self.lastPage = AppManager.videoNodes.length / self.videosOnPage();
+                AppManager.resultsList.lastPage = AppManager.videoNodes.length / AppManager.resultsList.videosOnPage();
             } else {
-                self.lastPage = Math.ceil(AppManager.videoNodes.length / self.videosOnPage());
+                AppManager.resultsList.lastPage = Math.ceil(AppManager.videoNodes.length / AppManager.resultsList.videosOnPage());
             }
         } else {
-            self.lastPage = Math.ceil(AppManager.videoNodes.length / self.videosOnPage());
+            AppManager.resultsList.lastPage = Math.ceil(AppManager.videoNodes.length / AppManager.resultsList.videosOnPage());
         }
-        return self.lastPage;
+        return AppManager.resultsList.lastPage;
     }
 
     isLastPage() {
-        if (self.page === self.lastPage) {
+        if (AppManager.resultsList.page === AppManager.resultsList.lastPage) {
             return true;
         }
         return false;
     }
 
     remove() {
-        if (self.noResults) {
-            self.DOMElement.parentNode.removeChild(self.DOMElement);
+        if (AppManager.resultsList.noResults) {
+            AppManager.resultsList.DOMElement.parentNode.removeChild(AppManager.resultsList.DOMElement);
         } else {
             document.body.removeChild(AppManager.resultsList.controllers);
             AppManager.videoNodes = [];
             AppSettings.nextPageToken = null;
             AppManager.currentVideos = [];
-            self.DOMElement.parentNode.removeChild(self.DOMElement);
+            AppManager.resultsList.DOMElement.parentNode.removeChild(AppManager.resultsList.DOMElement);
             AppManager.resultsList = null;
             AppSettings.responsItemsCount = 0;
         }
