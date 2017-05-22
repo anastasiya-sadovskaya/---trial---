@@ -4,6 +4,6 @@ export default (function AppSettings() {
         screenWidth: document.body.offsetWidth,
         videoNodeWidthExceptPhones: 400,
         videoNodeWidth: 400,
-        responsItemsCount: 0
-    }
-})();
+        responsItemsCount: 0,
+    };
+}());

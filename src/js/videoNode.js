@@ -26,11 +26,11 @@ export default class VideoNode {
         this.more = ElementFactory.create('a', { class: 'more', href: `https://www.youtube.com/watch?v=${responseItem.id}`, target: '_blank' }, { innerHTML: '...' });
 
         const node = this.DOMElement;
-        node.onmousedown = function () {
+        node.onmousedown = () => {
             node.style.cursor = '-webkit-grabbing';
         };
 
-        node.onmouseup = function () {
+        node.onmouseup = () => {
             node.style.cursor = 'pointer';
         };
     }
