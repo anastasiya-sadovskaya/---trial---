@@ -43,6 +43,10 @@
     background: #f9e1e5;
 }
 
+.today:hover {
+    background: #f196a6;
+}
+
 .none{
     display: none;
 }
