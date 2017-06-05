@@ -54,6 +54,7 @@
 .prev-month .cell, .next-month .cell {
     /*opacity: 0.87;*/
     background: #f1f5ee;
+    color: #aaa;
 }
 
 .prev-month, .next-month, .current-month{
