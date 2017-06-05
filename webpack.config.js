@@ -1,30 +1,25 @@
 const path = require('path');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: './client/index.html',
+  filename: 'index.html',
+  inject: 'body'
+})
 module.exports = {
-  entry: './src/js/app.js',
+  entry: './client/index.js',
   output: {
-    path: path.join(__dirname, './dist/'),
-    filename: 'bundle.js',
+    path: path.resolve('dist'),
+    filename: 'index_bundle.js'
   },
-
   module: {
-    rules: [
-      {
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          outputReport: {
-            filePath: 'checkstyle.txt',
-            formatter: require('eslint/lib/formatters/checkstyle')
-          }
-        }
-      }
-    ],
     loaders: [
-      {
-        exclude: /node_modules/,
-        loader: ['babel-loader'],
-      }
+      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.js$/, loaders: ['eslint'], include: [path.resolve(__dirname, 'src')]},
     ]
-  }
-};
+  },
+  plugins: [HtmlWebpackPluginConfig],
+  devServer: { 
+      inline: true,
+  },
+}
