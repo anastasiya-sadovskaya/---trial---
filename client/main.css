@@ -6,7 +6,7 @@
 }
 
 .calendar{
-    width:465px;
+    width:60%;
     height: 90vh;
     /*background: #596873;*/
 }
@@ -43,10 +43,6 @@
     background: #f9e1e5;
 }
 
-.today:hover {
-    background: #f196a6;
-}
-
 .none{
     display: none;
 }
@@ -54,7 +50,6 @@
 .prev-month .cell, .next-month .cell {
     /*opacity: 0.87;*/
     background: #f1f5ee;
-    color: #aaa;
 }
 
 .prev-month, .next-month, .current-month{

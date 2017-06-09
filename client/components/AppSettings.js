@@ -2,7 +2,7 @@ export default (function AppSettings() {
     var today = new Date();
 
     function isLeapYear(){
-        return today.getFullYear() % 4 == 0;
+        return today.getFullYear() % 4 === 0;
     }
 
     return {
@@ -17,5 +17,5 @@ export default (function AppSettings() {
         days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'],
         daysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         
-};
+    };
 }());

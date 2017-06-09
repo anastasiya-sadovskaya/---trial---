@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-// import ReactDOM from 'react-dom';
+import moment from 'moment';
 import AppSettings from './AppSettings';
-// import AppManager from './AppManager';
+import AppManager from './AppManager';
 import Month from './Month.jsx';
 import Header from './Header.jsx';
 
@@ -9,19 +9,29 @@ import Header from './Header.jsx';
 export default class Calendar extends Component{
     constructor(props){
         super(props);
-        let firstDayOfVisibleMonth = new Date(AppSettings.currentYear, AppSettings.currentMonth, 1).getDay(),
-            lastDayOfVisibleMonth = new Date(AppSettings.currentYear, AppSettings.currentMonth, AppSettings.daysInMonth[AppSettings.currentMonth]).getDay(),
-            lastDaysOfPrevMonthCount = firstDayOfVisibleMonth - 1,
-            lastDaysOfPrevMonthSinse = AppSettings.daysInMonth[AppSettings.currentMonth - 1] - lastDaysOfPrevMonthCount,
-            lastDayOfNextMonth = 7 - lastDayOfVisibleMonth;
+        AppManager.calendar = this;
+        this.visibleMonth = AppSettings.currentMonth;
+            this.visibleYear = AppSettings.currentYear,
+            this.firstDay = moment(`${this.visibleYear}-${this.visibleMonth + 1}-01`);
+            this.lastDay = this.firstDay.clone().endOf('month');
+
         this.state = {
-            year: AppSettings.currentYear,
-            month: AppSettings.currentMonth,
-            firstDayOfVisibleMonth : firstDayOfVisibleMonth,
-            lastDayOfVisibleMonth : lastDayOfVisibleMonth,
-            lastDaysOfPrevMonthCount :lastDaysOfPrevMonthCount,
-            lastDaysOfPrevMonthSinse : lastDaysOfPrevMonthSinse,
-            lastDayOfNextMonth : lastDayOfNextMonth,
+            visibleMonth: this.visibleMonth,
+            visibleYear: this.visibleYear,
+            prevMonth: this.visibleMonth - 1,
+            leapYear: this.visibleYear % 4 === 0 ?true :false,
+            firstDay: parseInt(this.firstDay.format('E')),
+            lastDay:  parseInt(this.lastDay.format('E')),
+        }
+    }
+
+    isLeapYear(year){
+        if(year % 4 === 0 && year % 100 !== 0 || year % 400 === 0){
+            AppSettings.daysInMonth[1] = 29;
+            return true;
+        } else { 
+            AppSettings.daysInMonth[1] = 28;
+            return false;
         }
     }
 
@@ -35,21 +45,17 @@ export default class Calendar extends Component{
         return (
             <div className = 'calendar'>
                 <Header />
-                {/*<Button label = 'Prev' />*/}
                 <div>
                     <div className = 'days-of-week'>{daysOfWeek}</div>
-                    <Month className = 'prev-month' firstVisibleDay = {this.state.lastDaysOfPrevMonthSinse + 1} lastVisibleDay = {AppSettings.daysInMonth[this.state.month - 1]} />
+                    <Month className = {'prev-month'} firstVisibleDate = {AppSettings.daysInMonth[this.state.prevMonth] - (this.state.firstDay - 1) + 1} lastVisibleDate = {AppSettings.daysInMonth[this.state.prevMonth]} />
                     <Month 
                             className = 'current-month'
-                            year = {this.state.year} 
-                            month = {this.state.month} 
-                            isCurrentMonth = {this.state.year === AppSettings.currentYear && this.state.month === AppSettings.currentMonth ?true :false}
-                            firstVisibleDay = {1}
-                            lastVisibleDay = {AppSettings.daysInMonth[this.state.month]}
+                            isCurrentMonth = {this.state.visibleYear === AppSettings.currentYear && this.state.visibleMonth === AppSettings.currentMonth ?true :false}
+                            firstVisibleDate = {1}
+                            lastVisibleDate = {AppSettings.daysInMonth[this.state.visibleMonth]}
                     />
-                    <Month className = 'next-month' firstVisibleDay = {1} lastVisibleDay = {this.state.lastDayOfNextMonth} />
+                    <Month className = {this.state.lastDay === 0 ?'none' :'next-month'} firstVisibleDate = {1} lastVisibleDate = {7 - this.state.lastDay} />
                 </div>
-                {/*<Button label = 'Next' />*/}
             </div>
         )
     }
