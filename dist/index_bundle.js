@@ -25480,7 +25480,9 @@ var Header = function (_Component) {
                 _react2.default.createElement(
                     'div',
                     null,
-                    _AppSettings2.default.months[_AppManager2.default.calendar.state.visibleMonth]
+                    _AppSettings2.default.months[_AppManager2.default.calendar.state.visibleMonth],
+                    ', ',
+                    _AppManager2.default.calendar.state.visibleYear
                 ),
                 _react2.default.createElement(_Button2.default, { label: 'Next', className: 'btn next', onClickBtn: this.onNextBtnClick })
             );

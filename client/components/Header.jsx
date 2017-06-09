@@ -40,7 +40,7 @@ export default class Header extends Component{
         return(
             <div className = 'header'>
                 <Button label = 'Prev' className = 'btn prev' onClickBtn = {this.onPrevBtnClick}/>
-                <div>{AppSettings.months[AppManager.calendar.state.visibleMonth]}</div>
+                <div>{AppSettings.months[AppManager.calendar.state.visibleMonth]}, {AppManager.calendar.state.visibleYear}</div>
                 <Button label = 'Next' className = 'btn next' onClickBtn = {this.onNextBtnClick}/>
             </div>
         )
